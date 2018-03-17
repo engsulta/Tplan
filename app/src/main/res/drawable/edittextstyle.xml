@@ -7,10 +7,10 @@
 
     <padding android:bottom="5dp"
         android:right="5dp"
-        android:left="5dp"
+        android:left="10dp"
         android:top="5dp">
     </padding>
-    <solid android:color="@color/startblue">
+    <solid android:color="@color/startblueLight">
 
     </solid>
 
