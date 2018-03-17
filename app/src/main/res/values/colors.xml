@@ -5,7 +5,7 @@
     <color name="coloricon">#303F9F</color>
     <color name="colorPrimaryLight">#546bff</color>
     <color name="colorAccent">#F74784</color>
-    <color name="colorAccentLight">#d3f74784</color>
+    <color name="colorAccentLight">#f74784</color>
 
 
     <color name="startblue">#878c9b</color>
@@ -14,7 +14,6 @@
     <color name="endblueLight">#a043464e</color>
     <color name="textcolor">#fdebfcff</color>
 
-    <color name="black_overlay">#66000000</color>
 
 
 </resources>

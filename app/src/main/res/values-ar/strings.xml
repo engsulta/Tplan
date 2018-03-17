@@ -1,11 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TPlan</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="facebook_app_id">337170346772031</string>
-    <string name="fb_login_protocol_scheme">fb337170346772031</string>
     <string name="login">Login</string>
     <string name="register_here">Register Here</string>
     <string name="todo">TODO</string>
-
 </resources>
