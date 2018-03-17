@@ -6,8 +6,4 @@
     <string name="facebook_app_id">337170346772031</string>
     <string name="fb_login_protocol_scheme">fb337170346772031</string>
 
-    <string name="title_activity_splash_screen">SplashScreen</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-
 </resources>

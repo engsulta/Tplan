@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.sulta.tplan.login.LoginActivity"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alpha=".9"
     android:background="@drawable/backgroundgradient"
     android:paddingBottom="@dimen/activity_horizontal_margin"
-    tools:context="com.example.sulta.tplan.login.LoginActivity"
+
     >
 
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="420dp"
-        android:layout_alignParentTop="true"
-        android:alpha=".4"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/backgroundlogin" />
 
     <ImageView
         android:id="@+id/login_image_logo"
@@ -27,7 +19,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:contentDescription="@string/todo"
         app:srcCompat="@drawable/logoinner" />
 
     <EditText
@@ -141,7 +132,7 @@
         android:layout_marginRight="40dp"
         android:layout_marginTop="20dp"
         android:textColor="@color/endblue"
-        android:textSize="16dp"
+        android:textSize="16sp"
 
 
         />
