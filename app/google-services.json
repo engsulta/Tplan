@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "796069564551",
+    "firebase_url": "https://tplan-963d0.firebaseio.com",
+    "project_id": "tplan-963d0",
+    "storage_bucket": "tplan-963d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796069564551:android:44696990bdd730c6",
+        "android_client_info": {
+          "package_name": "com.example.sulta.tplan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "796069564551-khjm6bip0p3fle6fbr3u39dou0fc8dk0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sulta.tplan",
+            "certificate_hash": "3e25bea1a14e225ae27ae94f784d21d7036edcda"
+          }
+        },
+        {
+          "client_id": "796069564551-dupo39icc2gk3h2219s4ga1igmlc662e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUWOwKFe0Gti7unMnEUTmeIFRATBUkBLs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "796069564551-dupo39icc2gk3h2219s4ga1igmlc662e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
