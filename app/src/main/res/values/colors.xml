@@ -8,10 +8,10 @@
     <color name="colorAccentLight">#f74784</color>
 
 
-    <color name="startblue">#878c9b</color>
-    <color name="endblue">#43464e</color>
-    <color name="startblueLight">#b37c8291</color>
-    <color name="endblueLight">#a043464e</color>
+    <color name="startblue">#f76d9d</color>
+    <color name="endblue">#d25a83</color>
+    <color name="startblueLight">#9df76d9d</color>
+    <color name="endblueLight">#a1d25a83</color>
     <color name="textcolor">#fdebfcff</color>
 
 

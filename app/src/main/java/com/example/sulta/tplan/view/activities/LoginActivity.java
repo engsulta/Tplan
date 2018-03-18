@@ -5,7 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
@@ -32,25 +37,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
-
+//facebook variables
     CallbackManager callbackManager;
     private static final String EMAIL = "email";
-    private static final String PROFILE="public_profile";
-    private static final String TAG="tplan_log";
-
+    private static final String PROFILE = "public_profile";
+    private static final String TAG = "tplan_log";
     LoginButton loginButton;
 
+
+//views
+
+    private TextView loginTextRegister;
+    private EditText userEmail;
+    private EditText userPassword;
+    private ProgressBar progressBar;
+    Button loginbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       FacebookSdk.sdkInitialize(getApplicationContext());
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
-
-
         // Views
 
+        // loginTextRegister = (TextView) findViewById(R.id.login_text_register);
+        userEmail = (EditText) findViewById(R.id.login_text_email);
+        userPassword = (EditText) findViewById(R.id.login_text_password);
+        progressBar=(ProgressBar) findViewById(R.id.login_progressbar) ;
+        progressBar.setVisibility(View.INVISIBLE);
+        // loginbtn=(Button)  findViewById(R.id.login_button_login);
+        //end views
 
+        //listener
+        loginTextRegister.setOnClickListener(this);
+        loginbtn.setOnClickListener(this);
+
+        //end listener
         // [START initialize_auth]
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -60,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Initialize Facebook Login button
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button_facebook);
-        loginButton.setReadPermissions(Arrays.asList(EMAIL,PROFILE));
+        loginButton.setReadPermissions(Arrays.asList(EMAIL, PROFILE));
         // If you are using in a fragment, call loginButton.setFragment(this);
 
         // Callback registration
@@ -73,7 +95,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
-           
 
             @Override
             public void onCancel() {
@@ -98,6 +119,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // [END initialize_fblogin]
     }
+
     // [START on_start_check_user]
     @Override
     public void onStart() {
@@ -177,19 +199,74 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             findViewById(R.id.login_button_facebook).setVisibility(View.GONE);
             //findViewById(R.id.button_facebook_signout).setVisibility(View.VISIBLE);
         } else {
-          //  mStatusTextView.setText(R.string.signed_out);
+            //  mStatusTextView.setText(R.string.signed_out);
             //mDetailTextView.setText(null);
             Toast.makeText(this, "couldnot Log in successfully", Toast.LENGTH_SHORT).show();
             findViewById(R.id.login_button_facebook).setVisibility(View.VISIBLE);
             //findViewById(R.id.button_facebook_signout).setVisibility(View.GONE);
         }
     }
+    private void userLogin() {
+        String email = userEmail.getText().toString().trim();
+        String password = userPassword.getText().toString().trim();
+
+        if (email.isEmpty()) {
+            userEmail.setError("Email is required");
+            userEmail.requestFocus();
+            return;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            userEmail.setError("Please enter a valid email");
+            userEmail.requestFocus();
+            return;
+        }
+
+        if (password.isEmpty()) {
+            userPassword.setError("Password is required");
+            userPassword.requestFocus();
+            return;
+        }
+
+        if (password.length() < 6) {
+            userPassword.setError("Minimum lenght of password should be 6");
+            userPassword.requestFocus();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                progressBar.setVisibility(View.GONE);
+                if (task.isSuccessful()) {
+                    finish();
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
-//        if (i == R.id.button_facebook_signout) {
-//            signOut();
-//        }
-    }
+        switch (i) {
+            case R.id.login_button_login:
+                //TODO implement
+                userLogin();
+                break;
 
+            case R.id.login_text_register:
+                //TODO implement
+                Intent intent =new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+                break;
+
+        }
+    }
 }

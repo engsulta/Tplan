@@ -8,5 +8,6 @@
     <string name="register_here">Register Here</string>
     <string name="todo">TODO</string>
     <string name="hello_blank_fragment">hellow</string>
+    <string name="loggedinsuccessfull">loggedinsuccessfull</string>
 
 </resources>
