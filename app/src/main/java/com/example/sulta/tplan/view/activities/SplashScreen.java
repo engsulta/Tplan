@@ -1,4 +1,4 @@
-package com.example.sulta.tplan.login;
+package com.example.sulta.tplan.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
