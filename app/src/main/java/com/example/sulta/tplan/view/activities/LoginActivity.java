@@ -104,14 +104,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-       if (currentUser!=null) {
-           updateUI(currentUser);
-            //save in shared prefrence
-           //forward to another activity without user
-        }else{
 
-       }
+        updateUI(currentUser);
     }
+
     // [END on_start_check_user]
 
     // [START on_activity_result]
