@@ -65,7 +65,7 @@ public class SqlAdapter {
                     + TABLE1_COL3_PASSWORD             + " VARCHAR(50),"
                     + TABLE1_COL4_EMAIL                + " VARCHAR(80),"
                     + TABLE1_COL5_DISTANCE_PER_MONTH   + " REAL,"
-                    + TABLE1_COL6_DURATION_PER_MONTH  + " REAL"
+                    + TABLE1_COL6_DURATION_PER_MONTH   + " REAL"
                     + " );"
             );
 
