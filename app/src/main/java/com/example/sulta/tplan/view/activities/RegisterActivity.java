@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -25,11 +26,13 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
     EditText userEmail,userPassword;
     ProgressBar progressBar;
     private FirebaseAuth mAuth;
+    Button registerbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        registerbtn=(Button) findViewById(R.id.register_button_register);
         findViewById(R.id.register_button_register).setOnClickListener(this);
         progressBar = (ProgressBar) findViewById(R.id.register_progressbar);
         progressBar.setVisibility(View.INVISIBLE);
@@ -96,6 +99,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.register_button_register:
+                YoYo.with(Techniques.FadeIn).playOn(registerbtn);
+
                 registerUser();
 
                 break;

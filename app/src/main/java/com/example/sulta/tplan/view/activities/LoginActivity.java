@@ -62,12 +62,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         // Views
 
-        // loginTextRegister = (TextView) findViewById(R.id.login_text_register);
+         loginTextRegister = (TextView) findViewById(R.id.login_text_register);
         userEmail = (EditText) findViewById(R.id.login_text_email);
         userPassword = (EditText) findViewById(R.id.login_text_password);
         progressBar=(ProgressBar) findViewById(R.id.login_progressbar) ;
         progressBar.setVisibility(View.INVISIBLE);
-        // loginbtn=(Button)  findViewById(R.id.login_button_login);
+         loginbtn=(Button)  findViewById(R.id.login_button_login);
         //end views
 
         //listener
@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        updateUI(currentUser);
+       // updateUI(currentUser);
     }
 
     // [END on_start_check_user]
@@ -266,10 +266,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (i) {
             case R.id.login_button_login:
                 //TODO implement
+                YoYo.with(Techniques.FadeIn).playOn(loginbtn);
+
                 userLogin();
                 break;
 
             case R.id.login_text_register:
+                YoYo.with(Techniques.FadeIn).playOn(loginTextRegister);
                 //TODO implement
                 Intent intent =new Intent(LoginActivity.this,RegisterActivity.class);
                 startActivity(intent);

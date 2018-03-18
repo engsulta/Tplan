@@ -19,7 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        app:srcCompat="@drawable/logoinner" />
+        app:srcCompat="@drawable/logo7" />
 
     <EditText
         android:id="@+id/login_text_email"
@@ -37,7 +37,7 @@
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
-        android:textColor="@color/textcolor"
+        android:textColor="@color/endblue"
         android:textSize="@dimen/textsize" />
     <View
         android:layout_width="match_parent"
@@ -63,7 +63,7 @@
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:textColor="@color/textcolor"
+        android:textColor="@color/endblue"
         android:textSize="@dimen/textsize" />
     <View
         android:id="@+id/login_view"
@@ -86,9 +86,11 @@
         android:layout_marginTop="71dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+
         android:textColor="@color/textcolor"
         android:background="@drawable/buttonstylegradientselector"
         android:text="Login" />
+
 
     <ProgressBar
         android:id="@+id/login_progressbar"
@@ -110,6 +112,20 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
          />
+    <br.com.bloder.magic.view.MagicButton
+        android:id="@+id/magic_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:magic_button_size="65dp"
+        app:button_icon="@drawable/facebook"
+        app:button_icon_width="40dp"
+        app:button_icon_height="40dp"
+        app:hide_text="Login!"
+        android:layout_below="@+id/login_button_facebook"
+        app:hide_text_size="10dp"
+        app:hide_text_color="@color/textcolor"
+        app:icon_button_color="#FF1A1C8F"
+        app:expandable_area_color="@color/endblue"/>
 
     <TextView
         android:id="@+id/login_text_register"
@@ -123,7 +139,6 @@
         android:text="Don't have account? signup"
         android:textColor="@color/endblue"
         android:textSize="16sp"
-
 
         />
 

@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.android.support:cardview-v7:26.1.0'
     compile 'com.daimajia.easing:library:2.0@aar'
     compile 'com.daimajia.androidanimations:library:2.3@aar'
+    compile 'com.github.bloder:magic:1.1'
 }
 
 
