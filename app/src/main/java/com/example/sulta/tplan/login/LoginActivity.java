@@ -171,16 +171,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
+            Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show();
+
             //mStatusTextView.setText(getString(R.string.facebook_status_fmt, user.getDisplayName()));
             //mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
-            //findViewById(R.id.login_button_facebook).setVisibility(View.GONE);
+            findViewById(R.id.login_button_facebook).setVisibility(View.GONE);
             //findViewById(R.id.button_facebook_signout).setVisibility(View.VISIBLE);
         } else {
           //  mStatusTextView.setText(R.string.signed_out);
             //mDetailTextView.setText(null);
-
-          //  findViewById(R.id.login_button_facebook).setVisibility(View.VISIBLE);
+            Toast.makeText(this, "couldnot Log in successfully", Toast.LENGTH_SHORT).show();
+            findViewById(R.id.login_button_facebook).setVisibility(View.VISIBLE);
             //findViewById(R.id.button_facebook_signout).setVisibility(View.GONE);
         }
     }
