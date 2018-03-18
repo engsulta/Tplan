@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.view.activities.interfaces.IRegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,24 +45,28 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
         if (email.isEmpty()) {
             userEmail.setError("Email is required");
             userEmail.requestFocus();
+            YoYo.with(Techniques.Shake).playOn(userEmail);
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             userEmail.setError("Please enter a valid email");
             userEmail.requestFocus();
+            YoYo.with(Techniques.Shake).playOn(userEmail);
             return;
         }
 
         if (password.isEmpty()) {
             userPassword.setError("Password is required");
             userPassword.requestFocus();
+            YoYo.with(Techniques.Shake).playOn(userPassword);
             return;
         }
 
         if (password.length() < 6) {
             userPassword.setError("Minimum lenght of password should be 6");
             userPassword.requestFocus();
+            YoYo.with(Techniques.Shake).playOn(userPassword);
             return;
         }
         progressBar.setVisibility(View.VISIBLE);

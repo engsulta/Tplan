@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.sulta.tplan.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -192,11 +194,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         hideProgressDialog();
         if (user != null) {
             Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             //mStatusTextView.setText(getString(R.string.facebook_status_fmt, user.getDisplayName()));
             //mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
-            findViewById(R.id.login_button_facebook).setVisibility(View.GONE);
+           // findViewById(R.id.login_button_facebook).setVisibility(View.GONE);
             //findViewById(R.id.button_facebook_signout).setVisibility(View.VISIBLE);
         } else {
             //  mStatusTextView.setText(R.string.signed_out);
@@ -213,24 +217,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (email.isEmpty()) {
             userEmail.setError("Email is required");
             userEmail.requestFocus();
+            YoYo.with(Techniques.Shake).playOn(userEmail);
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             userEmail.setError("Please enter a valid email");
             userEmail.requestFocus();
+            YoYo.with(Techniques.Shake).playOn(userEmail);
             return;
         }
 
         if (password.isEmpty()) {
             userPassword.setError("Password is required");
             userPassword.requestFocus();
+            YoYo.with(Techniques.Shake).playOn(userPassword);
             return;
         }
 
         if (password.length() < 6) {
             userPassword.setError("Minimum lenght of password should be 6");
             userPassword.requestFocus();
+            YoYo.with(Techniques.Shake).playOn(userPassword);
             return;
         }
 
