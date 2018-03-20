@@ -4,5 +4,16 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="coloricon">#303F9F</color>
     <color name="colorPrimaryLight">#546bff</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#F74784</color>
+    <color name="colorAccentLight">#f74784</color>
+
+
+    <color name="startblue">#f76d9d</color>
+    <color name="endblue">#d25a83</color>
+    <color name="startblueLight">#9df76d9d</color>
+    <color name="endblueLight">#a1d25a83</color>
+    <color name="textcolor">#fdebfcff</color>
+
+
+
 </resources>

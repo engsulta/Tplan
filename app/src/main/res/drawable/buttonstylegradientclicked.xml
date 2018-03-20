@@ -2,16 +2,16 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <gradient
         android:angle="45"
-        android:startColor="@color/startblue"
-        android:endColor="@color/endblue"
+        android:startColor="@color/startblueLight"
+        android:endColor="@color/endblueLight"
         />
     <corners
         android:radius="45dp"
         />
-    <padding android:bottom="5dp"
-        android:right="5dp"
+    <padding android:bottom="15dp"
+        android:right="15dp"
         android:left="15dp"
-        android:top="5dp">
+        android:top="15dp">
     </padding>
 
 
