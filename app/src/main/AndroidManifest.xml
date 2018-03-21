@@ -46,6 +46,10 @@
             </intent-filter>
         </activity>
         <!--assmaa -->
+        <activity android:name=".view.activities.CreateTripActivity"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD1QFnfpsxuTaNlRkTHKZbRD19gpznKY64"/>
 
         <!--assmaa -->
 
