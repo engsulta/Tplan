@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.sulta.tplan.model.PlacePoint;
 import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.model.TripNote;
 import com.example.sulta.tplan.model.User;
@@ -33,13 +34,15 @@ public class SqlAdapter {
     private static final String TABLE1_COL6_DURATION_PER_MONTH = "durationPerMonth";
 
     private static final String TABLE2_COL2_TITLE = "title";
-    private static final String TABLE2_COL3_START_POINT = "startPoint";
-    private static final String TABLE2_COL4_END_POINT = "endPoint";
+    private static final String TABLE2_COL3_START_POINT_Lat = "startPointLat";
+    private static final String TABLE2_COL4_START_POINT_lan = "startPointLan";
     private static final String TABLE2_COL5_DURATION = "duration";
     private static final String TABLE2_COL6_STATUS = "status";
     private static final String TABLE2_COL7_ROUND_TRIP = "roundTrip";
     private static final String TABLE2_COL8_DISTANCE = "distance";
     private static final String TABLE2_COL9_USER_ID = "userId";
+    private static final String TABLE2_COL10_END_POINT_Lat = "endPointLat";
+    private static final String TABLE2_COL11_END_POINT_lan = "endPointLan";
 
     private static final String TABLE3_COL2_TEXT = "text";
     private static final String TABLE3_COL3_CHECKED = "checked";
@@ -73,12 +76,14 @@ public class SqlAdapter {
                     + " ("
                     + COLUMN_1_ID                      + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + TABLE2_COL2_TITLE                + " VARCHAR(50),"
-                    + TABLE2_COL3_START_POINT          + " REAL,"
-                    + TABLE2_COL4_END_POINT            + " REAL,"
+                    + TABLE2_COL3_START_POINT_Lat          + " REAL,"
+                    + TABLE2_COL4_START_POINT_lan            + " REAL,"
                     + TABLE2_COL5_DURATION             + " REAL,"
                     + TABLE2_COL6_STATUS               + " VARCHAR(50),"
                     + TABLE2_COL7_ROUND_TRIP           + " VARCHAR(5),"
                     + TABLE2_COL8_DISTANCE             + " REAL,"
+                    + TABLE2_COL10_END_POINT_Lat          + " REAL,"
+                    + TABLE2_COL11_END_POINT_lan           + " REAL,"
                     +" FOREIGN KEY("+TABLE2_COL9_USER_ID+") REFERENCES "+TABLE1_NAME+"("+COLUMN_1_ID+")"
                     + " );"
             );
@@ -103,7 +108,7 @@ public class SqlAdapter {
 
     }
 
-    SqlAdapter(Context context) {
+    public SqlAdapter(Context context) {
         sqlHelper = new SqlHelper(context);
         this.context = context;
     }
@@ -126,13 +131,15 @@ public class SqlAdapter {
 
         ContentValues values = new ContentValues();
         values.put(TABLE2_COL2_TITLE, trip.getTitle());
-        values.put(TABLE2_COL3_START_POINT, trip.getStartPoint());
-        values.put(TABLE2_COL4_END_POINT, trip.getEndPoint());
+        values.put(TABLE2_COL3_START_POINT_Lat, trip.getStartPoint().getLatitude());
+        values.put(TABLE2_COL4_START_POINT_lan, trip.getStartPoint().getLongitude());
         values.put(TABLE2_COL5_DURATION, trip.getDuration());
         values.put(TABLE2_COL6_STATUS, trip.getStatus());
         values.put(TABLE2_COL7_ROUND_TRIP, trip.isRoundTrip());
         values.put(TABLE2_COL8_DISTANCE, trip.getDistance());
         values.put(TABLE2_COL9_USER_ID, trip.getUserId());
+        values.put(TABLE2_COL10_END_POINT_Lat, trip.getEndPoint().getLatitude());
+        values.put(TABLE2_COL11_END_POINT_lan, trip.getEndPoint().getLongitude());
 
         insert(TABLE2_NAME,values);
     }
@@ -168,12 +175,14 @@ public class SqlAdapter {
     public void updateTrip(Trip trip){
         ContentValues values = new ContentValues();
         values.put(TABLE2_COL2_TITLE, trip.getTitle());
-        values.put(TABLE2_COL3_START_POINT, trip.getStartPoint());
-        values.put(TABLE2_COL4_END_POINT, trip.getEndPoint());
+        values.put(TABLE2_COL3_START_POINT_Lat, trip.getStartPoint().getLatitude());
+        values.put(TABLE2_COL4_START_POINT_lan, trip.getStartPoint().getLongitude());
         values.put(TABLE2_COL5_DURATION, trip.getDuration());
         values.put(TABLE2_COL6_STATUS, trip.getStatus());
         values.put(TABLE2_COL7_ROUND_TRIP, trip.isRoundTrip());
         values.put(TABLE2_COL8_DISTANCE, trip.getDistance());
+        values.put(TABLE2_COL10_END_POINT_Lat, trip.getEndPoint().getLatitude());
+        values.put(TABLE2_COL11_END_POINT_lan, trip.getEndPoint().getLongitude());
         update(TABLE2_NAME,values,trip.getId());
     }
 
@@ -196,22 +205,29 @@ public class SqlAdapter {
     public ArrayList<Trip> selectTrips(int userId) {
         ArrayList<Trip> data = new ArrayList<>();
         SQLiteDatabase db = sqlHelper.getReadableDatabase();
-        Cursor cursor = db.query(TABLE2_NAME,new String[]{COLUMN_1_ID, TABLE2_COL2_TITLE, TABLE2_COL3_START_POINT,
-                TABLE2_COL4_END_POINT, TABLE2_COL5_DURATION, TABLE2_COL6_STATUS, TABLE2_COL7_ROUND_TRIP,
-                TABLE2_COL8_DISTANCE, TABLE2_COL9_USER_ID} , "userId=?",
+        Cursor cursor = db.query(TABLE2_NAME,new String[]{COLUMN_1_ID, TABLE2_COL2_TITLE, TABLE2_COL3_START_POINT_Lat,
+                TABLE2_COL4_START_POINT_lan, TABLE2_COL5_DURATION, TABLE2_COL6_STATUS, TABLE2_COL7_ROUND_TRIP,
+                TABLE2_COL8_DISTANCE, TABLE2_COL9_USER_ID,TABLE2_COL10_END_POINT_Lat,TABLE2_COL11_END_POINT_lan} , "userId=?",
                 new String[]{String.valueOf(userId)}, null, null, null, null);
         while(cursor != null) {
             cursor.moveToFirst();
             Trip trip = new Trip();
+            PlacePoint startPoint=new PlacePoint();
+            startPoint.setLatitude(Double.parseDouble(cursor.getString(2)));
+            startPoint.setLongitude(Double.parseDouble(cursor.getString(3)));
+            PlacePoint endPoint=new PlacePoint();
+            endPoint.setLatitude(Double.parseDouble(cursor.getString(9)));
+            endPoint.setLongitude(Double.parseDouble(cursor.getString(10)));
+
             trip.setId(Integer.parseInt(cursor.getString(0)));
             trip.setTitle(cursor.getString(1));
-            trip.setStartPoint(Double.parseDouble(cursor.getString(2)));
-            trip.setEndPoint(Double.parseDouble(cursor.getString(3)));
+            trip.setStartPoint(startPoint);
             trip.setDuration(Double.parseDouble(cursor.getString(4)));
             trip.setStatus(cursor.getString(5));
             trip.setRoundTrip(Boolean.parseBoolean(cursor.getString(6)));
             trip.setDistance(Double.parseDouble(cursor.getString(7)));
             trip.setUserId(Integer.parseInt(cursor.getString(8)));
+            trip.setEndPoint(endPoint);
             data.add(trip);
         }
         db.close();
@@ -221,22 +237,29 @@ public class SqlAdapter {
     public ArrayList<Trip> selectUpComingTrips(int userId) {
         ArrayList<Trip> data = new ArrayList<>();
         SQLiteDatabase db = sqlHelper.getReadableDatabase();
-        Cursor cursor = db.query(TABLE2_NAME,new String[]{COLUMN_1_ID, TABLE2_COL2_TITLE, TABLE2_COL3_START_POINT,
-                        TABLE2_COL4_END_POINT, TABLE2_COL5_DURATION, TABLE2_COL6_STATUS, TABLE2_COL7_ROUND_TRIP,
-                        TABLE2_COL8_DISTANCE, TABLE2_COL9_USER_ID} , "userId=? AND status=?",
+        Cursor cursor = db.query(TABLE2_NAME,new String[]{COLUMN_1_ID, TABLE2_COL2_TITLE, TABLE2_COL3_START_POINT_Lat,
+                        TABLE2_COL4_START_POINT_lan, TABLE2_COL5_DURATION, TABLE2_COL6_STATUS, TABLE2_COL7_ROUND_TRIP,
+                        TABLE2_COL8_DISTANCE, TABLE2_COL9_USER_ID,TABLE2_COL10_END_POINT_Lat,TABLE2_COL11_END_POINT_lan} , "userId=? AND status=?",
                 new String[]{String.valueOf(userId),"upcoming"}, null, null, null, null);
         while(cursor != null) {
             cursor.moveToFirst();
             Trip trip = new Trip();
+            PlacePoint startPoint=new PlacePoint();
+            startPoint.setLatitude(Double.parseDouble(cursor.getString(2)));
+            startPoint.setLongitude(Double.parseDouble(cursor.getString(3)));
+            PlacePoint endPoint=new PlacePoint();
+            endPoint.setLatitude(Double.parseDouble(cursor.getString(9)));
+            endPoint.setLongitude(Double.parseDouble(cursor.getString(10)));
+
             trip.setId(Integer.parseInt(cursor.getString(0)));
             trip.setTitle(cursor.getString(1));
-            trip.setStartPoint(Double.parseDouble(cursor.getString(2)));
-            trip.setEndPoint(Double.parseDouble(cursor.getString(3)));
+            trip.setStartPoint(startPoint);
             trip.setDuration(Double.parseDouble(cursor.getString(4)));
             trip.setStatus(cursor.getString(5));
             trip.setRoundTrip(Boolean.parseBoolean(cursor.getString(6)));
             trip.setDistance(Double.parseDouble(cursor.getString(7)));
             trip.setUserId(Integer.parseInt(cursor.getString(8)));
+            trip.setEndPoint(endPoint);
             data.add(trip);
         }
         db.close();
