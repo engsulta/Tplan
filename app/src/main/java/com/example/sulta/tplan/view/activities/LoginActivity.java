@@ -62,12 +62,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         // Views
 
-         loginTextRegister = (TextView) findViewById(R.id.login_text_register);
+        loginTextRegister = (TextView) findViewById(R.id.login_text_register);
         userEmail = (EditText) findViewById(R.id.login_text_email);
         userPassword = (EditText) findViewById(R.id.login_text_password);
         progressBar=(ProgressBar) findViewById(R.id.login_progressbar) ;
         progressBar.setVisibility(View.INVISIBLE);
-         loginbtn=(Button)  findViewById(R.id.login_button_login);
+        loginbtn=(Button)  findViewById(R.id.login_button_login);
         //end views
 
         //listener
