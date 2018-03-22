@@ -1,5 +1,7 @@
 package com.example.sulta.tplan.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Passant on 3/17/2018.
  */
@@ -11,6 +13,7 @@ public class User {
     String email;
     double distancePerMonth;
     double durationPerMonth;
+    ArrayList<Trip> tripsList;
 
     public int getId() {
         return id;
@@ -58,5 +61,14 @@ public class User {
 
     public void setDurationPerMonth(double durationPerMonth) {
         this.durationPerMonth = durationPerMonth;
+    }
+
+    public void setTripsList(ArrayList<Trip> tripsList) {
+        this.tripsList = tripsList;
+    }
+
+    public ArrayList<Trip> getTripsList() {
+
+        return tripsList;
     }
 }
