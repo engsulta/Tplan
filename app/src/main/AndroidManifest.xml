@@ -45,7 +45,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activities.TestLoginActivity"></activity>
+        <!--assmaa -->
+        <activity android:name=".view.activities.CreateTripActivity"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD1QFnfpsxuTaNlRkTHKZbRD19gpznKY64"/>
+
+        <!--assmaa -->
+
+        <!--passant -->
+
+        <!--passant -->
+
+        <!--sulta -->
+
+        <!--sulta -->
+
     </application>
+    <!--assmaa -->
+
+    <!--assmaa -->
+
+    <!--passant -->
+
+    <!--passant -->
+
+    <!--sulta -->
+
+    <!--sulta -->
+
 
 </manifest>
