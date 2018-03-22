@@ -3,6 +3,7 @@ package com.example.sulta.tplan.view.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -11,12 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
 import com.example.sulta.tplan.R;
+import com.example.sulta.tplan.presenter.CreateTripActivityPresenter;
+import com.example.sulta.tplan.view.activities.interfaces.ICreateTripActivity;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
-public class CreateTripActivity extends AppCompatActivity {
+public class CreateTripActivity extends AppCompatActivity implements ICreateTripActivity {
+    CreateTripActivityPresenter mCreateTripActivityPresenter;
     PlaceAutocompleteFragment startPointFragment;
     PlaceAutocompleteFragment endPointFragment;
     EditText tripNameEdt;
@@ -24,10 +28,14 @@ public class CreateTripActivity extends AppCompatActivity {
     TimePicker timePicker;
     Button addNoteBtn,createTripBtn;
     String TAG="CreateTripActivityLog";
+    Place startPlace;
+    Place endPlace;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trip);
+
+        mCreateTripActivityPresenter=new CreateTripActivityPresenter(this,this);
 
         tripNameEdt=(EditText)findViewById(R.id.createTrip_edt_name);
         datePicker=(DatePicker)findViewById(R.id.createTrip_datePicker);
@@ -54,6 +62,8 @@ public class CreateTripActivity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
+                startPlace=place;
+
             }
 
             @Override
@@ -68,6 +78,8 @@ public class CreateTripActivity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
+                endPlace=place;
+
             }
 
             @Override
@@ -76,6 +88,58 @@ public class CreateTripActivity extends AppCompatActivity {
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
+        createTripBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*Log.i(TAG, String.valueOf(timePicker.getCurrentHour()));
+                Log.i(TAG, String.valueOf(timePicker.getCurrentMinute()));
+                Date date=new Date();
+                date.setMonth(datePicker.getMonth());
+                date.setDate(datePicker.getDayOfMonth());
+                date.setYear(datePicker.getYear());
+                date.setHours(timePicker.getCurrentHour());
+                date.setMinutes(timePicker.getCurrentMinute());
+                date.setSeconds(0);
 
+                String date_s = " 2011-01-18 00:00:00.0";
+                SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss");
+                try {
+                    Date date1 = dt.parse(date_s);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Log.i(TAG, "onClick: "+date);*/
+                mCreateTripActivityPresenter.createTrip();
+            }
+        });
+
+
+    }
+
+    @Override
+    public String getTripName() {
+        return tripNameEdt.getText().toString();
+    }
+
+    @Override
+    public double startPointLat() {
+        return startPlace.getLatLng().latitude;
+    }
+
+    @Override
+    public double startPointLan() {
+        return startPlace.getLatLng().longitude;
+    }
+
+    @Override
+    public double endPointLan() {
+        return endPlace.getLatLng().longitude;
+    }
+
+    @Override
+    public double endPointLat() {
+        return endPlace.getLatLng().latitude;
     }
 }

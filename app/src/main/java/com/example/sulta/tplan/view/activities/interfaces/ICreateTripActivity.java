@@ -5,4 +5,12 @@ package com.example.sulta.tplan.view.activities.interfaces;
  */
 
 public interface ICreateTripActivity {
+    public String getTripName();
+    public double startPointLat();
+    public double startPointLan();
+    public double endPointLan();
+    public double endPointLat();
+
+
+
 }

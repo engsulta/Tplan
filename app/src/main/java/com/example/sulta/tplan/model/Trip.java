@@ -9,8 +9,8 @@ import java.util.List;
 public class Trip {
     int id;
     String title;
-    double startPoint;
-    double endPoint;
+    PlacePoint startPoint;
+    PlacePoint endPoint;
     double duration;
     String status;
     List<TripNote> tripNotes;
@@ -34,19 +34,19 @@ public class Trip {
         this.title = title;
     }
 
-    public double getStartPoint() {
+    public PlacePoint getStartPoint() {
         return startPoint;
     }
 
-    public void setStartPoint(double startPoint) {
-        this.startPoint = startPoint;
-    }
-
-    public double getEndPoint() {
+    public PlacePoint getEndPoint() {
         return endPoint;
     }
 
-    public void setEndPoint(double endPoint) {
+    public void setStartPoint(PlacePoint startPoint) {
+        this.startPoint = startPoint;
+    }
+
+    public void setEndPoint(PlacePoint endPoint) {
         this.endPoint = endPoint;
     }
 
