@@ -17,6 +17,15 @@ public class Trip {
     boolean isRoundTrip;
     double distance;
     int userId;
+    String date; //YYYY-MM-DD HH:MM:SS
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDate(){
+        return date;
+    }
 
     public int getId() {
         return id;
