@@ -10,6 +10,7 @@ public interface ICreateTripActivity {
     public double startPointLan();
     public double endPointLan();
     public double endPointLat();
+    public String getTripDate();
 
 
 
