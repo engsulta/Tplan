@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         homeViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(homeTabs));
         // listner when select tap  change viewoager (fragments)
 
-        homeTabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        homeTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             //on select tap  change view page item to anther fragment
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

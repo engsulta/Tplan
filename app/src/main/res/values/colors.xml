@@ -14,6 +14,6 @@
     <color name="endblueLight">#a1d25a83</color>
     <color name="textcolor">#fdebfcff</color>
 
-
+    <color name="backgrounditemList">#00efefef</color>
 
 </resources>
