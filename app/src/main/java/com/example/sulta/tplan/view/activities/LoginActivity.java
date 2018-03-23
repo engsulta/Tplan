@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                myUserManager.setEmail(currentUser.getEmail());
                myUserManager.setPassword(currentUser.getDisplayName());//3awzeen nsheel el password from database
                myUserManager.setName(currentUser.getDisplayName());
-
+            Log.i(TAG, "onStart: "+currentUser.getEmail()+currentUser.getDisplayName()  );
             finish();
             startActivity(new Intent(this, HomeActivity.class));
         }

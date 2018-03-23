@@ -1,6 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha=".9"
+    android:paddingBottom="@dimen/activity_horizontal_margin"
 
-</android.support.constraint.ConstraintLayout>
+    tools:context="com.example.sulta.tplan.view.activities.LoginActivity">
+
+
+    <ImageView
+        android:id="@+id/login_image_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="13dp"
+        android:layout_marginTop="18dp"
+        app:srcCompat="@drawable/logo7" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_text_emailwrapper"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_toStartOf="@+id/login_image_logo"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/login_text_email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_email_black_24dp"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/endblue"
+            android:textSize="@dimen/textsize" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/login_text_emailwrapper"
+        android:layout_marginLeft="50dp"
+        android:layout_toStartOf="@+id/login_image_logo"
+
+        android:background="#E1E0E0" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_text_passwordwrapper"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignEnd="@+id/login_text_emailwrapper"
+        android:layout_alignStart="@+id/login_text_emailwrapper"
+        android:layout_below="@+id/login_text_emailwrapper"
+        android:layout_marginTop="25dp"
+        android:paddingLeft="30dp"
+        android:visibility="visible"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/startblue">
+
+        <EditText
+            android:id="@+id/login_text_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="@color/endblue"
+            android:textSize="@dimen/textsize" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <View
+        android:id="@+id/login_view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/login_text_passwordwrapper"
+        android:layout_marginLeft="50dp"
+        android:layout_toStartOf="@+id/login_image_logo"
+        android:background="#E1E0E0">
+
+
+    </View>
+
+    <Button
+        android:id="@+id/login_button_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_view"
+        android:layout_toStartOf="@+id/login_image_logo"
+
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="50dp"
+
+        android:background="@drawable/buttonstylegradientselector"
+        android:text="Login"
+        android:textColor="@color/textcolor" />
+
+
+    <Button
+        android:id="@+id/login_button_mfacebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignEnd="@+id/login_button_login"
+        android:layout_alignStart="@+id/login_button_login"
+
+        android:layout_below="@+id/login_button_login"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/buttonstylegradientfacebook"
+        android:drawableLeft="@drawable/com_facebook_button_icon"
+        android:drawablePadding="5dp"
+        android:paddingLeft="20dp"
+        android:text="Continue with Facebook"
+        android:textColor="@color/textcolor" />
+
+    <ProgressBar
+        android:id="@+id/login_progressbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/login_text_register"
+        android:layout_below="@+id/login_image_logo"
+        android:layout_marginStart="60dp" />
+
+    <TextView
+        android:id="@+id/login_text_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/login_button_mfacebook"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="77dp"
+        android:text="Don't have account? signup"
+        android:textColor="@color/endblue"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/lock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/login_view"
+        android:layout_alignStart="@+id/login_text_emailwrapper"
+        app:srcCompat="@drawable/ic_lock_black_24dp"
+        tools:ignore="VectorDrawableCompat" />
+
+
+</RelativeLayout>
