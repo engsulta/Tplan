@@ -13,7 +13,8 @@
     <color name="startblueLight">#9df76d9d</color>
     <color name="endblueLight">#a1d25a83</color>
     <color name="textcolor">#fdebfcff</color>
-
+    <color name="startfacebook">#c94e69a2</color>
+    <color name="endfacebook">#c21d4fb6</color>
 
 
 </resources>

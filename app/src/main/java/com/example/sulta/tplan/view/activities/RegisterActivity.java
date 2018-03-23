@@ -79,12 +79,15 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
+                    //sharedpref
                     finish();
                     startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
                 } else {
 
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                         Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_SHORT).show();
+                        finish();
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
 
                     } else {
                         Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
