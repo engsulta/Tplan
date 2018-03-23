@@ -18,10 +18,16 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
     Toolbar homeToolBar;
     TabLayout homeTabs;
     ViewPager homeViewPager;
-    @Override
+    private final int[] imageResId = {
+            R.drawable.ic_action_name,
+            R.drawable.ic_done_all_black_24dp,
+            R.drawable.ic_settings_black_24dp };
+
+  @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         homeToolBar = (Toolbar) findViewById(R.id.tpToolBar);
         setSupportActionBar(homeToolBar);
 
@@ -30,6 +36,11 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         homeTabs.addTab(homeTabs.newTab().setText("UpComingTrips"));
         homeTabs.addTab(homeTabs.newTab().setText("HistoryTrips"));
         homeTabs.addTab(homeTabs.newTab().setText("Settings"));
+      for (int i = 0; i < imageResId.length; i++) {
+         int id =imageResId[i];
+          homeTabs.getTabAt(i).setIcon(imageResId[i]);
+         // getTabAt(i).setIcon(imageResId[i]);
+      }
         // make gravity  fill tap layout
         homeTabs.setTabGravity(TabLayout.GRAVITY_FILL);
 

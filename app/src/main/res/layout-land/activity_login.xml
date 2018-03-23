@@ -103,7 +103,7 @@
         android:layout_toStartOf="@+id/login_image_logo"
 
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
 
         android:background="@drawable/buttonstylegradientselector"
         android:text="Login"

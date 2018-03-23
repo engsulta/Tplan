@@ -8,6 +8,16 @@
 
 
     <ImageView
+        android:id="@+id/register_button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/lock"
+        android:layout_alignTop="@+id/register_image_logo"
+        android:layout_marginEnd="12dp"
+        app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageView
         android:id="@+id/register_image_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
     private FirebaseAuth mAuth;
     Button registerbtn;
     private UserManager myUserManager;
-
+    private ImageView backbtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,9 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
 
         registerbtn=(Button) findViewById(R.id.register_button_register);
         findViewById(R.id.register_button_register).setOnClickListener(this);
+
+        backbtn=(ImageView) findViewById(R.id.register_button_back);
+        backbtn.setOnClickListener(this);
         progressBar = (ProgressBar) findViewById(R.id.register_progressbar);
         progressBar.setVisibility(View.INVISIBLE);
         userEmail=(EditText)findViewById(R.id.register_text_email);
@@ -132,6 +136,9 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
 
                 registerUser();
 
+                break;
+            case  R.id.register_button_back:
+                finish();
                 break;
         }
     }

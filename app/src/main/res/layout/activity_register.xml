@@ -98,8 +98,8 @@
         android:layout_below="@+id/view"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="71dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:textColor="@color/textcolor"
         android:background="@drawable/buttonstylegradientselector"
         android:text="Register" />
@@ -123,4 +123,15 @@
         android:layout_marginBottom="5dp"
         app:srcCompat="@drawable/ic_lock_black_24dp"
         tools:ignore="VectorDrawableCompat" />
+
+    <ImageView
+        android:id="@+id/register_button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/lock"
+        android:layout_alignTop="@+id/register_image_logo"
+        android:layout_marginEnd="12dp"
+        app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+        tools:ignore="VectorDrawableCompat" />
+
 </RelativeLayout>

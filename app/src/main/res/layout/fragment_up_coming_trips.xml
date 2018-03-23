@@ -20,7 +20,8 @@
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
         android:clickable="true"
-        app:srcCompat="@android:drawable/ic_dialog_email"
-        app:elevation="4dp" />
+        app:backgroundTint="@color/startblue"
+        app:elevation="4dp"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </RelativeLayout>
