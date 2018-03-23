@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.sulta.tplan.R;
+import com.example.sulta.tplan.view.utilities.UserManager;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -32,6 +33,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.Arrays;
 
@@ -57,12 +59,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button loginbtn;
     private Button mFacebookBtn;
 
+    private UserManager myUserManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
+
+
+        myUserManager=UserManager.getUserInstance();
+
+
+
         // Views
 
         loginTextRegister = (TextView) findViewById(R.id.login_text_register);
@@ -88,43 +97,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Initialize Facebook Login button
         callbackManager = CallbackManager.Factory.create();
-        //loginButton = (LoginButton) findViewById(R.id.login_button_facebook);
-        //loginButton.setReadPermissions(Arrays.asList(EMAIL, PROFILE));
-        // If you are using in a fragment, call loginButton.setFragment(this);
 
-        // Callback registration
-       /* loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-                // forward to home page
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-
-            @Override
-            public void onCancel() {
-                // App code
-                // show toast
-                Log.d(TAG, "facebook:onCancel");
-                // [START_EXCLUDE]
-                updateUI(null);
-                // [END_EXCLUDE]
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                Log.d(TAG, "facebook:onError", exception);
-                // [START_EXCLUDE]
-                updateUI(null);
-                // [END_EXCLUDE]
-                // App code
-                //show toast
-            }
-        });
-*/
-        // [END initialize_fblogin]
     }
 
     // [START on_start_check_user]
@@ -135,14 +108,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-            //shared prefrence store here
+
+               myUserManager.setEmail(currentUser.getEmail());
+               myUserManager.setPassword(currentUser.getDisplayName());//3awzeen nsheel el password from database
+               myUserManager.setName(currentUser.getDisplayName());
+
             finish();
             startActivity(new Intent(this, HomeActivity.class));
         }
-        // updateUI(currentUser);
     }
 
-    // [END on_start_check_user]
 
     // [START on_activity_result]
     @Override
@@ -170,6 +145,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            myUserManager.setEmail(user.getEmail());
+                            myUserManager.setPassword(user.getDisplayName());
+                            myUserManager.setName(user.getDisplayName());
+
                             mFacebookBtn.setEnabled(true);
                             updateUI(user);
                         } else {
@@ -190,6 +170,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void hideProgressDialog() {
+
         progressBar.setVisibility(View.GONE);
     }
 
@@ -211,6 +192,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         hideProgressDialog();
         if (user != null) {
             //store in shared pref
+            //make profile in firebase
             Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -219,15 +201,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } else {
 
             Toast.makeText(this, "couldnot Log in successfully", Toast.LENGTH_SHORT).show();
-            findViewById(R.id.login_button_facebook).setVisibility(View.VISIBLE);
+            mFacebookBtn.setVisibility(View.VISIBLE);
 
         }
     }
 
     private void userLogin() {
 
-        String email = userEmail.getText().toString().trim();
-        String password = userPassword.getText().toString().trim();
+        final String email = userEmail.getText().toString().trim();
+        final String password = userPassword.getText().toString().trim();
 
         if (email.isEmpty()) {
             userEmail.setError("Email is required");
@@ -264,7 +246,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 hideProgressDialog();
                 if (task.isSuccessful()) {
-                    //sharedpref
+                    //first time login with email & password sharedpref make profile on firebase
+                   FirebaseUser user=mAuth.getCurrentUser();
+                   UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(email).build();
+                    updateUserProfile(user,profile);
+                    myUserManager.setEmail(email);
+                    myUserManager.setPassword(password);
+                    myUserManager.setName(email);
+
                     finish();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -275,6 +265,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
+
+    private void updateUserProfile(FirebaseUser user, UserProfileChangeRequest profile) {
+        user.updateProfile(profile)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                           // Toast.makeText(LoginActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
 
     @Override
     public void onClick(View v) {

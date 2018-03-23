@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.sulta.tplan.view.activities.LoginActivity"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alpha=".9"
-
     android:paddingBottom="@dimen/activity_horizontal_margin"
 
-    >
+    tools:context="com.example.sulta.tplan.view.activities.LoginActivity">
 
 
     <ImageView
@@ -21,8 +19,8 @@
         android:layout_marginTop="24dp"
         app:srcCompat="@drawable/logo7" />
 
-    <EditText
-        android:id="@+id/login_text_email"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_text_emailwrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/login_image_logo"
@@ -30,48 +28,67 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginTop="40dp"
-        android:background="@android:color/transparent"
-        android:drawableLeft="@drawable/ic_email_black_24dp"
-        android:drawablePadding="12dp"
-        android:drawableStart="@drawable/ic_email_black_24dp"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/endblue"
-        android:textSize="@dimen/textsize" />
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/login_text_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_email_black_24dp"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/endblue"
+            android:textSize="@dimen/textsize" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
     <View
         android:layout_width="match_parent"
-        android:layout_below="@+id/login_text_email"
         android:layout_height="1dp"
+        android:layout_below="@+id/login_text_emailwrapper"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:background="#E1E0E0"/>
+        android:background="#E1E0E0" />
 
-    <EditText
-        android:id="@+id/login_text_password"
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_text_passwordwrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_text_email"
+        android:layout_below="@+id/login_text_emailwrapper"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginTop="28dp"
-        android:background="@android:color/transparent"
-        android:drawableLeft="@drawable/ic_lock_black_24dp"
-        android:drawablePadding="12dp"
-        android:drawableStart="@drawable/ic_lock_black_24dp"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:textColor="@color/endblue"
-        android:textSize="@dimen/textsize" />
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/login_text_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_lock_black_24dp"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="@color/endblue"
+            android:textSize="@dimen/textsize" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
     <View
         android:id="@+id/login_view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@+id/login_text_passwordwrapper"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_below="@+id/login_text_password"
         android:background="#E1E0E0">
 
 
@@ -83,13 +100,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/login_view"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="71dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:layout_marginTop="71dp"
 
-        android:textColor="@color/textcolor"
         android:background="@drawable/buttonstylegradientselector"
-        android:text="Login" />
+        android:text="Login"
+        android:textColor="@color/textcolor" />
 
 
     <Button
@@ -97,12 +114,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_alignStart="@+id/login_button_login"
         android:layout_alignEnd="@+id/login_button_login"
+        android:layout_alignStart="@+id/login_button_login"
 
         android:layout_below="@+id/login_button_login"
         android:layout_marginTop="16dp"
-        android:background="@drawable/buttonstylegradientFacebook"
+        android:background="@drawable/buttonstylegradientfacebook"
         android:drawableLeft="@drawable/com_facebook_button_icon"
         android:drawablePadding="5dp"
         android:paddingLeft="20dp"

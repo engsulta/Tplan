@@ -44,6 +44,7 @@ dependencies {
    //passant -->
 
    //sulta -->
+   compile 'com.android.support:design:26.1.0'
 
     //<!--sulta -->
 

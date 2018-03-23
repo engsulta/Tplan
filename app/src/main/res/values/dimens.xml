@@ -4,4 +4,5 @@
     <dimen name="activity_horizontal_margin">10dp</dimen>
     <dimen name="textsize">20sp</dimen>
     <dimen name="textsizelabe">30sp</dimen>
+
 </resources>

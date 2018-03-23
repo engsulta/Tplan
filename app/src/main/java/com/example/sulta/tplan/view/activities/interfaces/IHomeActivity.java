@@ -5,6 +5,4 @@ package com.example.sulta.tplan.view.activities.interfaces;
  */
 
 public interface IHomeActivity {
-   // ArrayList<Trip>getMyUpcomingTrips();
-    //void loadMyUpcomingTrips();
 }

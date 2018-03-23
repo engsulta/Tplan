@@ -15,11 +15,14 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.view.activities.interfaces.IRegisterActivity;
+import com.example.sulta.tplan.view.utilities.UserManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class RegisterActivity extends AppCompatActivity implements IRegisterActivity,View.OnClickListener {
 
@@ -27,11 +30,16 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
     ProgressBar progressBar;
     private FirebaseAuth mAuth;
     Button registerbtn;
+    private UserManager myUserManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        myUserManager= UserManager.getUserInstance();
+
+
         registerbtn=(Button) findViewById(R.id.register_button_register);
         findViewById(R.id.register_button_register).setOnClickListener(this);
         progressBar = (ProgressBar) findViewById(R.id.register_progressbar);
@@ -42,8 +50,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
     }
 
     private void registerUser() {
-        String email = userEmail.getText().toString().trim();
-        String password = userPassword.getText().toString().trim();
+        final String email = userEmail.getText().toString().trim();
+        final String password = userPassword.getText().toString().trim();
 
         if (email.isEmpty()) {
             userEmail.setError("Email is required");
@@ -80,6 +88,14 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
                 progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
                     //sharedpref
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(email).build();
+                    updateUserProfile(user,profile);
+                    myUserManager.setEmail(email);
+                    myUserManager.setPassword(password);
+                    myUserManager.setName(email);
+
                     finish();
                     startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
                 } else {
@@ -97,7 +113,17 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
             }
         });
     }
-
+    private void updateUserProfile(FirebaseUser user, UserProfileChangeRequest profile) {
+        user.updateProfile(profile)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // Toast.makeText(LoginActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
