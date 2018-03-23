@@ -142,4 +142,13 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
     public double endPointLat() {
         return endPlace.getLatLng().latitude;
     }
+
+    @Override
+    public String getTripDate() {
+        //YYYY-MM-DD HH:MM:SS
+        String date=datePicker.getYear()+"-"+datePicker.getMonth()+"-"+datePicker.getDayOfMonth()+" "
+                +timePicker.getCurrentHour()+":"+timePicker.getCurrentMinute()+":00";
+        Log.i(TAG,"Date: "+date);
+        return date;
+    }
 }
