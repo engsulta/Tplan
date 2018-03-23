@@ -23,8 +23,7 @@ public class Trip {
         this.date = date;
     }
 
-    public String getDate() {
-
+    public String getDate(){
         return date;
     }
 
