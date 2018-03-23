@@ -68,9 +68,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
 
-        myUserManager=UserManager.getUserInstance();
-
-
 
         // Views
 
@@ -108,7 +105,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-
+               // myUserManager.setId(currentUser.getUid());
                myUserManager.setEmail(currentUser.getEmail());
                myUserManager.setPassword(currentUser.getDisplayName());//3awzeen nsheel el password from database
                myUserManager.setName(currentUser.getDisplayName());

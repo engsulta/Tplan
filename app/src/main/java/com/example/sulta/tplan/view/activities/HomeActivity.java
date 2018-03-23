@@ -1,14 +1,17 @@
 package com.example.sulta.tplan.view.activities;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.example.sulta.tplan.R;
+import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.adapters.HomePagerAdapter;
 import com.example.sulta.tplan.view.activities.interfaces.IHomeActivity;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity implements IHomeActivity {
 
@@ -56,5 +59,24 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
             }
         });
     }
+////sulta editing
+
+// make refrence for synchdata and give home refrence
+
+    @Override
+    public ArrayList<Trip> getAllTrips() {
+        //return all trips here
+        return null;
+    }
+
+
+
+    @Override
+    public void setAllTrips(ArrayList<Trip> trips) {
+    //set your trips with new one and reload view
+    }
+
+
+    ///sulta editing
 }
 
