@@ -39,7 +39,6 @@
         <activity android:name=".view.activities.RegisterActivity" />
         <activity android:name=".view.activities.TestLoginActivity"/>
         <activity android:name=".view.activities.SplashScreen">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

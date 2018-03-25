@@ -85,8 +85,8 @@ public class SqlAdapter {
                     + TABLE2_COL8_DISTANCE                 + " REAL,"
                     + TABLE2_COL10_END_POINT_LATITUDE      + " REAL,"
                     + TABLE2_COL11_END_POINT_LONGITUDE     + " REAL,"
-                    + TABLE2_COL12_TRIP_DATE               + " VARCHAR(60),"
-                    +" FOREIGN KEY("+TABLE2_COL9_USER_ID+") REFERENCES "+TABLE1_NAME+"("+COLUMN_1_ID+")"
+                    + TABLE2_COL12_TRIP_DATE               + " VARCHAR(60)"
+                    //+" FOREIGN KEY("+TABLE2_COL9_USER_ID+") REFERENCES "+TABLE1_NAME+"("+COLUMN_1_ID+")"
                     + " );"
             );
 
