@@ -14,7 +14,7 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tripName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="TripName"
@@ -24,7 +24,7 @@
             android:paddingLeft="20dp" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tripState"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Trip State"
@@ -37,7 +37,8 @@
             android:layout_weight="1"
             android:src="@android:drawable/ic_delete"
             android:background="@color/backgrounditemList"
-            android:layout_margin="0dp">
+            android:layout_margin="0dp"
+            android:id="@+id/deleteTripBtn">
 
         </ImageButton>
     </LinearLayout>
@@ -56,7 +57,8 @@
             android:layout_weight="1"
             android:src="@android:drawable/ic_menu_view"
             android:background="@color/backgrounditemList"
-            android:layout_margin="0dp">
+            android:layout_margin="0dp"
+            android:id="@+id/viewTripDetailsBtn">
 
         </ImageButton>
 
@@ -66,25 +68,19 @@
             android:layout_weight="1"
             android:src="@android:drawable/ic_menu_edit"
             android:background="@color/backgrounditemList"
-            android:layout_margin="0dp">
+            android:layout_margin="0dp"
+            android:id="@+id/editTripDetailsBtn">
 
         </ImageButton>
 
         <ImageButton
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
+            android:src="@android:drawable/ic_menu_share"
             android:background="@color/backgrounditemList"
-            android:layout_margin="0dp">
-
-        </ImageButton>
-        <ImageButton
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_weight="0.5"
-        android:src="@android:drawable/ic_menu_share"
-        android:background="@color/backgrounditemList"
-        android:layout_margin="0dp">
+            android:layout_margin="0dp"
+            android:id="@+id/shareTripDetailsBtn">
 
     </ImageButton>
 

@@ -10,14 +10,14 @@ import com.example.sulta.tplan.R;
  * Created by Passant on 3/23/2018.
  */
 
-public class HomeViewHolderList {
+public class HomeViewHolderUpComingList {
     ImageButton viewTripDetailsBtn;
     ImageButton cancelTripBtn;
     ImageButton editTripDetailsBtn;
     TextView tripName;
     View contentView;
 
-    public HomeViewHolderList(View contentView) {
+    public HomeViewHolderUpComingList(View contentView) {
         this.contentView = contentView;
     }
 
@@ -29,7 +29,7 @@ public class HomeViewHolderList {
     }
 
     public ImageButton getCancelTripBtn() {
-        if(getCancelTripBtn()==null){
+        if(cancelTripBtn == null){
             cancelTripBtn = (ImageButton) contentView.findViewById(R.id.cancelTripBtn);
         }
         return cancelTripBtn;

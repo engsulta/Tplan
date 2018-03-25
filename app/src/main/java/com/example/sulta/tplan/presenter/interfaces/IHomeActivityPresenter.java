@@ -8,5 +8,6 @@ import android.widget.ListView;
  */
 
 public interface IHomeActivityPresenter {
-    public void viewUpComingTrips(Context context, ListView upComingTripsList, int userId);
+    public void viewUpComingTrips(Context context, ListView upComingTripsList);
+    public void viewHistoryTrips(Context context, ListView historyTripsList);
 }

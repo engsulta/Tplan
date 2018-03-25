@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.model.Trip;
-import com.example.sulta.tplan.view.utilities.HomeViewHolderUpComingList;
+import com.example.sulta.tplan.view.utilities.HomeViewHolderHistoryList;
 
 import java.util.List;
 
@@ -21,10 +21,10 @@ import java.util.List;
  * Created by Passant on 3/23/2018.
  */
 
-public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
+public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
     Context context;
     List<Trip> customList;
-    public HomeLVUpComingTripsAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List androidSets) {
+    public HomeLVHistoryTripsAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List androidSets) {
         super(context, resource, textViewResourceId, androidSets);
         this.context = context;
         this.customList = androidSets;
@@ -34,21 +34,22 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View myView = convertView;
-        HomeViewHolderUpComingList viewHolder;
+        HomeViewHolderHistoryList viewHolder;
         if(convertView==null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             myView = inflater.inflate(R.layout.item_list_upcoming_trips,parent,false);
-            viewHolder = new HomeViewHolderUpComingList(myView);
+            viewHolder = new HomeViewHolderHistoryList(myView);
             myView.setTag(viewHolder);
         } else{
-            viewHolder = (HomeViewHolderUpComingList) myView.getTag();
+            viewHolder = (HomeViewHolderHistoryList) myView.getTag();
         }
 
         viewHolder.getTripName().setText(customList.get(position).getTitle());
-        viewHolder.getCancelTripBtn().setOnClickListener(new View.OnClickListener() {
+        viewHolder.getTripState().setText(customList.get(position).getStatus());
+        viewHolder.getDeleteTripBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -63,6 +64,12 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "view", Toast.LENGTH_SHORT).show();
+            }
+        });
+        viewHolder.getShareTripDetailsBtn().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "share", Toast.LENGTH_SHORT).show();
             }
         });
 

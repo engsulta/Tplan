@@ -3,6 +3,7 @@ package com.example.sulta.tplan.presenter;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.model.PlacePoint;
 import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.interfaces.ICreateTripActivityPresenter;
@@ -42,6 +43,6 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
 
         Log.i("test",trip.getTitle()+", "+trip.getStartPoint().getLongitude()+", "+trip.getEndPoint().getLongitude());
 
-       // new SqlAdapter(mContext).insertTrip(trip);
+       new SqlAdapter(mContext).insertTrip(trip);
     }
 }
