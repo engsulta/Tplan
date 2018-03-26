@@ -1,7 +1,5 @@
 package com.example.sulta.tplan.model;
 
-import java.util.List;
-
 /**
  * Created by Passant on 3/17/2018.
  */
@@ -13,7 +11,7 @@ public class Trip {
     PlacePoint endPoint;
     double duration;
     String status;
-    List<TripNote> tripNotes;
+    String notes;
     boolean isRoundTrip;
     double distance;
     int userId;
@@ -75,12 +73,12 @@ public class Trip {
         this.status = status;
     }
 
-    public List<TripNote> getTripNotes() {
-        return tripNotes;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setTripNotes(List<TripNote> tripNotes) {
-        this.tripNotes = tripNotes;
+    public void setNotes(String tripNotes) {
+        this.notes = tripNotes;
     }
 
     public boolean isRoundTrip() {

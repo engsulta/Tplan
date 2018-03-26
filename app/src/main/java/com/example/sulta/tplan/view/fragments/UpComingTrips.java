@@ -53,6 +53,6 @@ public class UpComingTrips extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
-        //homePresenter.viewUpComingTrips(getContext(), upComingTripsList, 3);
+        homePresenter.viewUpComingTrips(getContext(), upComingTripsList);
     }
 }

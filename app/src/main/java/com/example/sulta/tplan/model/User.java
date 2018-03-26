@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 
 public class User {
-    int id;
+    String id;
     String name;
     String password;
     String email;
@@ -15,11 +15,11 @@ public class User {
     double durationPerMonth;
     ArrayList<Trip> tripsList;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
