@@ -14,6 +14,8 @@ public class HomeViewHolderUpComingList {
     ImageButton viewTripDetailsBtn;
     ImageButton cancelTripBtn;
     ImageButton editTripDetailsBtn;
+    ImageButton shareTripDetailsBtn;
+    ImageButton seeTripDirectionBtn;
     TextView tripName;
     View contentView;
 
@@ -33,6 +35,20 @@ public class HomeViewHolderUpComingList {
             cancelTripBtn = (ImageButton) contentView.findViewById(R.id.cancelTripBtn);
         }
         return cancelTripBtn;
+    }
+
+    public ImageButton getShareTripDetailsBtn() {
+        if(shareTripDetailsBtn == null){
+            shareTripDetailsBtn = (ImageButton) contentView.findViewById(R.id.shareTripDetailsBtn);
+        }
+        return shareTripDetailsBtn;
+    }
+
+    public ImageButton getSeeTripDirectionBtn() {
+        if(seeTripDirectionBtn == null){
+            seeTripDirectionBtn = (ImageButton) contentView.findViewById(R.id.seeTripDirectionBtn);
+        }
+        return seeTripDirectionBtn;
     }
 
     public ImageButton getEditTripDetailsBtn() {

@@ -37,7 +37,7 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
         HomeViewHolderHistoryList viewHolder;
         if(convertView==null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            myView = inflater.inflate(R.layout.item_list_upcoming_trips,parent,false);
+            myView = inflater.inflate(R.layout.item_list_history_trips_cardview,parent,false);
             viewHolder = new HomeViewHolderHistoryList(myView);
             myView.setTag(viewHolder);
         } else{
@@ -46,6 +46,7 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
 
         viewHolder.getTripName().setText(customList.get(position).getTitle());
         viewHolder.getTripState().setText(customList.get(position).getStatus());
+        viewHolder.getTripDirection().setBackgroundResource(R.drawable.item_list_upcoming_twoways_24dp);
         viewHolder.getDeleteTripBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

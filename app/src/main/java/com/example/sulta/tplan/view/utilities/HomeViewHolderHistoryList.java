@@ -18,6 +18,7 @@ public class HomeViewHolderHistoryList {
     ImageButton shareTripDetailsBtn;
     TextView tripName;
     TextView tripState;
+    TextView tripDirection;
     View contentView;
 
     public HomeViewHolderHistoryList(View contentView) {
@@ -64,5 +65,12 @@ public class HomeViewHolderHistoryList {
             tripState = (TextView) contentView.findViewById(R.id.tripState);
         }
         return tripState;
+    }
+
+    public TextView getTripDirection() {
+        if (tripDirection == null) {
+            tripDirection = (TextView) contentView.findViewById(R.id.tripDirection);
+        }
+        return tripDirection;
     }
 }

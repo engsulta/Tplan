@@ -37,7 +37,7 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
         HomeViewHolderUpComingList viewHolder;
         if(convertView==null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            myView = inflater.inflate(R.layout.item_list_upcoming_trips,parent,false);
+            myView = inflater.inflate(R.layout.item_list_upcoming_trips_cardview,parent,false);
             viewHolder = new HomeViewHolderUpComingList(myView);
             myView.setTag(viewHolder);
         } else{
@@ -63,6 +63,20 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "view", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        viewHolder.getShareTripDetailsBtn().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Share", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        viewHolder.getSeeTripDirectionBtn().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "see", Toast.LENGTH_SHORT).show();
             }
         });
 

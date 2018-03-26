@@ -27,7 +27,7 @@
                 android:layout_marginBottom="25dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:weightSum="5">
+                android:weightSum="9">
 
                 <TextView
                     android:id="@+id/tripName"
@@ -40,11 +40,31 @@
                     android:textStyle="bold" />
 
 
+                <TextView
+                    android:id="@+id/tripState"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="end"
+                    android:paddingEnd="10dp"
+                    android:text="TripState"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tripDirection"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/item_list_upcoming_twoways_24dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
                 <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:background="@color/backgrounditemList"
                     android:src="@drawable/item_list_upcoming_eye_24dp"
                     android:id="@+id/viewTripDetailsBtn">
@@ -57,19 +77,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:gravity="center"
+
                 android:orientation="horizontal"
-                android:weightSum="3.5">
-
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:layout_weight="1"
-                    android:background="@color/backgrounditemList"
-                    android:src="@drawable/item_list_upcoming_twoways_24dp"
-                    android:id="@+id/seeTripDirectionBtn">
-
-                </ImageButton>
+                android:weightSum="3">
 
                 <ImageButton
                     android:layout_width="0dp"
@@ -89,7 +99,7 @@
                     android:layout_weight="1"
                     android:background="@color/backgrounditemList"
                     android:src="@drawable/item_list_upcoming_delete_24dp"
-                    android:id="@+id/cancelTripBtn">
+                    android:id="@+id/deleteTripBtn">
 
                 </ImageButton>
 
@@ -97,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="1"
                     android:background="@color/backgrounditemList"
                     android:src="@drawable/ic_share_black_24dp"
                     android:id="@+id/shareTripDetailsBtn">
