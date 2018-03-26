@@ -4,6 +4,18 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- assmaa -->
+    <!-- assmaa -->
+    <!-- passant -->
+    <!-- passant -->
+    <!-- sulta -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <!-- sulta -->
+
+
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
@@ -37,42 +49,61 @@
         <activity android:name=".view.activities.HomeActivity" />
         <activity android:name=".view.activities.CreateTripActivity" />
         <activity android:name=".view.activities.RegisterActivity" />
-        <activity android:name=".view.activities.TestLoginActivity"/>
+        <activity android:name=".view.activities.TestLoginActivity" />
         <activity android:name=".view.activities.SplashScreen">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--assmaa -->
+        <!-- assmaa -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD1QFnfpsxuTaNlRkTHKZbRD19gpznKY64"/>
+            android:value="AIzaSyD1QFnfpsxuTaNlRkTHKZbRD19gpznKY64" />
 
-        <!--assmaa -->
+        <!-- assmaa -->
 
-        <!--passant -->
 
-        <!--passant -->
+        <!-- passant -->
 
-        <!--sulta -->
 
-        <!--sulta -->
+        <!-- passant -->
 
+
+        <!-- sulta -->
+
+
+        <!-- sulta -->
+        <service
+            android:name=".view.utilities.Services.ReminderService"
+            android:enabled="true"
+            android:exported="true"
+            />
+
+        <receiver
+            android:name=".view.utilities.Recievers.HandleReminder"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote"/>
+        <receiver
+            android:name=".view.utilities.Recievers.RestartServiceReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".view.utilities.Services.ReminderIntentService"
+            android:exported="false" />
+
+        <activity android:name=".view.activities.AlarmTestActivity" />
+        <activity android:name=".view.activities.HeadlessActivity"
+            android:theme="@android:style/Theme.Dialog" >
+
+        </activity>
     </application>
-    <!--assmaa -->
-
-    <!--assmaa -->
-
-    <!--passant -->
-
-    <!--passant -->
-
-    <!--sulta -->
-
-    <!--sulta -->
-
 
 </manifest>

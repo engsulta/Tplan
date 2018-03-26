@@ -36,20 +36,22 @@ dependencies {
     compile 'com.daimajia.easing:library:2.0@aar'
     compile 'com.daimajia.androidanimations:library:2.3@aar'
     compile 'com.github.bloder:magic:1.1'
-   //assmaa -->
+    //assmaa -->
     compile 'com.google.android.gms:play-services-places:11.0.4'
-   //assmaa -->
+    //assmaa -->
 
     //passant -->
 
-   //passant -->
+    //passant -->
 
-   //sulta -->
-   compile 'com.android.support:design:26.1.0'
+    //sulta -->
+    compile 'com.android.support:design:26.1.0'
 
     //<!--sulta -->
 
 }
+
+
 
 
 
