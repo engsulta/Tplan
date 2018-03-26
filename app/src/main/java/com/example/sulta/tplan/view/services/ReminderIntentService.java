@@ -1,4 +1,4 @@
-package com.example.sulta.tplan.view.utilities.Services;
+package com.example.sulta.tplan.view.services;
 
 import android.app.IntentService;
 import android.content.Intent;

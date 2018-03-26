@@ -14,7 +14,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
-import com.example.sulta.tplan.view.utilities.Services.ReminderService;
+import com.example.sulta.tplan.view.services.ReminderService;
 
 import java.util.Calendar;
 
