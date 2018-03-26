@@ -1,4 +1,4 @@
-package com.example.sulta.tplan.view.utilities.Recievers;
+package com.example.sulta.tplan.view.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -8,7 +8,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 
 import com.example.sulta.tplan.database.SqlAdapter;
-import com.example.sulta.tplan.view.utilities.Services.ReminderService;
+import com.example.sulta.tplan.view.services.ReminderService;
 
 public class RestartServiceReceiver extends BroadcastReceiver {
     ReminderService myService;

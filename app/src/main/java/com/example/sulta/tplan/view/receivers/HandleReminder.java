@@ -1,4 +1,4 @@
-package com.example.sulta.tplan.view.utilities.Recievers;
+package com.example.sulta.tplan.view.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

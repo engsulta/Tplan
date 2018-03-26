@@ -76,18 +76,18 @@
 
         <!-- sulta -->
         <service
-            android:name=".view.utilities.Services.ReminderService"
+            android:name=".view.services.ReminderService"
             android:enabled="true"
             android:exported="true"
             />
 
         <receiver
-            android:name=".view.utilities.Recievers.HandleReminder"
+            android:name=".view.receivers.HandleReminder"
             android:enabled="true"
             android:exported="true"
             android:process=":remote"/>
         <receiver
-            android:name=".view.utilities.Recievers.RestartServiceReceiver"
+            android:name=".view.receivers.RestartServiceReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -96,7 +96,7 @@
         </receiver>
 
         <service
-            android:name=".view.utilities.Services.ReminderIntentService"
+            android:name=".view.services.ReminderIntentService"
             android:exported="false" />
 
         <activity android:name=".view.activities.AlarmTestActivity" />

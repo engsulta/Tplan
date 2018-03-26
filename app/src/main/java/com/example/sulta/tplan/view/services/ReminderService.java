@@ -1,4 +1,4 @@
-package com.example.sulta.tplan.view.utilities.Services;
+package com.example.sulta.tplan.view.services;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
-import com.example.sulta.tplan.view.utilities.Recievers.HandleReminder;
+import com.example.sulta.tplan.view.receivers.HandleReminder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
