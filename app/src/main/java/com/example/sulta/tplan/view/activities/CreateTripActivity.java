@@ -131,7 +131,10 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
 
             }
         });
+
     }
+
+
 
     @Override
     public String getTripName() {

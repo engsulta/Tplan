@@ -1,24 +1,15 @@
 package com.example.sulta.tplan.model;
 
-import java.io.Serializable;
-
 /**
  * Created by Passant on 3/17/2018.
  */
 
-public class TripNote implements Serializable{
-    int id;
+public class TripNote  {
+
     String text;
     boolean isChecked;
-    int tripId;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getText() {
         return text;
@@ -36,11 +27,4 @@ public class TripNote implements Serializable{
         isChecked = checked;
     }
 
-    public int getTripId() {
-        return tripId;
-    }
-
-    public void setTripId(int tripId) {
-        this.tripId = tripId;
-    }
 }

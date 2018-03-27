@@ -3,8 +3,6 @@ package com.example.sulta.tplan.view.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -50,9 +48,10 @@ public class UpComingTrips extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onStart() {
+        super.onStart();
         IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
         homePresenter.viewUpComingTrips(getContext(), upComingTripsList);
     }
+
 }
