@@ -22,6 +22,6 @@
         android:clickable="true"
         app:backgroundTint="@color/startblue"
         app:elevation="4dp"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/ic_add_black_24dp" />
 
 </RelativeLayout>

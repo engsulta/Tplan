@@ -19,7 +19,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
     TabLayout homeTabs;
     ViewPager homeViewPager;
     private final int[] imageResId = {
-            R.drawable.ic_action_name,
+            R.drawable.planet_earth,
             R.drawable.ic_done_all_black_24dp,
             R.drawable.ic_settings_black_24dp };
 
