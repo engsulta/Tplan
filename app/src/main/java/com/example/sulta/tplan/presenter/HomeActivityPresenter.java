@@ -28,7 +28,6 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
         List<Trip> upComingTrips = sqlAdapter.selectUpComingTrips();
         upComingTripsAdapter = new HomeLVUpComingTripsAdapter(context, R.layout.item_list_upcoming_trips_cardview, R.id.tripName, upComingTrips);
         upComingTripsList.setAdapter(upComingTripsAdapter);
-        upComingTripsAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -36,8 +35,9 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
         sqlAdapter = new SqlAdapter(context);
         List<Trip> historyTrips = sqlAdapter.selectTrips();
         historyTripsAdapter = new HomeLVHistoryTripsAdapter(context, R.layout.item_list_history_trips_cardview, R.id.tripState, historyTrips);
+        //historyTripsAdapter.notifyDataSetChanged();
+        //historyTripsAdapter.notifyDataSetInvalidated();
         historyTripsList.setAdapter(historyTripsAdapter);
-        historyTripsAdapter.notifyDataSetChanged();
     }
 
     @Override

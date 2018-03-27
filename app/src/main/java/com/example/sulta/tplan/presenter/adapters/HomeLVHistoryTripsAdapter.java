@@ -1,6 +1,8 @@
 package com.example.sulta.tplan.presenter.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -15,6 +17,7 @@ import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.HomeActivityPresenter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
+import com.example.sulta.tplan.view.activities.HomeActivity;
 import com.example.sulta.tplan.view.utilities.HomeViewHolderHistoryList;
 
 import java.util.List;
@@ -56,6 +59,9 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
                 boolean result = homePresenter.deleteTrip(context,customList.get(position).getId());
                 if(result){
                     Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    context.startActivity(intent);
+                    ( (Activity) context).finish();
                 } else{
                     Toast.makeText(context, "Cannot be deleted", Toast.LENGTH_SHORT).show();
                 }
@@ -82,6 +88,8 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
             }
         });
 
+        notifyDataSetChanged();
+        notifyDataSetInvalidated();
         return myView;
     }
 }

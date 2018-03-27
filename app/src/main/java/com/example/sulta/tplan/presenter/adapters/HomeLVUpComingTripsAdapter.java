@@ -1,6 +1,8 @@
 package com.example.sulta.tplan.presenter.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -15,6 +17,7 @@ import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.HomeActivityPresenter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
+import com.example.sulta.tplan.view.activities.HomeActivity;
 import com.example.sulta.tplan.view.utilities.HomeViewHolderUpComingList;
 
 import java.util.List;
@@ -34,7 +37,7 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
 
     @NonNull
     @Override
-    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         View myView = convertView;
         HomeViewHolderUpComingList viewHolder;
         if(convertView==null){
@@ -55,6 +58,9 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
                 boolean result = homePresenter.editTrip(context,customList.get(position));
                 if(result){
                     Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    context.startActivity(intent);
+                    ( (Activity) context).finish();
                 } else{
                     Toast.makeText(context, "Cannot be cancelled", Toast.LENGTH_SHORT).show();
                 }
@@ -85,10 +91,9 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
         viewHolder.getSeeTripDirectionBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "see", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "see direction", Toast.LENGTH_SHORT).show();
             }
         });
-
         return myView;
     }
 }
