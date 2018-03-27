@@ -12,11 +12,11 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:alpha=".9"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/splashscreendefault" />
+        app:srcCompat="@color/background" />
 
     <ImageView
         android:id="@+id/login_image_logo"
@@ -47,7 +47,8 @@
             android:ems="10"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:textColor="@color/textcolor"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
             android:textSize="@dimen/textsize" />
 
     </android.support.design.widget.TextInputLayout>
@@ -74,7 +75,7 @@
         android:paddingLeft="30dp"
         android:visibility="visible"
         app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/textcolor">
+        app:passwordToggleTint="@color/colorPrimary">
 
         <EditText
             android:id="@+id/login_text_password"
@@ -85,7 +86,8 @@
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:textColor="@color/endblue"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
             android:textSize="@dimen/textsize" />
 
     </android.support.design.widget.TextInputLayout>
@@ -152,7 +154,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="77dp"
         android:text="Don't have account? signup"
-        android:textColor="@color/endblue"
+        android:textColor="@color/colorPrimary"
         android:textSize="16sp" />
 
     <ImageView

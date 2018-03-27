@@ -4,19 +4,19 @@
     <color name="coloricon">#25D366</color>
     <color name="colorPrimaryLight">#25D366</color>
     <color name="colorPrimaryDark">#075E54</color>
-    <color name="colorAccent">#128C7E</color>
-    <color name="colorAccentLight">#25D366</color>
+    <color name="colorAccent">#34b7f1</color>
+    <color name="colorAccentLight">#aa34b7f1</color>
 
 
-    <color name="startblue">#25D366</color>
-    <color name="endblue">#128C7E</color>
-    <color name="startblueLight">#c42ad66a</color>
-    <color name="endblueLight">#92128c7e</color>
+    <color name="startblue">#2DCAB8</color>
+    <color name="endblue">#5FA59D</color>
+    <color name="startblueLight">#7b2dcab8</color>
+    <color name="endblueLight">#7b5fa59d</color>
     <color name="textcolor">#fdebfcff</color>
     <color name="startfacebook">#c94e69a2</color>
     <color name="endfacebook">#c21d4fb6</color>
     <color name="textwhitecolor">#FFFFFF</color>
-
+<color name="background">#ffffff</color>
 
 
     <color name="backgrounditemList">#00efefef</color>
