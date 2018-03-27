@@ -11,11 +11,21 @@ public class Trip {
     PlacePoint endPoint;
     double duration;
     String status;
-    String notes;
+    String notes;//*checked,unchecked,*checked
     boolean isRoundTrip;
     double distance;
     int userId;
     String date; //YYYY-MM-DD HH:MM:SS
+    Long startTimeInMillis;
+
+    public void setStartTimeInMillis(Long startTimeInMillis) {
+        this.startTimeInMillis = startTimeInMillis;
+    }
+
+    public Long getStartTimeInMillis() {
+
+        return startTimeInMillis;
+    }
 
     public void setDate(String date) {
         this.date = date;

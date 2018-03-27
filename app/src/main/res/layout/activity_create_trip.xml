@@ -34,8 +34,33 @@
             android:drawablePadding="20dp"
             android:drawableStart="@drawable/planeicon"
             android:hint="Trip name"
-            android:textColorHint="@color/com_facebook_button_background_color_disabled"
-            />
+            android:textColorHint="@color/com_facebook_button_background_color_disabled" />
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="#E1E0E0"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingRight="20dp"
+            android:paddingLeft="60dp"
+            android:paddingTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trip direction"
+                android:textSize="20dp"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tripdir"
+                android:id="@+id/imgBtn"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
         <View
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -44,7 +69,6 @@
             android:layout_marginRight="50dp"
             android:background="#E1E0E0"/>
     </LinearLayout>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,24 +88,18 @@
             android:id="@+id/place_autocomplete_fragment_start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
-
-            />
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:background="#E1E0E0"/>
-
         <fragment
             android:id="@+id/place_autocomplete_fragment_end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
-
-            />
-
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -89,17 +107,14 @@
             android:layout_marginRight="50dp"
             android:background="#E1E0E0"
             android:layout_marginBottom="25dp"/>
-
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/card"
         android:gravity="center"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,16 +127,12 @@
             android:layout_height="150dp"
             android:calendarViewShown="false"
             android:datePickerMode="spinner"></DatePicker>
-
         <TimePicker
             android:id="@+id/createTrip_timePicker"
             android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="45dp"></TimePicker>
-
-
     </LinearLayout>
-
         <Button
             android:id="@+id/creatTrip_button_note"
             android:layout_width="match_parent"
@@ -130,7 +141,6 @@
             android:background="@drawable/buttonstylegradientselector"
             android:text="+ Add Notes"
             android:layout_marginBottom="5dp"/>
-
         <Button
         android:id="@+id/creatTrip_button_create"
         android:layout_width="match_parent"
@@ -138,7 +148,5 @@
         android:textColor="@color/textcolor"
         android:background="@drawable/buttonstylegradientselector"
         android:text="Create Trip" />
-
 </LinearLayout>
-
 </ScrollView>

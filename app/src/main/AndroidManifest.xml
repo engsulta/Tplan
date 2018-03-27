@@ -47,10 +47,10 @@
         </activity>
         <activity android:name=".view.activities.LoginActivity" />
         <activity android:name=".view.activities.HomeActivity" />
-        <activity android:name=".view.activities.CreateTripActivity" />
+        <activity android:name=".view.activities.SplashScreen" />
         <activity android:name=".view.activities.RegisterActivity" />
         <activity android:name=".view.activities.TestLoginActivity" />
-        <activity android:name=".view.activities.SplashScreen">
+        <activity android:name=".view.activities.CreateTripActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
