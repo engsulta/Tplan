@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.model.Trip;
@@ -45,7 +46,8 @@ public class ReminderService extends Service {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, HandleReminder.class);
         Log.i(TAG, "startNewAlarm: " + firstStartTripId);
-        storeFirstUpcomingTrip(REQUEST_CODE,startTime);
+        intent.putExtra("REQUEST_CODE",REQUEST_CODE);
+       // storeFirstUpcomingTrip(REQUEST_CODE,startTime);
         PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         alarmManager.set(AlarmManager.RTC_WAKEUP, startTime, sender); // Millisec * Second * Minute
 
@@ -56,21 +58,26 @@ public class ReminderService extends Service {
     public void EditAlarm(Context context, int REQUEST_CODE, Long startTime) {
         this.context=context;
         Intent intent = new Intent(context, HandleReminder.class);//there will be toast or alert told you that this alarm stoped
+        intent.putExtra("REQUEST_CODE",REQUEST_CODE);
         PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
         alarmManager.set(AlarmManager.RTC_WAKEUP, startTime, sender); // Millisec * Second * Minute
-        storeFirstUpcomingTrip(REQUEST_CODE,startTime);
+       // storeFirstUpcomingTrip(REQUEST_CODE,startTime);
+        Toast.makeText(context, "alarm edited successfully", Toast.LENGTH_SHORT).show();
     }
 
     public void snoozeAlarm(Context context, int REQUEST_CODE, Long snoozTime) {
         this.context=context;
         Intent intent = new Intent(context, HandleReminder.class);//there will be toast or alert told you that this alarm stoped
+        intent.putExtra("REQUEST_CODE",REQUEST_CODE);
         PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         try {
             alarmManager.wait(snoozTime);
-            storeFirstUpcomingTrip(REQUEST_CODE,snoozTime);
+            Toast.makeText(context, "alarm snoozed successfully for "+snoozTime, Toast.LENGTH_SHORT).show();
+
+            //storeFirstUpcomingTrip(REQUEST_CODE,snoozTime);
 
 
         } catch (InterruptedException e) {

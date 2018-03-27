@@ -1,10 +1,12 @@
 package com.example.sulta.tplan.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Passant on 3/17/2018.
  */
 
-public class TripNote {
+public class TripNote implements Serializable{
     int id;
     String text;
     boolean isChecked;

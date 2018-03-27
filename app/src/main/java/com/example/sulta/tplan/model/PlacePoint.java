@@ -1,10 +1,12 @@
 package com.example.sulta.tplan.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Asmaa on 3/21/2018.
  */
 
-public class PlacePoint {
+public class PlacePoint implements Serializable{
     double latitude;
     double longitude;
 

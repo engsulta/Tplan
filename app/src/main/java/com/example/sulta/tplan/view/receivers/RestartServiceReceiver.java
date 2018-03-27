@@ -23,10 +23,10 @@ public class RestartServiceReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED))
         {
 
-            this.context=context;
+             this.context=context;
              db=new SqlAdapter(context);
-            Intent myintent=new Intent(context,ReminderService.class);
-            context.bindService(intent,myconnection, Context.BIND_AUTO_CREATE);
+             Intent myintent=new Intent(context,ReminderService.class);
+             context.bindService(intent,myconnection, Context.BIND_AUTO_CREATE);
 
         }
 

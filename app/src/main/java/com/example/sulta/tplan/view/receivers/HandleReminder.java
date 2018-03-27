@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.PowerManager;
 import android.os.Vibrator;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
@@ -27,14 +28,14 @@ public class HandleReminder extends BroadcastReceiver {
         wl.acquire();
 
         Toast.makeText(context, "time ok ", Toast.LENGTH_SHORT).show();
-        Trip trip=catchTrip(context,recievedIntent);
+        Trip myRunningTrip=catchTrip(context,recievedIntent);
         makeSound(context);
 
         Intent showHeadlessIntent=new Intent(context,HeadlessActivity.class);
         showHeadlessIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-       // showHeadlessIntent.putExtra("fname", fname);
-       // showHeadlessIntent.putExtra("pathname", pathname);
-        context.startActivity(showHeadlessIntent);
+        showHeadlessIntent.putExtra("tripId",myRunningTrip.getId());
+        showHeadlessIntent.putExtra("trip",myRunningTrip);
+        //context.startActivity(showHeadlessIntent);
         Intent [] intents={showHeadlessIntent};
         showNotification(context,new Trip(),intents);
 
@@ -43,12 +44,11 @@ public class HandleReminder extends BroadcastReceiver {
     }
 
     private Trip catchTrip(Context context, Intent recievedIntent) {
-        int tripID=recievedIntent.getIntExtra("tripID",-1);
+        int tripID=recievedIntent.getIntExtra("REQUEST_CODE",-1);
+        Log.i("Tplan", "catchTrip: "+tripID);
         SqlAdapter db=new SqlAdapter(context);
-        //get trip from trip id
-        //Trip trip=db.selectTripByID(tripID);
-        //update database to change trip if needed
-    return null;
+        Trip myRunningTrip=db.selectTripById(tripID);
+    return myRunningTrip;
     }
 
     private void makeSound(Context context) {
@@ -63,12 +63,11 @@ public class HandleReminder extends BroadcastReceiver {
         });
 
         Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 500 milliseconds
         v.vibrate(1000);
     }
 
     private void showNotification(Context context,Trip trip,Intent []intents){
         notificationmgr=MyNotificationManager.getInstance();
-        notificationmgr.showNotification("trip title and details ",context,intents);
+        notificationmgr.showNotification(trip,context,intents);
     }
 }

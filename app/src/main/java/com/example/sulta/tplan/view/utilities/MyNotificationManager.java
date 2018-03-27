@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 
 import com.example.sulta.tplan.R;
+import com.example.sulta.tplan.model.Trip;
 
 /**
  * Created by sulta on 3/22/2018.
@@ -16,8 +17,8 @@ import com.example.sulta.tplan.R;
 
 public class MyNotificationManager {
     private static final int UNIQUEID=4134;
-    private static final String CHANNEL_ID="";
-    private static final String NOTIFICATION_TITLE="title";
+    private static final String CHANNEL_ID="id";//dont forget to change it
+    private static final String NOTIFICATION_TITLE="Up Coming Trip Notification ";
     private static final String NOTIFICATION_MSG="mssage";
 
     // private static Notification notification;
@@ -32,21 +33,21 @@ public class MyNotificationManager {
         }
         return myInstance;
     }
-    public void showNotification (String notification , Context context, Intent [] intent){
+    public void showNotification (Trip runningTrip, Context context, Intent [] intent){
         PendingIntent pendingIntent=PendingIntent.getActivities(context,UNIQUEID,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification mynotification = new NotificationCompat.Builder(context,CHANNEL_ID)
-                .setSmallIcon(R.drawable.logo7)
+                .setSmallIcon(R.drawable.travelwithbag)
                 .setContentTitle(NOTIFICATION_TITLE)
-                .setContentText(NOTIFICATION_MSG)
+                .setContentText("Your trip :"+runningTrip.getTitle() +"from "+ runningTrip.getStartPoint().toString()+"to "+"its time is right now" )
                 .setContentIntent(pendingIntent)
                 .setStyle(new NotificationCompat.BigPictureStyle()
-                        .bigPicture(BitmapFactory.decodeResource(context.getResources(),R.drawable.logo7))
-                        .bigLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.logo7))
+                        .bigPicture(BitmapFactory.decodeResource(context.getResources(),R.drawable.travelwithbag))
+                        .bigLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.travelwithbag))
 
                 )
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("big text here to shown in expandable "))
+                        .bigText(runningTrip.getNotes()))
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis())
                 .setOngoing(true)
