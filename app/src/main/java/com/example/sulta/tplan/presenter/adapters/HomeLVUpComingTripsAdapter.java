@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.model.Trip;
+import com.example.sulta.tplan.presenter.HomeActivityPresenter;
+import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
 import com.example.sulta.tplan.view.utilities.HomeViewHolderUpComingList;
 
 import java.util.List;
@@ -32,7 +34,7 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View myView = convertView;
         HomeViewHolderUpComingList viewHolder;
         if(convertView==null){
@@ -48,7 +50,14 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
         viewHolder.getCancelTripBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
+                customList.get(position).setStatus("Cancelled");
+                IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
+                boolean result = homePresenter.editTrip(context,customList.get(position));
+                if(result){
+                    Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(context, "Cannot be cancelled", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

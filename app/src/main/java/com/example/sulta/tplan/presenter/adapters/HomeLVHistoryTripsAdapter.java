@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.model.Trip;
+import com.example.sulta.tplan.presenter.HomeActivityPresenter;
+import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
 import com.example.sulta.tplan.view.utilities.HomeViewHolderHistoryList;
 
 import java.util.List;
@@ -32,9 +34,9 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable final View convertView, @NonNull final ViewGroup parent) {
         View myView = convertView;
-        HomeViewHolderHistoryList viewHolder;
+        final HomeViewHolderHistoryList viewHolder;
         if(convertView==null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             myView = inflater.inflate(R.layout.item_list_history_trips_cardview,parent,false);
@@ -50,7 +52,13 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
         viewHolder.getDeleteTripBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show();
+                IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
+                boolean result = homePresenter.deleteTrip(context,customList.get(position).getId());
+                if(result){
+                    Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(context, "Cannot be deleted", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -17,20 +17,40 @@ import java.util.List;
  */
 
 public class HomeActivityPresenter implements IHomeActivityPresenter {
+
+    SqlAdapter sqlAdapter;
+    HomeLVUpComingTripsAdapter upComingTripsAdapter;
+    HomeLVHistoryTripsAdapter historyTripsAdapter;
+
     @Override
     public void viewUpComingTrips(Context context, ListView upComingTripsList) {
-        SqlAdapter sqlAdapter = new SqlAdapter(context);
+        sqlAdapter = new SqlAdapter(context);
         List<Trip> upComingTrips = sqlAdapter.selectUpComingTrips();
-        HomeLVUpComingTripsAdapter upComingTripsAdapter = new HomeLVUpComingTripsAdapter(context, R.layout.item_list_upcoming_trips_cardview, R.id.tripName, upComingTrips);
+        upComingTripsAdapter = new HomeLVUpComingTripsAdapter(context, R.layout.item_list_upcoming_trips_cardview, R.id.tripName, upComingTrips);
         upComingTripsList.setAdapter(upComingTripsAdapter);
+        upComingTripsAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void viewHistoryTrips(Context context, ListView historyTripsList) {
-        SqlAdapter sqlAdapter = new SqlAdapter(context);
+        sqlAdapter = new SqlAdapter(context);
         List<Trip> historyTrips = sqlAdapter.selectTrips();
-        HomeLVHistoryTripsAdapter historyTripsAdapter = new HomeLVHistoryTripsAdapter(context, R.layout.item_list_history_trips_cardview, R.id.tripState, historyTrips);
+        historyTripsAdapter = new HomeLVHistoryTripsAdapter(context, R.layout.item_list_history_trips_cardview, R.id.tripState, historyTrips);
         historyTripsList.setAdapter(historyTripsAdapter);
+        historyTripsAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public boolean deleteTrip(Context context, int tripId) {
+        sqlAdapter = new SqlAdapter(context);
+        sqlAdapter.deleteTrip(tripId);
+        return true;
+    }
+
+    @Override
+    public boolean editTrip(Context context, Trip trip) {
+        sqlAdapter = new SqlAdapter(context);
+        sqlAdapter.updateTrip(trip);
+        return true;
+    }
 }
