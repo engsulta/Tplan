@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="coloricon">#303F9F</color>
-    <color name="colorPrimaryLight">#546bff</color>
-    <color name="colorAccent">#F74784</color>
-    <color name="colorAccentLight">#f74784</color>
+    <color name="colorPrimary">#128C7E</color>
+    <color name="coloricon">#25D366</color>
+    <color name="colorPrimaryLight">#25D366</color>
+    <color name="colorPrimaryDark">#075E54</color>
+    <color name="colorAccent">#128C7E</color>
+    <color name="colorAccentLight">#25D366</color>
 
 
-    <color name="startblue">#f76d9d</color>
-    <color name="endblue">#d25a83</color>
-    <color name="startblueLight">#9df76d9d</color>
-    <color name="endblueLight">#a1d25a83</color>
+    <color name="startblue">#25D366</color>
+    <color name="endblue">#128C7E</color>
+    <color name="startblueLight">#c42ad66a</color>
+    <color name="endblueLight">#92128c7e</color>
     <color name="textcolor">#fdebfcff</color>
     <color name="startfacebook">#c94e69a2</color>
     <color name="endfacebook">#c21d4fb6</color>
