@@ -27,15 +27,7 @@ public class RestartServiceReceiver extends BroadcastReceiver {
              db=new SqlAdapter(context);
             Intent myintent=new Intent(context,ReminderService.class);
             context.bindService(intent,myconnection, Context.BIND_AUTO_CREATE);
-            //get from database sql start time get upcoming start time and loop to start alarm with this dates
-            //alarm.setAlarm(context,start_time);
-           // ArrayList<Trip> trips=db.getalltrips();
-            //for (Trip x:trips){
 
-
-                 //   new Alarm().setAlarm(context,Long.parseLong(x.getAlarm()) ,x.getId());
-
-           // }
         }
 
     }
@@ -45,7 +37,6 @@ public class RestartServiceReceiver extends BroadcastReceiver {
             ReminderService.MyLocalBinder binder=(ReminderService.MyLocalBinder) iBinder;
             myService = binder.geService();
             restartAlarmSetting();
-
             isBound=true;
         }
 
@@ -56,7 +47,7 @@ public class RestartServiceReceiver extends BroadcastReceiver {
     };
     private void restartAlarmSetting() {
          ArrayList<Trip> trips=db.selectAllTrips();
-        for (Trip x:trips) {
+        /*for (Trip x:trips) {
             if(System.currentTimeMillis()<x.startTimeMillis) {
                 myService.startNewAlarm(this.context, (long) x.getstartTimeMillis(), x.getId());//send request conde from trip id
             }
@@ -67,7 +58,7 @@ public class RestartServiceReceiver extends BroadcastReceiver {
                 //
             }
 
-        }
+        }*/
 
     }
 
