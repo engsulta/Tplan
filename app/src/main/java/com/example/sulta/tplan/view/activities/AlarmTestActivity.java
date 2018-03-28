@@ -43,14 +43,14 @@ public class AlarmTestActivity extends AppCompatActivity {
         testTrip.setStatus("upcoming");
         PlacePoint mystart = new PlacePoint();
         PlacePoint endpoint = new PlacePoint();
-        mystart.setLatitude(31.11);
-        mystart.setLongitude(23.4);
-        endpoint.setLatitude(31.11);
-        endpoint.setLongitude(23.4);
+        mystart.setLatitude(29.971082);
+        mystart.setLongitude(31.193361);
+        endpoint.setLatitude(29.871082);
+        endpoint.setLongitude(31.093361);
         testTrip.setStartPoint(mystart);
         testTrip.setEndPoint(endpoint);
-        testTrip.setId(10);
-        db=new SqlAdapter(this);
+
+        db = new SqlAdapter(this);
         start.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
             @Override
@@ -61,9 +61,8 @@ public class AlarmTestActivity extends AppCompatActivity {
                         watch.getHour(), watch.getMinute(), 0);
                 testTrip.setStartTimeInMillis(calendar.getTimeInMillis());
                 db.insertTrip(testTrip);
-
-                Intent intent = new Intent(AlarmTestActivity.this, ReminderService.class);
-                bindService(intent, myconnection, Context.BIND_AUTO_CREATE);
+                testTrip.setId(11);
+                startService();
 
             }
 
@@ -75,26 +74,55 @@ public class AlarmTestActivity extends AppCompatActivity {
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             ReminderService.MyLocalBinder binder = (ReminderService.MyLocalBinder) iBinder;
             myService = binder.geService();
+            isBound = true;
             setAlarmSetting();
             Toast.makeText(myService, "service bounded", Toast.LENGTH_SHORT).show();
 
-            isBound = true;
+
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             isBound = false;
+            Toast.makeText(myService, "service un bounded", Toast.LENGTH_SHORT).show();
+
         }
     };
 
     private void setAlarmSetting() {
-
-        Toast.makeText(myService, "alarm started", Toast.LENGTH_SHORT).show();
-        myService.startNewAlarm(this, testTrip.getStartTimeInMillis(), testTrip.getId());//send request conde from trip id
-
+        if (isBound) {
+            Toast.makeText(myService, "alarm started", Toast.LENGTH_SHORT).show();
+            myService.startNewAlarm(this, testTrip.getStartTimeInMillis(), testTrip.getId());//send request conde from trip id
+        }
     }
 
+    private void startService() {
+        Intent intent = new Intent(AlarmTestActivity.this, ReminderService.class);
+        bindService(intent, myconnection, Context.BIND_AUTO_CREATE);
+    }
 
+    public void stopService() {
+        this.stopService(new Intent(this, ReminderService.class));
+        this.unbindService(myconnection);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (isBound){
+            stopService();
+            isBound=false;
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (isBound){
+            stopService();
+            isBound=false;
+        }
+    }
 }
 
 

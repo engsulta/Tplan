@@ -1,5 +1,6 @@
 package com.example.sulta.tplan.view.services;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -50,7 +51,7 @@ public class ReminderService extends Service {
        // storeFirstUpcomingTrip(REQUEST_CODE,startTime);
         PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         alarmManager.set(AlarmManager.RTC_WAKEUP, startTime, sender); // Millisec * Second * Minute
-
+        ((Activity)context).finish();
     }
 
 
@@ -65,6 +66,7 @@ public class ReminderService extends Service {
         alarmManager.set(AlarmManager.RTC_WAKEUP, startTime, sender); // Millisec * Second * Minute
        // storeFirstUpcomingTrip(REQUEST_CODE,startTime);
         Toast.makeText(context, "alarm edited successfully", Toast.LENGTH_SHORT).show();
+        ((Activity)context).finish();
     }
 
     public void snoozeAlarm(Context context, int REQUEST_CODE, Long snoozTime) {
@@ -73,16 +75,18 @@ public class ReminderService extends Service {
         intent.putExtra("REQUEST_CODE",REQUEST_CODE);
         PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        try {
-            alarmManager.wait(snoozTime);
-            Toast.makeText(context, "alarm snoozed successfully for "+snoozTime, Toast.LENGTH_SHORT).show();
-
-            //storeFirstUpcomingTrip(REQUEST_CODE,snoozTime);
-
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        alarmManager.cancel(sender);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+snoozTime, sender);
+//        try {
+//            alarmManager.wait(snoozTime);
+//            Toast.makeText(context, "alarm snoozed successfully for "+snoozTime, Toast.LENGTH_SHORT).show();
+//            ((Activity)context).finish();
+//            //storeFirstUpcomingTrip(REQUEST_CODE,snoozTime);
+//
+//
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
 
@@ -92,7 +96,7 @@ public class ReminderService extends Service {
         PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
-
+        ((Activity)context).finish();
 
     }
 

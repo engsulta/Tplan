@@ -9,6 +9,11 @@
     <string name="todo">TODO</string>
     <string name="hello_blank_fragment">hellow</string>
     <string name="loggedinsuccessfull">loggedinsuccessfull</string>
+    <string name="title_activity_navigate_current_trip">Map</string>
+    <string name="to">to :</string>
+    <string name="from">From:</string>
+    <string name="tplan_would_like_to_notify_you">Tplan would like to notify you</string>
+    <string name="notes">notes :</string>
     <!--assmaa -->
 
     <!--assmaa -->

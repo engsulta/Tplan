@@ -30,14 +30,14 @@ public class HandleReminder extends BroadcastReceiver {
         Toast.makeText(context, "time ok ", Toast.LENGTH_SHORT).show();
         Trip myRunningTrip=catchTrip(context,recievedIntent);
         makeSound(context);
-
+        Toast.makeText(context, String.valueOf(myRunningTrip.getId())+myRunningTrip.getTitle(), Toast.LENGTH_SHORT).show();
         Intent showHeadlessIntent=new Intent(context,HeadlessActivity.class);
         showHeadlessIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         showHeadlessIntent.putExtra("tripId",myRunningTrip.getId());
         showHeadlessIntent.putExtra("trip",myRunningTrip);
         //context.startActivity(showHeadlessIntent);
         Intent [] intents={showHeadlessIntent};
-        showNotification(context,new Trip(),intents);
+        showNotification(context,myRunningTrip,intents);
 
         wl.release();
 

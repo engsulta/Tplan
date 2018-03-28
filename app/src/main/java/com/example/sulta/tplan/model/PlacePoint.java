@@ -25,4 +25,9 @@ public class PlacePoint implements Serializable{
     public double getLongitude() {
         return longitude;
     }
+
+    @Override
+    public String toString() {
+        return "lat:"+latitude+" lon:"+longitude;
+    }
 }

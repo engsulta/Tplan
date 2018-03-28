@@ -36,8 +36,9 @@ public class RestartServiceReceiver extends BroadcastReceiver {
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             ReminderService.MyLocalBinder binder=(ReminderService.MyLocalBinder) iBinder;
             myService = binder.geService();
-            restartAlarmSetting();
             isBound=true;
+            restartAlarmSetting();
+
         }
 
         @Override
@@ -46,10 +47,10 @@ public class RestartServiceReceiver extends BroadcastReceiver {
         }
     };
     private void restartAlarmSetting() {
-         ArrayList<Trip> trips=db.selectAllTrips();
-        /*for (Trip x:trips) {
-            if(System.currentTimeMillis()<x.startTimeMillis) {
-                myService.startNewAlarm(this.context, (long) x.getstartTimeMillis(), x.getId());//send request conde from trip id
+         ArrayList<Trip> trips=db.selectAllTrips();//blocking task
+        for (Trip x:trips) {
+            if(System.currentTimeMillis()<x.getStartTimeInMillis()) {
+                myService.startNewAlarm(this.context,  x.getStartTimeInMillis(), x.getId());//send request conde from trip id
             }
             else {
                 //edit trip to make status past
@@ -58,8 +59,9 @@ public class RestartServiceReceiver extends BroadcastReceiver {
                 //
             }
 
-        }*/
+        }
 
     }
+
 
 }
