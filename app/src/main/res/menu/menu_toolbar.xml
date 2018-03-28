@@ -8,7 +8,7 @@
     <item
         android:id="@+id/syncTripsToFirebase"
         android:icon="@drawable/sync"
-        android:title="@string/syncStr" />
+        android:title="@string/syncStr"/>
 
     <item
         android:id="@+id/logoutFromApp"
