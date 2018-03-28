@@ -40,9 +40,11 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
 
         trip.setDate(mIView.getTripDate());
         trip.setStatus("upComing");
+        trip.setStartTimeInMillis(mIView.getTripStartTimeInMillis());
 
         Log.i("test",trip.getTitle()+", "+trip.getStartPoint().getLongitude()+", "+trip.getEndPoint().getLongitude());
 
        new SqlAdapter(mContext).insertTrip(trip);
+
     }
 }

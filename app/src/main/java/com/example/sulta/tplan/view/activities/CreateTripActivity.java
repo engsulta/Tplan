@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
@@ -14,12 +15,19 @@ import android.widget.TimePicker;
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.presenter.CreateTripActivityPresenter;
 import com.example.sulta.tplan.view.activities.interfaces.ICreateTripActivity;
+import com.example.sulta.tplan.view.fragments.AddNoteFragmentDialog;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class CreateTripActivity extends AppCompatActivity implements ICreateTripActivity {
+
     CreateTripActivityPresenter mCreateTripActivityPresenter;
     PlaceAutocompleteFragment startPointFragment;
     PlaceAutocompleteFragment endPointFragment;
@@ -30,6 +38,9 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
     String TAG="CreateTripActivityLog";
     Place startPlace;
     Place endPlace;
+    ImageButton imgBtn;
+    int flag=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +55,21 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
         createTripBtn=(Button)findViewById(R.id.creatTrip_button_create);
         startPointFragment = (PlaceAutocompleteFragment)getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment_start);
         endPointFragment = (PlaceAutocompleteFragment)getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment_end);
+        imgBtn=(ImageButton)findViewById(R.id.imgBtn);
+
+        imgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(flag==0){
+                    imgBtn.setBackgroundResource(R.drawable.tripdir2);
+                    flag=2;
+                }
+                else{
+                    imgBtn.setBackgroundResource(R.drawable.tripdir);
+                    flag=0;
+                }
+            }
+        });
 
         /*** change fragment design ***/
         startPointFragment.setHint("Start Point");
@@ -63,7 +89,6 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
                 startPlace=place;
-
             }
 
             @Override
@@ -91,31 +116,21 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
         createTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Log.i(TAG, String.valueOf(timePicker.getCurrentHour()));
-                Log.i(TAG, String.valueOf(timePicker.getCurrentMinute()));
-                Date date=new Date();
-                date.setMonth(datePicker.getMonth());
-                date.setDate(datePicker.getDayOfMonth());
-                date.setYear(datePicker.getYear());
-                date.setHours(timePicker.getCurrentHour());
-                date.setMinutes(timePicker.getCurrentMinute());
-                date.setSeconds(0);
-
-                String date_s = " 2011-01-18 00:00:00.0";
-                SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss");
-                try {
-                    Date date1 = dt.parse(date_s);
-
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                Log.i(TAG, "onClick: "+date);*/
                 mCreateTripActivityPresenter.createTrip();
             }
         });
+        addNoteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //FragmentManager fm = getFragmentManager();
+                AddNoteFragmentDialog dialogFragment = new AddNoteFragmentDialog ();
+              //  dialogFragment.getActivity().getWindow().setLayout(400,400);
+                dialogFragment.show(getFragmentManager(), "");
+             //   yourDialog.getWindow().setLayout((6 * width)/7, LayoutParams.WRAP_CONTENT);
 
 
+            }
+        });
     }
 
     @Override
@@ -150,5 +165,37 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
                 +timePicker.getCurrentHour()+":"+timePicker.getCurrentMinute()+":00";
         Log.i(TAG,"Date: "+date);
         return date;
+    }
+
+    @Override
+    public long getTripStartTimeInMillis() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+        String dateInString=datePicker.getYear()+"-"+datePicker.getMonth()+"-"+datePicker.getDayOfMonth()+" "
+                +timePicker.getCurrentHour()+":"+timePicker.getCurrentMinute()+":00";
+
+        Date date = null;
+        try {
+            date = sdf.parse(dateInString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(dateInString);
+        System.out.println("Date - Time in milliseconds : " + date.getTime());
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        System.out.println("Calender - Time in milliseconds : " + calendar.getTimeInMillis());
+        return calendar.getTimeInMillis();
+    }
+
+    @Override
+    public boolean getTripDirection() {
+        if (flag==0){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }
