@@ -1,12 +1,13 @@
 package com.example.sulta.tplan.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Passant on 3/17/2018.
  */
 
-public class User {
+public class User implements Serializable{
     String id;
     String name;
     String password;

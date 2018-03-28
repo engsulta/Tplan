@@ -9,55 +9,62 @@ import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 
 import com.example.sulta.tplan.R;
+import com.example.sulta.tplan.model.Trip;
 
 /**
  * Created by sulta on 3/22/2018.
  */
 
 public class MyNotificationManager {
-    private static final int UNIQUEID=4134;
-    private static final String CHANNEL_ID="";
-    private static final String NOTIFICATION_TITLE="title";
-    private static final String NOTIFICATION_MSG="mssage";
-
+    private static final int UNIQUEID = 4134;
+    private static final String CHANNEL_ID = "id";//dont forget to change it
+    private static final String NOTIFICATION_TITLE = "Up Coming Trip Notification ";
+    private static final String NOTIFICATION_MSG = "mssage";
+    private Notification mynotification;
     // private static Notification notification;
 
-    private static MyNotificationManager myInstance=null;
-    private MyNotificationManager(){
+    private static MyNotificationManager myInstance = null;
+
+    private MyNotificationManager() {
 
     }
-    public static MyNotificationManager getInstance(){
-        if(myInstance==null){
-            myInstance=new MyNotificationManager();
+
+    public static MyNotificationManager getInstance() {
+        if (myInstance == null) {
+            myInstance = new MyNotificationManager();
         }
         return myInstance;
     }
-    public void showNotification (String notification , Context context, Intent [] intent){
-        PendingIntent pendingIntent=PendingIntent.getActivities(context,UNIQUEID,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification mynotification = new NotificationCompat.Builder(context,CHANNEL_ID)
-                .setSmallIcon(R.drawable.logo7)
+    public void showNotification(Trip runningTrip, Context context, Intent[] intent) {
+        PendingIntent pendingIntent = PendingIntent.getActivities(context, runningTrip.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+         mynotification = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.travelinner2)
                 .setContentTitle(NOTIFICATION_TITLE)
-                .setContentText(NOTIFICATION_MSG)
+                .setContentText("Your trip :" + runningTrip.getTitle() + "from " + runningTrip.getStartPoint().toString() + "to " + "its time is right now")
                 .setContentIntent(pendingIntent)
                 .setStyle(new NotificationCompat.BigPictureStyle()
-                        .bigPicture(BitmapFactory.decodeResource(context.getResources(),R.drawable.logo7))
-                        .bigLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.logo7))
+                        .bigPicture(BitmapFactory.decodeResource(context.getResources(), R.drawable.travelinner2))
+                        .bigLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.travelinner2))
 
                 )
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("big text here to shown in expandable "))
-                .setAutoCancel(true)
+                        .bigText(runningTrip.getNotes()+" take with you your laptop and your papers "))
+                .setAutoCancel(false)
                 .setWhen(System.currentTimeMillis())
                 .setOngoing(true)
                 .build();
 
-    NotificationManager notificationManager= (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-    notificationManager.notify(UNIQUEID,mynotification);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        notificationManager.notify(UNIQUEID, mynotification);
     }
 
-    public void hideNotification (){
-
+    public void CancelNotification(Context ctx, int tripId) {
+        String  s = Context.NOTIFICATION_SERVICE;
+        NotificationManager mNM = (NotificationManager) ctx.getSystemService(s);
+        mNM.cancelAll();
+        mNM.cancel(tripId);
     }
 
 }
