@@ -14,7 +14,6 @@ public class Trip {
     String notes;//*checked,unchecked,*checked
     boolean isRoundTrip;
     double distance;
-    int userId;
     String date; //YYYY-MM-DD HH:MM:SS
     Long startTimeInMillis;
 
@@ -31,7 +30,7 @@ public class Trip {
         this.date = date;
     }
 
-    public String getDate(){
+    public String getDate() {
         return date;
     }
 
@@ -107,11 +106,4 @@ public class Trip {
         this.distance = distance;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 }
