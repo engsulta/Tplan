@@ -2,21 +2,29 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         android:id="@+id/tpToolBar">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/currentTabName"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="20dp"/>
     </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.TabLayout
+        android:id="@+id/homeTabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:id="@+id/homeTabs">
+        app:tabIndicatorColor="@android:color/white"
+        android:background="@color/colorPrimary">
 
     </android.support.design.widget.TabLayout>
 

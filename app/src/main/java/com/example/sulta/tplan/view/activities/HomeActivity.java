@@ -1,10 +1,13 @@
 package com.example.sulta.tplan.view.activities;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.model.Trip;
@@ -18,29 +21,24 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
     Toolbar homeToolBar;
     TabLayout homeTabs;
     ViewPager homeViewPager;
-    private final int[] imageResId = {
-            R.drawable.ic_action_name,
-            R.drawable.ic_done_all_black_24dp,
-            R.drawable.ic_settings_black_24dp };
+
+    TextView currentTabName;
 
   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        currentTabName = (TextView) findViewById(R.id.currentTabName);
         homeToolBar = (Toolbar) findViewById(R.id.tpToolBar);
         setSupportActionBar(homeToolBar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         homeTabs = (TabLayout) findViewById(R.id.homeTabs);
         //  add taps to taplayout ;
-        homeTabs.addTab(homeTabs.newTab().setText("UpComingTrips"));
-        homeTabs.addTab(homeTabs.newTab().setText("HistoryTrips"));
-        homeTabs.addTab(homeTabs.newTab().setText("Settings"));
-      for (int i = 0; i < imageResId.length; i++) {
-         int id =imageResId[i];
-          homeTabs.getTabAt(i).setIcon(imageResId[i]);
-         // getTabAt(i).setIcon(imageResId[i]);
-      }
+        homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.planet_earth));
+        homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.ic_done_all_black_24dp));
+        homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.ic_settings_black_24dp ));
+        currentTabName.setText("UpComing Trips");
         // make gravity  fill tap layout
         homeTabs.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -57,11 +55,19 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 homeViewPager.setCurrentItem(tab.getPosition());
+                if(tab.getPosition()==0){
+                    currentTabName.setText("UpComing Trips");
+                    tab.getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+                } else if(tab.getPosition()==1){
+                    currentTabName.setText("History Trips");
+                } else{
+                    currentTabName.setText("Settings");
+                }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                tab.getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
             }
 
             @Override
