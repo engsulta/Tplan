@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (currentUser != null) {
                // myUserManager.setId(currentUser.getUid());
              currentUser.getEmail();
+
                myUserManager.setEmail(currentUser.getEmail());
                myUserManager.setPassword(currentUser.getDisplayName());//3awzeen nsheel el password from database
                myUserManager.setName(currentUser.getDisplayName());

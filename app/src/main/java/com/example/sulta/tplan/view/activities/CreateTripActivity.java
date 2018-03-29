@@ -1,5 +1,6 @@
 package com.example.sulta.tplan.view.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,7 +16,6 @@ import android.widget.TimePicker;
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.presenter.CreateTripActivityPresenter;
 import com.example.sulta.tplan.view.activities.interfaces.ICreateTripActivity;
-import com.example.sulta.tplan.view.fragments.AddNoteFragmentDialog;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -57,7 +57,7 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
         endPointFragment = (PlaceAutocompleteFragment)getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment_end);
         imgBtn=(ImageButton)findViewById(R.id.imgBtn);
 
-        imgBtn.setOnClickListener(new View.OnClickListener() {
+/*        imgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(flag==0){
@@ -70,7 +70,7 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
                 }
             }
         });
-
+*/
         /*** change fragment design ***/
         startPointFragment.setHint("Start Point");
         ImageView searchIcon = (ImageView)((LinearLayout)startPointFragment.getView()).getChildAt(0);
@@ -117,17 +117,16 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
             @Override
             public void onClick(View view) {
                 mCreateTripActivityPresenter.createTrip();
+
             }
         });
         addNoteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //FragmentManager fm = getFragmentManager();
-                AddNoteFragmentDialog dialogFragment = new AddNoteFragmentDialog ();
-              //  dialogFragment.getActivity().getWindow().setLayout(400,400);
-                dialogFragment.show(getFragmentManager(), "");
-             //   yourDialog.getWindow().setLayout((6 * width)/7, LayoutParams.WRAP_CONTENT);
-
+               // AddNoteFragmentDialog dialogFragment = new AddNoteFragmentDialog ();
+                //dialogFragment.show(getFragmentManager(), "");
+                Intent intent=new Intent(CreateTripActivity.this,AddNoteActivity.class);
+                startActivity(intent);
 
             }
         });
