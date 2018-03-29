@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
-    android:layout_marginBottom="100dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginTop="100dp"
     android:background="@android:color/white"
     tools:context="com.example.sulta.tplan.view.activities.HeadlessActivity">
 
@@ -18,38 +14,99 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="Hellow from headless"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/tplan_would_like_to_notify_you"
         android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/headless_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:textSize="18sp" />
+        android:layout_marginTop="40dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
 
     <TextView
-        android:id="@+id/headless_body"
+        android:id="@+id/from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/headless_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/from"
         android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/headless_startpoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/from"
+        android:layout_marginLeft="20dp"
+        android:layout_alignBaseline="@+id/from"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/from"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:text="@string/to"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/headless_endpoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/to"
+        android:layout_marginLeft="20dp"
+        android:layout_alignBaseline="@+id/to"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"  />
+
+    <TextView
+        android:id="@+id/notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/to"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:text="@string/notes"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/headless_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/notes"
+        android:layout_marginLeft="20dp"
+        android:layout_alignBaseline="@+id/notes"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"  />
+
 
     <android.support.v7.widget.CardView
         cardCornerRadius="3dp"
         cardElevation="4dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
+        android:layout_margin="6dp"
         app:cardBackgroundColor="@android:color/transparent">
 
         <LinearLayout
@@ -63,7 +120,7 @@
             android:weightSum="3">
 
             <ImageButton
-                android:id="@+id/editTripDetailsBtn"
+                android:id="@+id/TripLaterBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
@@ -80,12 +137,12 @@
                 android:layout_margin="0dp"
                 android:layout_weight="1"
                 android:background="@color/backgrounditemList"
-                android:src="@drawable/item_list_upcoming_delete_24dp">
+                android:src="@drawable/ic_delete_forever_black_36dp">
 
             </ImageButton>
 
             <ImageButton
-                android:id="@+id/shareTripDetailsBtn"
+                android:id="@+id/playTripDetailsBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
@@ -96,7 +153,6 @@
             </ImageButton>
 
         </LinearLayout>
-
 
 
     </android.support.v7.widget.CardView>
