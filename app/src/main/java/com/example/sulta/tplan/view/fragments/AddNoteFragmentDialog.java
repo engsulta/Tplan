@@ -4,7 +4,6 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +51,7 @@ public class AddNoteFragmentDialog extends DialogFragment {
 
                 linearLayout=new LinearLayout(getActivity());
                 linearLayout.setGravity(Gravity.CENTER);
-                final LinearLayout.LayoutParams layoutParams= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.HORIZONTAL);
+                final LinearLayout.LayoutParams layoutParams= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 linearLayout.setLayoutParams(layoutParams);
                 linearLayout.addView(checkBox);
                 linearLayout.addView(editText);

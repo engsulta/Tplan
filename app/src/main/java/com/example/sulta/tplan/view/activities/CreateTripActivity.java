@@ -117,6 +117,7 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
             @Override
             public void onClick(View view) {
                 mCreateTripActivityPresenter.createTrip();
+                mCreateTripActivityPresenter.startSerivice();
             }
         });
         addNoteBtn.setOnClickListener(new View.OnClickListener() {
@@ -201,4 +202,13 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
             return true;
         }
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        mCreateTripActivityPresenter.stopService();
+
+    }
+
+
 }

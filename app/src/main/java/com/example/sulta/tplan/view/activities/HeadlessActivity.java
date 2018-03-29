@@ -113,12 +113,12 @@ public class HeadlessActivity extends Activity implements View.OnClickListener, 
                 //TODO implement
                 myNotificationManager.CancelNotification(HeadlessActivity.this, recievingTrip.getId());
                 finish();
-                recievingTrip.setStatus("cancelled");
+                recievingTrip.setStatus("Cancelled");
                 break;
             case R.id.playTripDetailsBtn:
                 //TODO implement
                 finish();
-                recievingTrip.setStatus("done");
+                recievingTrip.setStatus("Done");
                 getCurrentLocation();
                 break;
         }

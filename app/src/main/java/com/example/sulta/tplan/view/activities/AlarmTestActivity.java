@@ -49,6 +49,8 @@ public class AlarmTestActivity extends AppCompatActivity {
         endpoint.setLongitude(31.093361);
         testTrip.setStartPoint(mystart);
         testTrip.setEndPoint(endpoint);
+        testTrip.setId(100);
+
 
         db = new SqlAdapter(this);
         start.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +63,6 @@ public class AlarmTestActivity extends AppCompatActivity {
                         watch.getHour(), watch.getMinute(), 0);
                 testTrip.setStartTimeInMillis(calendar.getTimeInMillis());
                 db.insertTrip(testTrip);
-                testTrip.setId(11);
                 startService();
 
             }
@@ -109,18 +110,18 @@ public class AlarmTestActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (isBound){
+        if (isBound) {
             stopService();
-            isBound=false;
+            isBound = false;
         }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (isBound){
+        if (isBound) {
             stopService();
-            isBound=false;
+            isBound = false;
         }
     }
 }
