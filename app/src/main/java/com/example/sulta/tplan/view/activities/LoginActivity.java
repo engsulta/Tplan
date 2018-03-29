@@ -108,12 +108,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (currentUser != null) {
                // myUserManager.setId(currentUser.getUid());
              currentUser.getEmail();
+
                myUserManager.setEmail(currentUser.getEmail());
                myUserManager.setPassword(currentUser.getDisplayName());//3awzeen nsheel el password from database
                myUserManager.setName(currentUser.getDisplayName());
             Log.i(TAG, "onStart: "+currentUser.getEmail()+currentUser.getDisplayName()  );
             finish();
-            startActivity(new Intent(this, AlarmTestActivity.class));
+            startActivity(new Intent(this, HomeActivity.class));
         }
     }
 
@@ -193,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //store in shared pref
             //make profile in firebase
             Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(LoginActivity.this, AlarmTestActivity.class);
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
 
@@ -255,7 +256,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     myUserManager.setName(email);
 
                     finish();
-                    Intent intent = new Intent(LoginActivity.this, AlarmTestActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 } else {

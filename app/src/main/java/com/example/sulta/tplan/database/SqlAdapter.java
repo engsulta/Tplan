@@ -77,7 +77,7 @@ public class SqlAdapter {
         this.context = context;
     }
 
-    public void insertTrip(Trip trip) {
+    public int insertTrip(Trip trip) {
 
         ContentValues values = new ContentValues();
         values.put(COL2_TITLE, trip.getTitle());
@@ -92,14 +92,22 @@ public class SqlAdapter {
         values.put(COL11_TRIP_DATE, trip.getDate());
         values.put(COL12_TRIP_NOTES, trip.getNotes());
 
-        insert(TABLE1_NAME,values);
+        return insert(TABLE1_NAME,values);
     }
 
-    private void insert(String tableName,ContentValues values) {
+    private int insert(String tableName,ContentValues values) {
         SQLiteDatabase db = sqlHelper.getWritableDatabase();
         db.insert(tableName, null, values);
+        int idResult = -1;
         db.close();
-        Log.i("test","DONE");
+        SQLiteDatabase rDB = sqlHelper.getReadableDatabase();
+        final String MY_QUERY = "SELECT MAX("+COLUMN_1_ID+") FROM "+TABLE1_NAME;
+        Cursor cursor = rDB.rawQuery(MY_QUERY,null);
+        if(cursor.moveToFirst()){
+            idResult = cursor.getInt(0);
+        }
+        rDB.close();
+        return idResult;
     }
 
 

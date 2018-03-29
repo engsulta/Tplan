@@ -45,10 +45,13 @@ public class HandleReminder extends BroadcastReceiver {
 
     private Trip catchTrip(Context context, Intent recievedIntent) {
         int tripID=recievedIntent.getIntExtra("REQUEST_CODE",-1);
+        Log.i("tplan", "catchTrip: "+tripID);
         Log.i("Tplan", "catchTrip: "+tripID);
         SqlAdapter db=new SqlAdapter(context);
         Trip myRunningTrip=db.selectTripById(tripID);
-    return myRunningTrip;
+        Log.i("tplan", "catchTrip: "+myRunningTrip.getTitle());
+
+        return myRunningTrip;
     }
 
     private void makeSound(Context context) {
