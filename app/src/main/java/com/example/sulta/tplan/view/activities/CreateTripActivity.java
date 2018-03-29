@@ -118,6 +118,7 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
             public void onClick(View view) {
                 mCreateTripActivityPresenter.createTrip();
                 mCreateTripActivityPresenter.startSerivice();
+                finish();
             }
         });
         addNoteBtn.setOnClickListener(new View.OnClickListener() {
