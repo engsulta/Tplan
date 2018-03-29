@@ -13,6 +13,9 @@ public interface ICreateTripActivity {
     public String getTripDate();
     public boolean getTripDirection();
     public long getTripStartTimeInMillis();
+    public String getStartPointName();
+    public String getEndPointName();
+
 
 
 
