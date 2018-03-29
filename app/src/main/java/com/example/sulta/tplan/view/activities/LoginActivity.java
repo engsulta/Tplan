@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.sulta.tplan.R;
+import com.example.sulta.tplan.view.activities.interfaces.ILoginActivity;
 import com.example.sulta.tplan.view.utilities.UserManager;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -37,7 +38,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.Arrays;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, ILoginActivity {
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
