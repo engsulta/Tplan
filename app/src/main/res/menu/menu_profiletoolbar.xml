@@ -8,12 +8,10 @@
 
     <item
         android:id="@+id/syncTripsToFirebase"
-        android:icon="@drawable/sync"
         android:title="@string/syncStr"/>
 
     <item
         android:id="@+id/logoutFromApp"
-        android:title="@string/logoutStr"
-        app:showAsAction="never"/>
+        android:title="@string/logoutStr" />
 
 </menu>

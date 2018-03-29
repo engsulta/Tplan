@@ -22,6 +22,7 @@ import com.example.sulta.tplan.view.activities.CreateTripActivity;
 public class HistoryTrips extends Fragment {
 
     ListView historyTripsList;
+    IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
     public HistoryTrips() {
         // Required empty public constructor
     }
@@ -41,13 +42,13 @@ public class HistoryTrips extends Fragment {
                 getContext().startActivity(intent);
             }
         });
+        homePresenter.viewHistoryTrips(getContext(), historyTripsList);
         return myView;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
         homePresenter.viewHistoryTrips(getContext(), historyTripsList);
     }
 }

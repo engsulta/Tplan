@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
     TabLayout homeTabs;
     ViewPager homeViewPager;
     TextView currentTabName;
-
+    Intent intent;
   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +36,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         currentTabName = (TextView) findViewById(R.id.currentTabName);
         homeToolBar = (Toolbar) findViewById(R.id.tpToolBar);
         setSupportActionBar(homeToolBar);
+        intent = getIntent();
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         homeToolBar.inflateMenu(R.menu.menu_toolbar);
         homeToolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -102,6 +103,10 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
 
             }
         });
+        intent = getIntent();
+        if(intent.getIntExtra("TabFlag",0)==1){
+             homeViewPager.setCurrentItem(1);
+        }
     }
 
     @Override
@@ -109,6 +114,15 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         MenuInflater inflater = (SupportMenuInflater) getMenuInflater();
         inflater.inflate(R.menu.menu_toolbar, menu);
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        intent = getIntent();
+        if(intent.getIntExtra("TabFlag",0)==1){
+            homeViewPager.setCurrentItem(1);
+        }
     }
 
     ////sulta editing
