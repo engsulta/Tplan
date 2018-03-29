@@ -1,8 +1,12 @@
 package com.example.sulta.tplan.presenter;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.model.PlacePoint;
@@ -19,6 +23,8 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
     private Context mContext;
     private ICreateTripActivity mIView;
     Trip trip;
+    ReminderService myService;
+    boolean isBound = false;
     public CreateTripActivityPresenter(Context mContext, ICreateTripActivity mIView) {
         this.mContext = mContext;
         this.mIView = mIView;
@@ -26,9 +32,9 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
 
     @Override
     public void createTrip() {
-        trip=new Trip();
-        PlacePoint startPlacePoint=new PlacePoint();
-        PlacePoint endPlacePoint=new PlacePoint();
+        trip = new Trip();
+        PlacePoint startPlacePoint = new PlacePoint();
+        PlacePoint endPlacePoint = new PlacePoint();
 
         trip.setTitle(mIView.getTripName());
 
@@ -43,12 +49,57 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
         trip.setDate(mIView.getTripDate());
         trip.setStatus("upComing");
         trip.setStartTimeInMillis(mIView.getTripStartTimeInMillis());
+        Log.i("test", "createTrip: "+trip.getStartTimeInMillis());
+        Log.i("test", trip.getTitle() + ", " + trip.getStartPoint().getLongitude() + ", " + trip.getEndPoint().getLongitude());
 
-        Log.i("test",trip.getTitle()+", "+trip.getStartPoint().getLongitude()+", "+trip.getEndPoint().getLongitude());
+        trip.setId(new SqlAdapter(mContext).insertTrip(trip));
+        Log.i("tripID", "createTrip: "+trip.getId());
 
-       new SqlAdapter(mContext).insertTrip(trip);
-        Intent intent=new Intent(mContext, ReminderService.class);
-        mContext.startService(intent);
 
+//        Intent intent = new Intent(mContext, ReminderService.class);
+//        mContext.startService(intent);
     }
+    private ServiceConnection myconnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            ReminderService.MyLocalBinder binder = (ReminderService.MyLocalBinder) iBinder;
+            myService = binder.geService();
+            isBound = true;
+            setAlarmSetting();
+            Toast.makeText(myService, "service bounded", Toast.LENGTH_SHORT).show();
+
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            isBound = false;
+            Toast.makeText(myService, "service un bounded", Toast.LENGTH_SHORT).show();
+
+        }
+    };
+
+
+    @Override
+    public void startSerivice() {
+        Intent mintent = new Intent(mContext, ReminderService.class);
+        mContext.bindService(mintent, myconnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    public void stopService() {
+        if(isBound){
+        mContext.stopService(new Intent(mContext, ReminderService.class));
+        mContext.unbindService(myconnection);
+        isBound=false;
+        }
+    }
+
+    private void setAlarmSetting() {
+        if (isBound) {
+            Toast.makeText(myService, "alarm started", Toast.LENGTH_SHORT).show();
+            myService.startNewAlarm(mContext, trip.getStartTimeInMillis(), trip.getId());//send request conde from trip id
+        }
+    }
+
 }

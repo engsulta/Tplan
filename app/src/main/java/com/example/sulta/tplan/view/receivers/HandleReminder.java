@@ -23,6 +23,8 @@ public class HandleReminder extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent recievedIntent) {
         // i will
+        Toast.makeText(context,"reciever done ", Toast.LENGTH_SHORT).show();
+
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
         wl.acquire();

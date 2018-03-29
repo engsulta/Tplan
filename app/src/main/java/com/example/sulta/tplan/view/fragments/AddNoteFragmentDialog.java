@@ -1,36 +1,36 @@
 package com.example.sulta.tplan.view.fragments;
 
-import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by Asmaa on 3/25/2018.
  */
 
 public class AddNoteFragmentDialog extends DialogFragment {
-    Button addBtn;
+    Button addBtn,button;
     LinearLayout mainLayout;
-   String TAG="AddNoteFragmentDialog";
-    String note;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+    LinearLayout linearLayout;
+    EditText editText;
+    ArrayList<String> noteList;
+    Boolean flag=false;
 
 
-    }
 
     @Nullable
     @Override
@@ -38,55 +38,91 @@ public class AddNoteFragmentDialog extends DialogFragment {
         View rootView = inflater.inflate(R.layout.dialog_fragment_add_note, container, false);
         addBtn=rootView.findViewById(R.id.noteFragment_addBtn);
         mainLayout=rootView.findViewById(R.id.mainLayout);
-        if(savedInstanceState==null) {
-            note="anaaa";
-            Toast.makeText(getActivity(),"First: "+ note, Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(getActivity(), "saved: "+ savedInstanceState.getString("test"), Toast.LENGTH_SHORT).show();
+        noteList=new ArrayList<>();
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                flag=true;
+                final CheckBox checkBox=new CheckBox(getActivity());
+                editText = new EditText(getActivity());
+                editText.setWidth(450);
+                button=new Button(getActivity());
+                button.setText("Delete");
 
-        }
-        show(getFragmentManager(),"");
-        Log.i(TAG, "onCreateView: "+note);
+                linearLayout=new LinearLayout(getActivity());
+                linearLayout.setGravity(Gravity.CENTER);
+                final LinearLayout.LayoutParams layoutParams= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                linearLayout.setLayoutParams(layoutParams);
+                linearLayout.addView(checkBox);
+                linearLayout.addView(editText);
+                linearLayout.addView(button);
+                mainLayout.addView(linearLayout);
+                editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+
+                            //Toast.makeText(getActivity(), ((EditText)view).getText(), Toast.LENGTH_SHORT).show();
+
+
+                            noteList.add(((EditText)view).getText().toString());
+                            checkBox.setId(noteList.size()-1);
+
+                          //  Toast.makeText(getActivity(), noteList.get(0), Toast.LENGTH_SHORT).show();
+
+
+                    }
+                });
+                checkBox.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View view) {
+                        if(checkBox.isChecked()){
+                            Toast.makeText(getActivity(), noteList.get(checkBox.getId()), Toast.LENGTH_SHORT).show();
+                            noteList.add(checkBox.getId(),'*'+noteList.get(checkBox.getId()));
+                        }
+                        else {
+                            if((noteList.get(checkBox.getId()).charAt(0))=='*')
+                                noteList.add(checkBox.getId(),noteList.get(checkBox.getId()));
+
+                        }
+                   }
+                });
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                           mainLayout.removeView((View)view.getParent());
+                    }
+                });
+             }
+        });
         return rootView;
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getDialog().getWindow().setLayout(1000, ViewGroup.LayoutParams.WRAP_CONTENT);
-        Log.i(TAG, "onResume: ");
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.i(TAG, "onDestroyView: ");
-        Dialog dialog = getDialog();
-        // handles https://code.google.com/p/android/issues/detail?id=17423
-        if (dialog != null && getRetainInstance()) {
-            dialog.setDismissMessage(null);
-        }
-    }
-
-
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("test",note);
-        Log.i(TAG, "onSaveInstanceState: ");
     }
 
     @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        Log.i(TAG, "onViewStateRestored: ");
+
+        if (savedInstanceState == null){
+            noteList = new ArrayList<>();
+            // populate books from remote server or local json
+        }else{
+            noteList = savedInstanceState.getStringArrayList("x");
+            Toast.makeText(getActivity(), noteList.get(0), Toast.LENGTH_SHORT).show();
+        }
 
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getDialog().getWindow().setLayout(1000, ViewGroup.LayoutParams.WRAP_CONTENT);
 
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+    }
 }

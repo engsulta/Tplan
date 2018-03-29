@@ -6,4 +6,7 @@ package com.example.sulta.tplan.presenter.interfaces;
 
 public interface ICreateTripActivityPresenter {
     public void createTrip();
+    public void startSerivice();
+    public void stopService();
+
 }
