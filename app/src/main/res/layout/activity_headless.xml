@@ -78,10 +78,32 @@
         android:textSize="20sp"  />
 
     <TextView
-        android:id="@+id/notes"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/to"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="date:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/headless_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/date"
+        android:layout_marginLeft="20dp"
+        android:layout_toEndOf="@+id/date"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/date"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
         android:text="@string/notes"

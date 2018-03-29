@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.database.SqlAdapter;
@@ -26,6 +27,8 @@ public class DoneTripsMap extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private SqlAdapter db;
     private ArrayList<Trip>doneTrips;
+    private int [] colors={Color.BLACK,Color.BLUE,Color.GRAY,Color.GREEN,Color.DKGRAY,Color.RED,Color.YELLOW};
+    private float[] pincolors={BitmapDescriptorFactory.HUE_CYAN,BitmapDescriptorFactory.HUE_MAGENTA,BitmapDescriptorFactory.HUE_RED,BitmapDescriptorFactory.HUE_AZURE,BitmapDescriptorFactory.HUE_ORANGE,BitmapDescriptorFactory.HUE_YELLOW};
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -41,7 +44,7 @@ public class DoneTripsMap extends FragmentActivity implements OnMapReadyCallback
 
         //get all done trips
         db = new SqlAdapter(this);
-        if (savedInstanceState.get("doneTrips") != null) {
+        if (savedInstanceState != null) {
             doneTrips = (ArrayList<Trip>) savedInstanceState.get("doneTrips");
         } else {
             doneTrips = db.selectDoneTrips();
@@ -55,19 +58,21 @@ public class DoneTripsMap extends FragmentActivity implements OnMapReadyCallback
 
     private void drawPath(PlacePoint startPoint, PlacePoint endPoint,String startPointName , String endPointName) {
 
-
+        Toast.makeText(this,startPointName , Toast.LENGTH_SHORT).show();
         LatLng start = new LatLng(startPoint.getLatitude(), startPoint.getLongitude());
         LatLng end = new LatLng(endPoint.getLatitude(), endPoint.getLongitude());
+        int pathcolor=new Random().nextInt(colors.length);
+        int pinColor=new Random().nextInt(pincolors.length);
+
         mMap.addMarker(new MarkerOptions().
                 position(start).
                 title(startPointName)).
-                setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                setIcon(BitmapDescriptorFactory.defaultMarker(pincolors[pinColor]));
         mMap.addMarker(new MarkerOptions().
                 position(end).
                 title(endPointName)).
-                setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-        int red=new Random().nextInt(255);int green=new Random().nextInt(255);int blue=new Random().nextInt(255);
-        PolylineOptions polygonOptions=new PolylineOptions().add(start).add(end).color(Color.argb(1,red,green,blue)).width(5);
+                setIcon(BitmapDescriptorFactory.defaultMarker(pincolors[pinColor]));
+        PolylineOptions polygonOptions=new PolylineOptions().add(start).add(end).color(colors[pathcolor]);
         mMap.addPolyline(polygonOptions);
 
     }
@@ -77,6 +82,8 @@ public class DoneTripsMap extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+
         for (Trip x:doneTrips
                 ) {
 

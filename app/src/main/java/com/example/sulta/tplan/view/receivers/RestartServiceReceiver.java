@@ -55,6 +55,7 @@ public class RestartServiceReceiver extends BroadcastReceiver {
             else {
                 //edit trip to make status past
                 x.setStatus("missed");
+                db.updateTrip(x);
 
                 //
             }

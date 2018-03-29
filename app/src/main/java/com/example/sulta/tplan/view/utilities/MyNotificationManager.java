@@ -38,7 +38,12 @@ public class MyNotificationManager {
 
     public void showNotification(Trip runningTrip, Context context, Intent[] intent) {
         PendingIntent pendingIntent = PendingIntent.getActivities(context, runningTrip.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
+        String bigText;
+        if (runningTrip.getNotes()==null){
+            bigText="Tplan notify you with upcoming trips ";
+        }else{
+            bigText="Tplan notify you with upcoming trips "+" don't forget "+runningTrip.getNotes();
+        }
          mynotification = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.travelinner2)
                 .setContentTitle(NOTIFICATION_TITLE)
@@ -50,7 +55,7 @@ public class MyNotificationManager {
 
                 )
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(runningTrip.getNotes()+" take with you your laptop and your papers "))
+                        .bigText(bigText))
                 .setAutoCancel(false)
                 .setWhen(System.currentTimeMillis())
                 .setOngoing(true)

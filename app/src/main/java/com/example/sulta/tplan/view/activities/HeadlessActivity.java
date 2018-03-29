@@ -15,7 +15,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,13 +43,14 @@ public class HeadlessActivity extends Activity implements View.OnClickListener, 
     private MyNotificationManager myNotificationManager;
     ///views
     private TextView headlessTitle;
+    private TextView headlessDate;
     private TextView from;
     private TextView headlessStartpoint;
     private TextView to;
     private TextView headlessEndpoint;
     private TextView notes;
     private TextView headlessNotes;
-
+    private SqlAdapter db;
 
 
     @Override
@@ -63,26 +63,27 @@ public class HeadlessActivity extends Activity implements View.OnClickListener, 
 
         recievingIntent = this.getIntent();
         tripId = recievingIntent.getIntExtra("tripId", -1);
-       // recievingTrip = (Trip) recievingIntent.getSerializableExtra("trip");
-        SqlAdapter db=new SqlAdapter(this);
-        //Toast.makeText(this,tripId, Toast.LENGTH_SHORT).show();
-        Log.i("tplantest", "onCreate: "+tripId);
+        db=new SqlAdapter(HeadlessActivity.this);
         recievingTrip=db.selectTripById(tripId);
         headlessTitle = (TextView) findViewById(R.id.headless_title);
         headlessStartpoint = (TextView) findViewById(R.id.headless_startpoint);
         headlessEndpoint = (TextView) findViewById(R.id.headless_endpoint);
+        headlessDate= (TextView) findViewById(R.id.headless_date);
+
         headlessNotes = (TextView) findViewById(R.id.headless_notes);
         findViewById(R.id.TripLaterBtn).setOnClickListener(this);
         findViewById(R.id.deleteTripBtn).setOnClickListener(this);
         findViewById(R.id.playTripDetailsBtn).setOnClickListener(this);
 
-        Log.i("tplantest", "onCreate: "+recievingTrip.getTitle()+recievingTrip.getId());
 
         headlessTitle.setText(recievingTrip.getTitle());
-        headlessStartpoint.setText(recievingTrip.getStartPoint().toString());
-        headlessEndpoint.setText(recievingTrip.getEndPoint().toString());
-        headlessNotes.setText(recievingTrip.getNotes());
-
+        headlessStartpoint.setText(recievingTrip.getStartPointName());
+        headlessEndpoint.setText(recievingTrip.getEndPointName());
+        headlessDate.setText(recievingTrip.getDate());
+        if (recievingTrip.getNotes()!=null)
+            headlessNotes.setText(recievingTrip.getNotes());
+        else
+            headlessNotes.setText("there is no notes ");
     }
 
     private ServiceConnection myconnection = new ServiceConnection() {
@@ -91,7 +92,7 @@ public class HeadlessActivity extends Activity implements View.OnClickListener, 
             ReminderService.MyLocalBinder binder = (ReminderService.MyLocalBinder) iBinder;
             myService = binder.geService();
             isBound = true;
-            setAlarmSetting();
+            snoozeAlarm();
             Toast.makeText(myService, "service bounded", Toast.LENGTH_SHORT).show();
         }
 
@@ -101,11 +102,7 @@ public class HeadlessActivity extends Activity implements View.OnClickListener, 
         }
     };
 
-    private void setAlarmSetting() {
 
-        Toast.makeText(myService, "alarm started", Toast.LENGTH_SHORT).show();
-        myService.snoozeAlarm(this, recievingTrip.getId(), 1 * 60 * 1000l);//send request conde from trip id
-    }
 
     @Override
     public void onClick(View view) {
@@ -113,20 +110,27 @@ public class HeadlessActivity extends Activity implements View.OnClickListener, 
             case R.id.TripLaterBtn:
                 //TODO implement
                 myNotificationManager.CancelNotification(HeadlessActivity.this, recievingTrip.getId());
+                Toast.makeText(HeadlessActivity.this, "You will be notified after 5 min", Toast.LENGTH_SHORT).show();
                 finish();
                 startService();
                 break;
             case R.id.deleteTripBtn:
                 //TODO implement
                 myNotificationManager.CancelNotification(HeadlessActivity.this, recievingTrip.getId());
+                Toast.makeText(HeadlessActivity.this, "your tirp is cancelled ", Toast.LENGTH_SHORT).show();
                 finish();
                 recievingTrip.setStatus("Cancelled");
+                db.updateTrip(recievingTrip);
                 break;
             case R.id.playTripDetailsBtn:
                 //TODO implement
+                Toast.makeText(HeadlessActivity.this, "start your trip on Maps", Toast.LENGTH_SHORT).show();
+
                 finish();
                 recievingTrip.setStatus("Done");
+                db.updateTrip(recievingTrip);
                 getCurrentLocation();
+
                 break;
         }
     }
@@ -255,6 +259,11 @@ public class HeadlessActivity extends Activity implements View.OnClickListener, 
     public void stopService() {
         this.stopService(new Intent(this, ReminderService.class));
         this.unbindService(myconnection);
+    }
+    private void snoozeAlarm() {
+
+        Toast.makeText(myService, "alarm snoozed", Toast.LENGTH_SHORT).show();
+        myService.snoozeAlarm(this, recievingTrip.getId(), 1 * 60 * 1000l);//send request conde from trip id
     }
 
     @Override

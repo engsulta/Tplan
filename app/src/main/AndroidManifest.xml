@@ -55,8 +55,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activities.RegisterActivity" />
-        <activity android:name=".view.activities.TestLoginActivity" />
-        <activity android:name=".view.activities.CreateTripActivity"></activity>
+        <activity android:name=".view.activities.CreateTripActivity" />
         <!-- assmaa -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -101,10 +100,10 @@
         <activity android:name=".view.activities.AlarmTestActivity" />
         <activity
             android:name=".view.activities.HeadlessActivity"
-            android:theme="@android:style/Theme.Dialog"></activity>
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".view.activities.DoneTripsMap"
-            android:label="@string/title_activity_done_trips_map"></activity>
+            android:label="@string/title_activity_done_trips_map" />
     </application>
 
 </manifest>
