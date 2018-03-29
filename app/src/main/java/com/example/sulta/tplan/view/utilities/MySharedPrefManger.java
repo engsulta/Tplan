@@ -9,7 +9,7 @@ import java.util.Set;
  * Created by sulta on 3/22/2018.
  */
 
-public class MySharedPrefManger  {
+public class  MySharedPrefManger  {
     private static final String SHARED_PREF_NAME="SharedTplanFile";
     private static Context context=null;
     private static MySharedPrefManger myInstance;

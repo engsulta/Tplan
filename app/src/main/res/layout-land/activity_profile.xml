@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="3"
+    tools:context="com.example.sulta.tplan.view.activities.ProfileActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:id="@+id/tpToolBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/profileStr"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="22dp"
+                android:layout_weight="5"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:padding="10dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/profile_text_emailwrapper"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="30dp"
+            android:visibility="visible">
+
+            <EditText
+                android:id="@+id/profile_text_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_email_black_24dp"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="@dimen/textsize" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/profile_text_emailwrapper"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="#E1E0E0" />
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/profile_text_passwordwrapper"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignEnd="@+id/profile_text_emailwrapper"
+            android:layout_alignStart="@+id/profile_text_emailwrapper"
+            android:layout_below="@+id/profile_text_emailwrapper"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:paddingLeft="30dp"
+            android:visibility="visible"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorPrimary">
+
+            <EditText
+                android:id="@+id/profile_text_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="@dimen/textsize" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <View
+            android:id="@+id/profile_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/profile_text_passwordwrapper"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="#E1E0E0">
+
+
+        </View>
+
+        <ImageView
+            android:id="@+id/lock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/profile_view"
+            android:layout_alignStart="@+id/profile_text_emailwrapper"
+            app:srcCompat="@drawable/ic_lock_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/lock"
+        android:orientation="horizontal"
+        android:paddingLeft="35dp"
+        android:paddingRight="35dp"
+        android:weightSum="2">
+
+
+        <Button
+            android:id="@+id/savebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttonstylegradient"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:text="@string/saveBtn"
+            android:textColor="@color/textwhitecolor"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/cancelbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttonstylegradient"
+            android:paddingRight="10dp"
+            android:text="@string/cancelStr"
+            android:textColor="@color/textwhitecolor"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+</LinearLayout>

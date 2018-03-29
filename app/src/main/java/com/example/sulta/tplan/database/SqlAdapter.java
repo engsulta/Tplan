@@ -34,6 +34,8 @@ public class SqlAdapter {
     private static final String COL10_END_POINT_LONGITUDE = "endPointLan";
     private static final String COL11_TRIP_DATE = "date";
     private static final String COL12_TRIP_NOTES = "notes";
+    private static final String COL13_TRIP_START_POINT_NAME = "startPointName";
+    private static final String COL14_TRIP_END_POINT_NAME = "endPointName";
 
     SqlHelper sqlHelper;
     Context context;
@@ -59,7 +61,9 @@ public class SqlAdapter {
                     + COL9_END_POINT_LATITUDE       + " REAL,"
                     + COL10_END_POINT_LONGITUDE     + " REAL,"
                     + COL11_TRIP_DATE               + " VARCHAR(60),"
-                    + COL12_TRIP_NOTES              + " VARCHAR(150)"
+                    + COL12_TRIP_NOTES              + " VARCHAR(150),"
+                    + COL13_TRIP_START_POINT_NAME   + " VARCHAR(50),"
+                    + COL14_TRIP_END_POINT_NAME     + " VARCHAR(50)"
                     + " );"
             );
         }
@@ -91,6 +95,8 @@ public class SqlAdapter {
         values.put(COL10_END_POINT_LONGITUDE, trip.getEndPoint().getLongitude());
         values.put(COL11_TRIP_DATE, trip.getDate());
         values.put(COL12_TRIP_NOTES, trip.getNotes());
+        values.put(COL13_TRIP_START_POINT_NAME, trip.getStartPointName());
+        values.put(COL14_TRIP_END_POINT_NAME, trip.getEndPointName());
 
         return insert(TABLE1_NAME,values);
     }
@@ -124,6 +130,8 @@ public class SqlAdapter {
         values.put(COL10_END_POINT_LONGITUDE, trip.getEndPoint().getLongitude());
         values.put(COL11_TRIP_DATE,trip.getDate());
         values.put(COL12_TRIP_NOTES, trip.getNotes());
+        values.put(COL13_TRIP_START_POINT_NAME, trip.getStartPointName());
+        values.put(COL14_TRIP_END_POINT_NAME, trip.getEndPointName());
 
         update(TABLE1_NAME,values,trip.getId());
     }
@@ -141,7 +149,8 @@ public class SqlAdapter {
             SQLiteDatabase db = sqlHelper.getReadableDatabase();
             Cursor cursor = db.query(TABLE1_NAME,new String[]{COLUMN_1_ID, COL2_TITLE, COL3_START_POINT_LATITUDE,
                             COL4_START_POINT_LONGITUDE, COL5_DURATION, COL6_STATUS, COL7_ROUND_TRIP, COL8_DISTANCE,
-                            COL9_END_POINT_LATITUDE, COL10_END_POINT_LONGITUDE, COL11_TRIP_DATE, COL12_TRIP_NOTES} , null,
+                            COL9_END_POINT_LATITUDE, COL10_END_POINT_LONGITUDE, COL11_TRIP_DATE, COL12_TRIP_NOTES, COL13_TRIP_START_POINT_NAME,
+                            COL14_TRIP_END_POINT_NAME} , null,
                     null, null, null, null, null);
             if(cursor.moveToFirst()){
                 do{
@@ -162,6 +171,8 @@ public class SqlAdapter {
                     trip.setEndPoint(endPoint);
                     trip.setDate(cursor.getString(10));
                     trip.setNotes(cursor.getString(11));
+                    trip.setStartPointName(cursor.getString(12));
+                    trip.setEndPointName(cursor.getString(13));
 
                     data.add(trip);
                 } while (cursor.moveToNext());
@@ -175,7 +186,8 @@ public class SqlAdapter {
         SQLiteDatabase db = sqlHelper.getReadableDatabase();
         Cursor cursor = db.query(TABLE1_NAME,new String[]{COLUMN_1_ID, COL2_TITLE, COL3_START_POINT_LATITUDE,
                 COL4_START_POINT_LONGITUDE, COL5_DURATION, COL6_STATUS, COL7_ROUND_TRIP, COL8_DISTANCE,
-                COL9_END_POINT_LATITUDE, COL10_END_POINT_LONGITUDE, COL11_TRIP_DATE, COL12_TRIP_NOTES} , "status!=?",
+                COL9_END_POINT_LATITUDE, COL10_END_POINT_LONGITUDE, COL11_TRIP_DATE, COL12_TRIP_NOTES,
+                COL13_TRIP_START_POINT_NAME, COL14_TRIP_END_POINT_NAME} , "status!=?",
                 new String[]{"upComing"}, null, null, null, null);
         if(cursor.moveToFirst()){
             do{
@@ -196,6 +208,8 @@ public class SqlAdapter {
                 trip.setEndPoint(endPoint);
                 trip.setDate(cursor.getString(10));
                 trip.setNotes(cursor.getString(11));
+                trip.setStartPointName(cursor.getString(12));
+                trip.setEndPointName(cursor.getString(13));
 
                 data.add(trip);
             } while (cursor.moveToNext());
@@ -209,7 +223,8 @@ public class SqlAdapter {
         SQLiteDatabase db = sqlHelper.getReadableDatabase();
         Cursor cursor = db.query(TABLE1_NAME,new String[]{COLUMN_1_ID, COL2_TITLE, COL3_START_POINT_LATITUDE,
                         COL4_START_POINT_LONGITUDE, COL5_DURATION, COL6_STATUS, COL7_ROUND_TRIP, COL8_DISTANCE,
-                        COL9_END_POINT_LATITUDE, COL10_END_POINT_LONGITUDE, COL11_TRIP_DATE, COL12_TRIP_NOTES} , "status=?",
+                        COL9_END_POINT_LATITUDE, COL10_END_POINT_LONGITUDE, COL11_TRIP_DATE, COL12_TRIP_NOTES,
+                        COL13_TRIP_START_POINT_NAME, COL14_TRIP_END_POINT_NAME} , "status=?",
                 new String[]{"upComing"}, null, null, null, null);
         Log.i("test","Hello");
         if(cursor.moveToFirst()){
@@ -232,6 +247,8 @@ public class SqlAdapter {
                 trip.setEndPoint(endPoint);
                 trip.setDate(cursor.getString(10));
                 trip.setNotes(cursor.getString(11));
+                trip.setStartPointName(cursor.getString(12));
+                trip.setEndPointName(cursor.getString(13));
 
                 data.add(trip);
             } while (cursor.moveToNext());
@@ -241,12 +258,51 @@ public class SqlAdapter {
         return data;
     }
 
+    public ArrayList<Trip> selectDoneTrips() {
+        ArrayList<Trip> data = new ArrayList<>();
+        SQLiteDatabase db = sqlHelper.getReadableDatabase();
+        Cursor cursor = db.query(TABLE1_NAME,new String[]{COLUMN_1_ID, COL2_TITLE, COL3_START_POINT_LATITUDE,
+                        COL4_START_POINT_LONGITUDE, COL5_DURATION, COL6_STATUS, COL7_ROUND_TRIP, COL8_DISTANCE,
+                        COL9_END_POINT_LATITUDE, COL10_END_POINT_LONGITUDE, COL11_TRIP_DATE, COL12_TRIP_NOTES,
+                        COL13_TRIP_START_POINT_NAME, COL14_TRIP_END_POINT_NAME} , "status=?",
+                new String[]{"Done"}, null, null, null, null);
+        Log.i("test","Hello");
+        if(cursor.moveToFirst()){
+            do{
+                Trip trip = new Trip();
+                trip.setId(cursor.getInt(0));
+                trip.setTitle(cursor.getString(1));
+                PlacePoint startPoint=new PlacePoint();
+                startPoint.setLatitude(cursor.getDouble(2));
+                startPoint.setLongitude(cursor.getDouble(3));
+                trip.setStartPoint(startPoint);
+                trip.setDuration(cursor.getDouble(4));
+                trip.setStatus(cursor.getString(5));
+                trip.setRoundTrip(Boolean.parseBoolean(cursor.getString(6)));
+                trip.setDistance(cursor.getDouble(7));
+                PlacePoint endPoint=new PlacePoint();
+                endPoint.setLatitude(cursor.getDouble(8));
+                endPoint.setLongitude(cursor.getDouble(9));
+                trip.setEndPoint(endPoint);
+                trip.setDate(cursor.getString(10));
+                trip.setNotes(cursor.getString(11));
+                trip.setStartPointName(cursor.getString(12));
+                trip.setEndPointName(cursor.getString(13));
+
+                data.add(trip);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        return data;
+    }
+
     public Trip selectTripById(int tripId) {
         Trip trip = new Trip();
         SQLiteDatabase db = sqlHelper.getReadableDatabase();
         Cursor cursor = db.query(TABLE1_NAME,new String[]{COLUMN_1_ID, COL2_TITLE, COL3_START_POINT_LATITUDE,
                         COL4_START_POINT_LONGITUDE, COL5_DURATION, COL6_STATUS, COL7_ROUND_TRIP, COL8_DISTANCE,
-                        COL9_END_POINT_LATITUDE, COL10_END_POINT_LONGITUDE, COL11_TRIP_DATE, COL12_TRIP_NOTES} , "id=?",
+                        COL9_END_POINT_LATITUDE, COL10_END_POINT_LONGITUDE, COL11_TRIP_DATE, COL12_TRIP_NOTES,
+                        COL13_TRIP_START_POINT_NAME, COL14_TRIP_END_POINT_NAME} , "id=?",
                 new String[]{String.valueOf(tripId)}, null, null, null, null);
         if(cursor.moveToFirst()){
                 trip.setId(cursor.getInt(0));
@@ -265,6 +321,8 @@ public class SqlAdapter {
                 trip.setEndPoint(endPoint);
                 trip.setDate(cursor.getString(10));
                 trip.setNotes(cursor.getString(11));
+                trip.setStartPointName(cursor.getString(12));
+                trip.setEndPointName(cursor.getString(13));
         }
         db.close();
         Log.i("test","SelectedAll");

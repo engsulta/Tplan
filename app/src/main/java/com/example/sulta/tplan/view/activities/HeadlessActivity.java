@@ -15,11 +15,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
+import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.view.services.ReminderService;
 import com.example.sulta.tplan.view.utilities.MyNotificationManager;
@@ -59,11 +61,13 @@ public class HeadlessActivity extends Activity implements View.OnClickListener, 
         locmgr = (LocationManager) getSystemService((Context.LOCATION_SERVICE));
         myNotificationManager = MyNotificationManager.getInstance();
 
-        recievingIntent = getIntent();
+        recievingIntent = this.getIntent();
         tripId = recievingIntent.getIntExtra("tripId", -1);
-        recievingTrip = (Trip) recievingIntent.getSerializableExtra("trip");
-    //    Toast.makeText(myService, recievingTrip.getTitle()+recievingTrip.getId(), Toast.LENGTH_SHORT).show();
-
+       // recievingTrip = (Trip) recievingIntent.getSerializableExtra("trip");
+        SqlAdapter db=new SqlAdapter(this);
+        //Toast.makeText(this,tripId, Toast.LENGTH_SHORT).show();
+        Log.i("tplantest", "onCreate: "+tripId);
+        recievingTrip=db.selectTripById(tripId);
         headlessTitle = (TextView) findViewById(R.id.headless_title);
         headlessStartpoint = (TextView) findViewById(R.id.headless_startpoint);
         headlessEndpoint = (TextView) findViewById(R.id.headless_endpoint);
@@ -71,10 +75,13 @@ public class HeadlessActivity extends Activity implements View.OnClickListener, 
         findViewById(R.id.TripLaterBtn).setOnClickListener(this);
         findViewById(R.id.deleteTripBtn).setOnClickListener(this);
         findViewById(R.id.playTripDetailsBtn).setOnClickListener(this);
+
+        Log.i("tplantest", "onCreate: "+recievingTrip.getTitle()+recievingTrip.getId());
+
         headlessTitle.setText(recievingTrip.getTitle());
-//        headlessStartpoint.setText(recievingTrip.getStartPoint().toString());
-        //headlessEndpoint.setText(recievingTrip.getEndPoint().toString());
-        //headlessNotes.setText(recievingTrip.getNotes());
+        headlessStartpoint.setText(recievingTrip.getStartPoint().toString());
+        headlessEndpoint.setText(recievingTrip.getEndPoint().toString());
+        headlessNotes.setText(recievingTrip.getNotes());
 
     }
 

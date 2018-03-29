@@ -18,6 +18,24 @@ public class Trip implements Serializable {
     double distance;
     String date; //YYYY-MM-DD HH:MM:SS
     Long startTimeInMillis;
+    String startPointName;
+    String endPointName;
+
+    public String getStartPointName() {
+        return startPointName;
+    }
+
+    public String getEndPointName() {
+        return endPointName;
+    }
+
+    public void setStartPointName(String startPointName) {
+        this.startPointName = startPointName;
+    }
+
+    public void setEndPointName(String endPointName) {
+        this.endPointName = endPointName;
+    }
 
     public void setStartTimeInMillis(Long startTimeInMillis) {
         this.startTimeInMillis = startTimeInMillis;

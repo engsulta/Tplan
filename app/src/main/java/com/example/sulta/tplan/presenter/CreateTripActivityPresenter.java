@@ -49,10 +49,15 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
         trip.setDate(mIView.getTripDate());
         trip.setStatus("upComing");
         trip.setStartTimeInMillis(mIView.getTripStartTimeInMillis());
-
+        trip.setStartPointName(mIView.getStartPointName());
+        trip.setEndPointName(mIView.getEndPointName());
+        Log.i("test", "createTrip: "+trip.getStartTimeInMillis());
         Log.i("test", trip.getTitle() + ", " + trip.getStartPoint().getLongitude() + ", " + trip.getEndPoint().getLongitude());
 
-        new SqlAdapter(mContext).insertTrip(trip);
+        trip.setId(new SqlAdapter(mContext).insertTrip(trip));
+        Log.i("tripID", "createTrip: "+trip.getId());
+
+
 //        Intent intent = new Intent(mContext, ReminderService.class);
 //        mContext.startService(intent);
     }

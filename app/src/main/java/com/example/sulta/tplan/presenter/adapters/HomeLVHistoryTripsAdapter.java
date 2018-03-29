@@ -60,6 +60,7 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
                 if(result){
                     Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, HomeActivity.class);
+                    intent.putExtra("TabFlag",1);
                     context.startActivity(intent);
                     ( (Activity) context).finish();
                 } else{

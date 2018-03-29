@@ -21,10 +21,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class CreateTripActivity extends AppCompatActivity implements ICreateTripActivity {
 
@@ -174,7 +171,7 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
 
     @Override
     public long getTripStartTimeInMillis() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+        /*SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
         String dateInString=datePicker.getYear()+"-"+datePicker.getMonth()+"-"+datePicker.getDayOfMonth()+" "
                 +timePicker.getCurrentHour()+":"+timePicker.getCurrentMinute()+":00";
 
@@ -190,8 +187,24 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        System.out.println("Calender - Time in milliseconds : " + calendar.getTimeInMillis());
+        System.out.println("Calender - Time in milliseconds : " + calendar.getTimeInMillis());*/
+
+       Calendar calendar = Calendar.getInstance();
+        calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(),
+                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
         return calendar.getTimeInMillis();
+    }
+
+    @Override
+    public String getStartPointName() {
+        Log.i(TAG, "getStartPointName: "+startPlace.getName());
+        Log.i(TAG, "getStartPointName: "+startPlace.getAddress());
+        return startPlace.getName().toString();
+    }
+
+    @Override
+    public String getEndPointName() {
+        return endPlace.getName().toString();
     }
 
     @Override
