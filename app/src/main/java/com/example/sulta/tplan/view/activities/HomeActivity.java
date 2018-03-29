@@ -19,6 +19,9 @@ import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.adapters.HomePagerAdapter;
 import com.example.sulta.tplan.view.activities.interfaces.IHomeActivity;
+import com.example.sulta.tplan.view.utilities.UserManager;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -28,6 +31,8 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
     TabLayout homeTabs;
     ViewPager homeViewPager;
     TextView currentTabName;
+    private FirebaseAuth mAuth;
+    private UserManager userManager;
     Intent intent;
   @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,16 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
                     case R.id.logoutFromApp:
                         Toast.makeText(HomeActivity.this, "logout", Toast.LENGTH_SHORT).show();
                         //TODO calling logout method which clears user's data
+                        userManager=UserManager.getUserInstance();
+                        mAuth = FirebaseAuth.getInstance();
+                        mAuth.signOut();
+                        LoginManager.getInstance().logOut();
+                        finish();
+                        Intent logoutIntent=new Intent(HomeActivity.this,LoginActivity.class);
+                        startActivity(logoutIntent);
+
+                        //back to login page
+
                         return true;
                     default:
                         return false;

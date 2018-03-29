@@ -109,7 +109,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (currentUser != null) {
                // myUserManager.setId(currentUser.getUid());
              currentUser.getEmail();
-
+                myUserManager.setId(currentUser.getUid());
+            Log.i("tplan", "onStart: "+currentUser.getUid());
                myUserManager.setEmail(currentUser.getEmail());
                myUserManager.setPassword(currentUser.getDisplayName());//3awzeen nsheel el password from database
                myUserManager.setName(currentUser.getDisplayName());
@@ -146,7 +147,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
+                            myUserManager.setId(user.getUid());
+                            Log.i("tplan", "onComplete: "+user.getUid());
                             myUserManager.setEmail(user.getEmail());
                             myUserManager.setPassword(user.getDisplayName());
                             myUserManager.setName(user.getDisplayName());
@@ -252,6 +254,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                    UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
                             .setDisplayName(email).build();
                     updateUserProfile(user,profile);
+                    myUserManager.setId(user.getUid());
                     myUserManager.setEmail(email);
                     myUserManager.setPassword(password);
                     myUserManager.setName(email);
