@@ -11,6 +11,12 @@
     <string name="loggedinsuccessfull">loggedinsuccessfull</string>
     <string name="syncStr">Synchronize Data</string>
     <string name="logoutStr">Logout</string>
+    <string name="quickSettingsStr">Quick Settings</string>
+    <string name="notificationStr">Notification</string>
+    <string name="saveBtn">Save</string>
+    <string name="cancelStr">Cancel</string>
+    <string name="profileStr">Profile</string>
+    <string name="homeStr">Home</string>
     <!--assmaa -->
 
     <!--assmaa -->

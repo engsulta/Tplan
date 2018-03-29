@@ -1,5 +1,6 @@
 package com.example.sulta.tplan.view.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -41,6 +42,10 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.userProfile:
+                        Intent intent = new Intent(HomeActivity.this,ProfileActivity.class);
+                        startActivity(intent);
+                        return true;
                     case R.id.syncTripsToFirebase:
                         Toast.makeText(HomeActivity.this, "Sync", Toast.LENGTH_SHORT).show();
                         //TODO calling sync method to get data from firebase
@@ -57,9 +62,9 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
 
         homeTabs = (TabLayout) findViewById(R.id.homeTabs);
         //  add taps to taplayout ;
+        homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.ic_history_black_24dp));
         homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.ic_done_all_black_24dp));
-        homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.planet_earth));
-        homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.ic_settings_black_24dp ));
+        homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.ic_settings_black_24dp));
         currentTabName.setText("UpComing Trips");
         // make gravity  fill tap layout
         homeTabs.setTabGravity(TabLayout.GRAVITY_FILL);
