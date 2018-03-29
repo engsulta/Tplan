@@ -81,19 +81,31 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
             }
         });
 
-        viewHolder.getShareTripDetailsBtn().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "Share", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         viewHolder.getSeeTripDirectionBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "see direction", Toast.LENGTH_SHORT).show();
             }
         });
+
+        viewHolder.getShareTripDetailsBtn().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String comingTrip="Upcoming Trip\n Trip Name: "+customList.get(position).getTitle()+"\n"+
+                        " Trip Date: "+customList.get(position).getDate()+"\n"+
+                        " Trip Duration: "+customList.get(position).getDuration()+"\n"+
+                        " Trip Distance: "+customList.get(position).getDistance()+"\n"+
+                        " From: "+customList.get(position).getStartPointName()+"\n"+
+                        " To: "+customList.get(position).getEndPointName()+"\n"+
+                        " Trip Notes: "+customList.get(position).getNotes();
+                Intent sendintent = new Intent();
+                sendintent.setAction(Intent.ACTION_SEND);
+                sendintent.putExtra(Intent.EXTRA_TEXT,comingTrip);
+                sendintent.setType("text/plain");
+                context.startActivity(sendintent);
+            }
+        });
+
         return myView;
     }
 }
