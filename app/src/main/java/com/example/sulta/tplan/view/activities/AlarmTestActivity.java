@@ -8,6 +8,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
@@ -49,8 +50,6 @@ public class AlarmTestActivity extends AppCompatActivity {
         endpoint.setLongitude(31.093361);
         testTrip.setStartPoint(mystart);
         testTrip.setEndPoint(endpoint);
-        testTrip.setId(100);
-
 
         db = new SqlAdapter(this);
         start.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +61,11 @@ public class AlarmTestActivity extends AppCompatActivity {
                 calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
                         watch.getHour(), watch.getMinute(), 0);
                 testTrip.setStartTimeInMillis(calendar.getTimeInMillis());
-                db.insertTrip(testTrip);
+
+                int recievedId = db.insertTrip(testTrip);
+                if (recievedId != -1)
+                    testTrip.setId(recievedId);
+
                 startService();
 
             }
@@ -93,6 +96,7 @@ public class AlarmTestActivity extends AppCompatActivity {
     private void setAlarmSetting() {
         if (isBound) {
             Toast.makeText(myService, "alarm started", Toast.LENGTH_SHORT).show();
+            Log.i("tplan", "setAlarmSetting: ");
             myService.startNewAlarm(this, testTrip.getStartTimeInMillis(), testTrip.getId());//send request conde from trip id
         }
     }

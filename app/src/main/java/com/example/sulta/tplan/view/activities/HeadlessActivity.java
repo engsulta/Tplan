@@ -62,7 +62,7 @@ public class HeadlessActivity extends Activity implements View.OnClickListener, 
         recievingIntent = getIntent();
         tripId = recievingIntent.getIntExtra("tripId", -1);
         recievingTrip = (Trip) recievingIntent.getSerializableExtra("trip");
-
+    //    Toast.makeText(myService, recievingTrip.getTitle()+recievingTrip.getId(), Toast.LENGTH_SHORT).show();
 
         headlessTitle = (TextView) findViewById(R.id.headless_title);
         headlessStartpoint = (TextView) findViewById(R.id.headless_startpoint);
@@ -72,9 +72,9 @@ public class HeadlessActivity extends Activity implements View.OnClickListener, 
         findViewById(R.id.deleteTripBtn).setOnClickListener(this);
         findViewById(R.id.playTripDetailsBtn).setOnClickListener(this);
         headlessTitle.setText(recievingTrip.getTitle());
-        headlessStartpoint.setText(recievingTrip.getStartPoint().toString());
-        headlessEndpoint.setText(recievingTrip.getEndPoint().toString());
-        headlessNotes.setText(recievingTrip.getNotes());
+//        headlessStartpoint.setText(recievingTrip.getStartPoint().toString());
+        //headlessEndpoint.setText(recievingTrip.getEndPoint().toString());
+        //headlessNotes.setText(recievingTrip.getNotes());
 
     }
 

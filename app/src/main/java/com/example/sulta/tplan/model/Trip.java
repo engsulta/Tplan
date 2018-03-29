@@ -16,7 +16,6 @@ public class Trip implements Serializable {
     String notes;//*checked,unchecked,*checked
     boolean isRoundTrip;
     double distance;
-    int userId;
     String date; //YYYY-MM-DD HH:MM:SS
     Long startTimeInMillis;
 
@@ -33,7 +32,7 @@ public class Trip implements Serializable {
         this.date = date;
     }
 
-    public String getDate(){
+    public String getDate() {
         return date;
     }
 
@@ -109,11 +108,4 @@ public class Trip implements Serializable {
         this.distance = distance;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 }

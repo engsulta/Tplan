@@ -1,4 +1,4 @@
-package com.example.sulta.tplan.view.activities;
+package com.example.sulta.tplan.view.fragments;
 
 import android.content.Intent;
 import android.location.Location;

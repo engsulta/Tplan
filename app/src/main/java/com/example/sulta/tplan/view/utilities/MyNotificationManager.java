@@ -42,7 +42,7 @@ public class MyNotificationManager {
          mynotification = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.travelinner2)
                 .setContentTitle(NOTIFICATION_TITLE)
-                .setContentText("Your trip :" + runningTrip.getTitle() + "from " + runningTrip.getStartPoint().toString() + "to " + "its time is right now")
+                .setContentText("Your trip :" + "myTitle" + "from " + "x" + "to " + "its time is right now")
                 .setContentIntent(pendingIntent)
                 .setStyle(new NotificationCompat.BigPictureStyle()
                         .bigPicture(BitmapFactory.decodeResource(context.getResources(), R.drawable.travelinner2))

@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:textColorHint">@color/colorPrimary</item>
     </style>
+    <style name="MyDialogTheme" parent="android:Theme.Holo.Dialog">
+        <item name="android:background">#ffffffff</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
 
     <item name="visible" type="id"/>
     <item name="masked" type="id"/>
