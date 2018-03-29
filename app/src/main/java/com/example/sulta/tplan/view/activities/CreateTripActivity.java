@@ -196,6 +196,18 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
     }
 
     @Override
+    public String getStartPointName() {
+        Log.i(TAG, "getStartPointName: "+startPlace.getName());
+        Log.i(TAG, "getStartPointName: "+startPlace.getAddress());
+        return startPlace.getName().toString();
+    }
+
+    @Override
+    public String getEndPointName() {
+        return endPlace.getName().toString();
+    }
+
+    @Override
     public boolean getTripDirection() {
         if (flag==0){
             return false;
