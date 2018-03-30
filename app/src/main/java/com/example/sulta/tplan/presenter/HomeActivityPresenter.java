@@ -64,4 +64,16 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     public int viewSettings(Context context) {
         return MySharedPrefManger.getInstance(context).getSettings("SettingsState");
     }
+
+    @Override
+    public void startSerivice() {
+        upComingTripsAdapter.startSerivice();
+    }
+
+    @Override
+    public void stopService() {
+
+//        upComingTripsAdapter.stopService();
+
+    }
 }
