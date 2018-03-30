@@ -219,7 +219,6 @@ public class SqlAdapter {
                 trip.setStartTimeInMillis(Long.getLong(cursor.getString(14)));
 
                 data.add(trip);
-                Log.i("TEST",trip.getTitle());
             } while (cursor.moveToNext());
         }
         db.close();
@@ -234,12 +233,10 @@ public class SqlAdapter {
                         COL9_END_POINT_LATITUDE, COL10_END_POINT_LONGITUDE, COL11_TRIP_DATE, COL12_TRIP_NOTES,
                         COL13_TRIP_START_POINT_NAME, COL14_TRIP_END_POINT_NAME, COL15_TRIP_START_TIME_MM} , COL6_STATUS+"=?",
                 new String[]{"upComing"}, null, null, null, null);
-        Log.i("test","Hello");
         if(cursor.moveToFirst()){
             do{
                 Trip trip = new Trip();
                 trip.setId(cursor.getInt(0));
-                Log.i("test","Hello "+trip.getId());
                 trip.setTitle(cursor.getString(1));
                 PlacePoint startPoint=new PlacePoint();
                 startPoint.setLatitude(cursor.getDouble(2));
@@ -258,12 +255,10 @@ public class SqlAdapter {
                 trip.setStartPointName(cursor.getString(12));
                 trip.setEndPointName(cursor.getString(13));
                 trip.setStartTimeInMillis(Long.getLong(cursor.getString(14)));
-                Log.i("TEST",cursor.getString(14));
                 data.add(trip);
             } while (cursor.moveToNext());
         }
         db.close();
-        Log.i("test","selectedUpComing");
         return data;
     }
 
@@ -275,7 +270,6 @@ public class SqlAdapter {
                         COL9_END_POINT_LATITUDE, COL10_END_POINT_LONGITUDE, COL11_TRIP_DATE, COL12_TRIP_NOTES,
                         COL13_TRIP_START_POINT_NAME, COL14_TRIP_END_POINT_NAME, COL15_TRIP_START_TIME_MM} , COL6_STATUS+"=?",
                 new String[]{"Done"}, null, null, null, null);
-        Log.i("test","Hello");
         if(cursor.moveToFirst()){
             do{
                 Trip trip = new Trip();
@@ -336,7 +330,6 @@ public class SqlAdapter {
                 trip.setStartTimeInMillis(Long.getLong(cursor.getString(14)));
         }
         db.close();
-        Log.i("test","SelectedAll");
         return trip;
     }
         // DELETE TRIP

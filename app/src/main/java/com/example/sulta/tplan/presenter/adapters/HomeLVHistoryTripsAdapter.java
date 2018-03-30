@@ -51,7 +51,7 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
 
         viewHolder.getTripName().setText(customList.get(position).getTitle());
         viewHolder.getTripState().setText(customList.get(position).getStatus());
-        viewHolder.getTripDirection();
+        viewHolder.getTripDirection().setBackgroundResource(R.drawable.item_list_upcoming_twoways_24dp);
         viewHolder.getDeleteTripBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +82,6 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
                 Toast.makeText(context, "view", Toast.LENGTH_SHORT).show();
             }
         });
-
         viewHolder.getShareTripDetailsBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,8 +100,6 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
             }
         });
 
-        notifyDataSetChanged();
-        notifyDataSetInvalidated();
         return myView;
     }
 }

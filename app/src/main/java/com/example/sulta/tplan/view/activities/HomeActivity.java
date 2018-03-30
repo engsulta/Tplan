@@ -107,7 +107,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
 
         homeViewPager = (ViewPager) findViewById(R.id.homeViewPager);
 
-        final HomePagerAdapter adapter = new HomePagerAdapter(getSupportFragmentManager(), homeTabs.getTabCount());
+        final HomePagerAdapter adapter = new HomePagerAdapter(getSupportFragmentManager(), 3);
 
         homeViewPager.setAdapter(adapter);
         homeViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(homeTabs));

@@ -21,9 +21,9 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        UpComingTrips tab1 = new UpComingTrips();
         switch (position) {
             case 0:
-                UpComingTrips tab1 = new UpComingTrips();
                 return tab1;
             case 1:
                 HistoryTrips tab2 = new HistoryTrips();
@@ -32,7 +32,9 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
                 Settings tab3 = new Settings();
                 return tab3;
             default:
-                return null;  }}
+                return tab1;
+        }
+    }
 
     @Override
     public int getCount() {

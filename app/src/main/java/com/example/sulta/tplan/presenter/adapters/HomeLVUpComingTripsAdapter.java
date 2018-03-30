@@ -59,7 +59,6 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
                 if(result){
                     Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, HomeActivity.class);
-                    intent.putExtra("TabFlag",0);
                     context.startActivity(intent);
                     ( (Activity) context).finish();
                 } else{
