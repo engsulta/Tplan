@@ -106,6 +106,8 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         intent = getIntent();
         if(intent.getIntExtra("TabFlag",0)==1){
              homeViewPager.setCurrentItem(1);
+        } else if(intent.getIntExtra("TabFlag",0)==2){
+            homeViewPager.setCurrentItem(2);
         }
     }
 
@@ -122,6 +124,8 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         intent = getIntent();
         if(intent.getIntExtra("TabFlag",0)==1){
             homeViewPager.setCurrentItem(1);
+        } else if(intent.getIntExtra("TabFlag",0)==2){
+            homeViewPager.setCurrentItem(2);
         }
     }
 

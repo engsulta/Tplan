@@ -15,7 +15,7 @@ public class ProfileActivityPresenter  implements IProfileActivityPresenter {
     public boolean editProfile(Context context, String email, String password) {
         UserManager manager = UserManager.getUserInstance();
 
-        
+
 
 
         return true;
