@@ -14,4 +14,6 @@ public interface IHomeActivityPresenter {
     public void viewHistoryTrips(Context context, ListView historyTripsList);
     public boolean deleteTrip(Context context, int tripId);
     public boolean editTrip(Context context, Trip trip);
+    public void editSettings(Context context, int value);
+    public int viewSettings();
 }

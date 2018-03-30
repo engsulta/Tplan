@@ -53,4 +53,14 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
         sqlAdapter.updateTrip(trip);
         return true;
     }
+
+    @Override
+    public void editSettings(Context context, int value) {
+
+    }
+
+    @Override
+    public int viewSettings() {
+        return 0;
+    }
 }
