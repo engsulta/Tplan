@@ -46,10 +46,26 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
         endPlacePoint.setLongitude(mIView.endPointLan());
         endPlacePoint.setLatitude(mIView.endPointLat());
         trip.setEndPoint(endPlacePoint);
-
         trip.setDate(mIView.getTripDate());
         trip.setStatus("upComing");
+
+        String noteString="";
+        for (int i=0;i<mIView.getNotes().size();i++){
+
+            if(mIView.getNotes().get(i).isChecked()==true)
+                noteString+="*"+mIView.getNotes().get(i).getText()+",";
+            else
+                noteString+=mIView.getNotes().get(i).getText()+",";
+
+            if(i==(mIView.getNotes().size()-1)){
+                noteString=noteString.substring(0,noteString.length()-1);
+               // Toast.makeText(mContext, noteString, Toast.LENGTH_SHORT).show();
+            }
+        }
+        trip.setNotes(noteString);
+
         trip.setStartTimeInMillis(mIView.getTripStartTimeInMillis());
+
         trip.setStartPointName(mIView.getStartPointName());
         trip.setEndPointName(mIView.getEndPointName());
         Log.i("test", "createTrip: "+trip.getStartTimeInMillis());

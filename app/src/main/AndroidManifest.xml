@@ -60,6 +60,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD1QFnfpsxuTaNlRkTHKZbRD19gpznKY64" />
+        <activity android:name=".view.activities.AddNoteActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
 
         <!-- assmaa -->
 

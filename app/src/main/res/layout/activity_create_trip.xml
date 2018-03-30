@@ -10,6 +10,7 @@
     android:orientation="vertical"
     android:padding="20px"
     tools:context="com.example.sulta.tplan.view.activities.CreateTripActivity">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -141,14 +142,30 @@
             android:background="@drawable/buttonstylegradientselector"
             android:text="+ Add Notes"
             android:layout_marginBottom="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginTop="10dp"
+        >
         <Button
-            android:layout_marginTop="10dp"
             android:id="@+id/creatTrip_button_create"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/textcolor"
             android:background="@drawable/buttonstylegradientselector"
-            android:text="Create Trip" />
-
+            android:text="Create Trip"
+            android:layout_weight="1"
+            android:layout_marginRight="3dp"/>
+        <Button
+            android:id="@+id/creatTrip_button_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textcolor"
+            android:background="@drawable/buttonstylegradientselector"
+            android:text="Cancel"
+            android:layout_weight="1"/>
+    </LinearLayout>
 </LinearLayout>
 </ScrollView>

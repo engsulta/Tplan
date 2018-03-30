@@ -43,24 +43,43 @@ public class TripNotesAdapter extends ArrayAdapter {
         } else{
             viewHolder = (TripNotesViewHolder) myView.getTag();
         }
+        viewHolder.getCheckedNote().setChecked(notesList.get(position).isChecked());
 
         viewHolder.getCheckedNote().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(viewHolder.getCheckedNote().isChecked()){
                     notesList.get(position).setChecked(true);
+
                 } else{
                     notesList.get(position).setChecked(false);
+
+
                 }
             }
         });
         viewHolder.getNoteContent().setText(notesList.get(position).getText());
+        viewHolder.getNoteContent().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                notesList.get(position).setText(viewHolder.getNoteContent().getText().toString());
+
+            }
+        });
+
         viewHolder.getDeleteNoteButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                viewHolder.getNoteContent().requestFocus();
+
                 notesList.remove(position);
+                notifyDataSetChanged();
+                notifyDataSetInvalidated();
+
             }
         });
+
         return myView;
     }
 }
