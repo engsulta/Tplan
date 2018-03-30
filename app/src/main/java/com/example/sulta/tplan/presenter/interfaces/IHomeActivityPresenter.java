@@ -15,7 +15,6 @@ public interface IHomeActivityPresenter {
     public boolean deleteTrip(Context context, int tripId);
     public boolean editTrip(Context context, Trip trip);
     public void editSettings(Context context, int value);
-    public int viewSettings();
     public void startSerivice();
     public void stopService();
     public int viewSettings(Context context);

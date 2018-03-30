@@ -25,6 +25,7 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
     Trip trip;
     ReminderService myService;
     boolean isBound = false;
+
     public CreateTripActivityPresenter(Context mContext, ICreateTripActivity mIView) {
         this.mContext = mContext;
         this.mIView = mIView;
@@ -56,9 +57,10 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
 
         trip.setId(new SqlAdapter(mContext).insertTrip(trip));
         Log.i("tripID", "createTrip: "+trip.getId());
+        Log.i("tpaln", "createTrip: "+new SqlAdapter(mContext).selectTripById(trip.getId()).getStartTimeInMillis());
 
-
-//        Intent intent = new Intent(mContext, ReminderService.class);
+//
+//  Intent intent = new Intent(mContext, ReminderService.class);
 //        mContext.startService(intent);
     }
     private ServiceConnection myconnection = new ServiceConnection() {
