@@ -1,10 +1,11 @@
 package com.example.sulta.tplan.view.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.SupportMenuInflater;
 import android.support.v7.widget.Toolbar;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.presenter.ProfileActivityPresenter;
 import com.example.sulta.tplan.presenter.interfaces.IProfileActivityPresenter;
@@ -86,8 +89,33 @@ public class ProfileActivity extends AppCompatActivity implements IProfileActivi
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IProfileActivityPresenter profilePresenter = new ProfileActivityPresenter();
-                profilePresenter.editProfile(ProfileActivity.this, userEmail.getText().toString().trim(), userPassword.getText().toString().trim());
+                if (userEmail.getText().toString().isEmpty()) {
+                    userEmail.setError("Email is required");
+                    userEmail.requestFocus();
+                    YoYo.with(Techniques.Shake).playOn(userEmail);
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(userEmail.getText().toString()).matches()) {
+                    userEmail.setError("Please enter a valid email");
+                    userEmail.requestFocus();
+                    YoYo.with(Techniques.Shake).playOn(userEmail);
+                } else if (userPassword.getText().toString().isEmpty()) {
+                    userPassword.setError("Password is required");
+                    userPassword.requestFocus();
+                    YoYo.with(Techniques.Shake).playOn(userPassword);
+                } else if (userPassword.getText().toString().length() < 6) {
+                    userPassword.setError("Minimum lenght of password should be 6");
+                    userPassword.requestFocus();
+                    YoYo.with(Techniques.Shake).playOn(userPassword);
+                } else {
+                    displayProgressDialog();
+                    IProfileActivityPresenter profilePresenter = new ProfileActivityPresenter();
+                    boolean isEdited = profilePresenter.editProfile(ProfileActivity.this, userEmail.getText().toString().trim(), userPassword.getText().toString().trim());
+                    if(isEdited){
+                        Toast.makeText(ProfileActivity.this, "Edited", Toast.LENGTH_SHORT).show();
+                    } else{
+                        Toast.makeText(ProfileActivity.this, "Cannot edit, Please try later", Toast.LENGTH_SHORT).show();
+                    }
+                    hideProgressDiaglog();
+                }
             }
         });
     }

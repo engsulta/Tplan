@@ -12,8 +12,12 @@ import com.example.sulta.tplan.view.utilities.UserManager;
 public class ProfileActivityPresenter  implements IProfileActivityPresenter {
 
     @Override
-    public void editProfile(Context context, String email, String password) {
+    public boolean editProfile(Context context, String email, String password) {
         UserManager manager = UserManager.getUserInstance();
 
+        
+
+
+        return true;
     }
 }

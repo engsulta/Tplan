@@ -7,5 +7,5 @@ import android.content.Context;
  */
 
 public interface IProfileActivityPresenter {
-    public void editProfile(Context context, String email, String password);
+    public boolean editProfile(Context context, String email, String password);
 }
