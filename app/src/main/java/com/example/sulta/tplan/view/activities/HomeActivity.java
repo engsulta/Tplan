@@ -140,10 +140,14 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         });
         intent = getIntent();
         if(intent.getIntExtra("TabFlag",0)==1){
-             homeViewPager.setCurrentItem(1);
-            homeTabs.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+            homeViewPager.setCurrentItem(1);
+            homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+            homeTabs.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+            homeTabs.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
         } else if(intent.getIntExtra("TabFlag",0)==2){
             homeViewPager.setCurrentItem(2);
+            homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+            homeTabs.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
             homeTabs.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
         }
     }
@@ -161,9 +165,13 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         intent = getIntent();
         if(intent.getIntExtra("TabFlag",0)==1){
             homeViewPager.setCurrentItem(1);
+            homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
             homeTabs.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+            homeTabs.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
         } else if(intent.getIntExtra("TabFlag",0)==2){
             homeViewPager.setCurrentItem(2);
+            homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+            homeTabs.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
             homeTabs.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
         }
     }

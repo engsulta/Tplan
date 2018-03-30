@@ -3,8 +3,6 @@ package com.example.sulta.tplan.view.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -66,7 +64,7 @@ public class HistoryTrips extends Fragment {
         homePresenter.viewHistoryTrips(getContext(), historyTripsList);
     }
 
-    @Override
+   /* @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -80,13 +78,13 @@ public class HistoryTrips extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
 //        outState.putSerializable("doneTrips", doneTrips);
 
-    }
+    }*/
 }
