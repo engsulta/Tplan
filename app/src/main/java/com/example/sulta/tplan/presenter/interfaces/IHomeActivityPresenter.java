@@ -18,4 +18,5 @@ public interface IHomeActivityPresenter {
     public int viewSettings();
     public void startSerivice();
     public void stopService();
+    public int viewSettings(Context context);
 }

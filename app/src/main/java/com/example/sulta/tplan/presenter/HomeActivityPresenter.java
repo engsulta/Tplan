@@ -9,6 +9,7 @@ import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.adapters.HomeLVHistoryTripsAdapter;
 import com.example.sulta.tplan.presenter.adapters.HomeLVUpComingTripsAdapter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
+import com.example.sulta.tplan.view.utilities.MySharedPrefManger;
 
 import java.util.List;
 
@@ -56,12 +57,12 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
     @Override
     public void editSettings(Context context, int value) {
-
+        MySharedPrefManger.getInstance(context).storeSettings("SettingsState",value);
     }
 
     @Override
-    public int viewSettings() {
-        return 0;
+    public int viewSettings(Context context) {
+        return MySharedPrefManger.getInstance(context).getSettings("SettingsState");
     }
 
     @Override

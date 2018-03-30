@@ -103,6 +103,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.ic_history_black_24dp));
         homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.ic_done_all_black_24dp));
         homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.ic_settings_black_24dp));
+        homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
         currentTabName.setText("UpComing Trips");
         // make gravity  fill tap layout
         homeTabs.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -122,12 +123,12 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
                 homeViewPager.setCurrentItem(tab.getPosition());
                 if(tab.getPosition()==0){
                     currentTabName.setText("UpComing Trips");
-                    tab.getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
                 } else if(tab.getPosition()==1){
                     currentTabName.setText("History Trips");
                 } else{
                     currentTabName.setText("Settings");
                 }
+                tab.getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
             }
 
             @Override
@@ -142,7 +143,15 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         });
         intent = getIntent();
         if(intent.getIntExtra("TabFlag",0)==1){
-             homeViewPager.setCurrentItem(1);
+            homeViewPager.setCurrentItem(1);
+            homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+            homeTabs.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+            homeTabs.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+        } else if(intent.getIntExtra("TabFlag",0)==2){
+            homeViewPager.setCurrentItem(2);
+            homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+            homeTabs.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+            homeTabs.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
         }
     }
 
@@ -159,6 +168,14 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         intent = getIntent();
         if(intent.getIntExtra("TabFlag",0)==1){
             homeViewPager.setCurrentItem(1);
+            homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+            homeTabs.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+            homeTabs.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+        } else if(intent.getIntExtra("TabFlag",0)==2){
+            homeViewPager.setCurrentItem(2);
+            homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+            homeTabs.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+            homeTabs.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
         }
     }
 
