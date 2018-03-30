@@ -43,9 +43,6 @@ public class UpComingTrips extends Fragment {
                 getContext().startActivity(intent);
             }
         });
-        IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
-        homePresenter.viewUpComingTrips(getContext(), upComingTripsList);
-        
         return myView;
     }
 

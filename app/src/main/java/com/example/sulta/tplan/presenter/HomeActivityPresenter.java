@@ -35,7 +35,7 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     public void viewHistoryTrips(Context context, ListView historyTripsList) {
         sqlAdapter = new SqlAdapter(context);
         List<Trip> historyTrips = sqlAdapter.selectTrips();
-        historyTripsAdapter = new HomeLVHistoryTripsAdapter(context, R.layout.item_list_history_trips_cardview, R.id.tripState, historyTrips);
+        historyTripsAdapter = new HomeLVHistoryTripsAdapter(context, R.layout.item_list_history_trips_cardview, R.id.tripName, historyTrips);
         //historyTripsAdapter.notifyDataSetChanged();
         //historyTripsAdapter.notifyDataSetInvalidated();
         historyTripsList.setAdapter(historyTripsAdapter);

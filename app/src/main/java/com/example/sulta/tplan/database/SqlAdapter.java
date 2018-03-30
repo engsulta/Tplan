@@ -192,8 +192,9 @@ public class SqlAdapter {
         Cursor cursor = db.query(TABLE1_NAME,new String[]{COLUMN_1_ID, COL2_TITLE, COL3_START_POINT_LATITUDE,
                 COL4_START_POINT_LONGITUDE, COL5_DURATION, COL6_STATUS, COL7_ROUND_TRIP, COL8_DISTANCE,
                 COL9_END_POINT_LATITUDE, COL10_END_POINT_LONGITUDE, COL11_TRIP_DATE, COL12_TRIP_NOTES,
-                COL13_TRIP_START_POINT_NAME, COL14_TRIP_END_POINT_NAME, COL15_TRIP_START_TIME_MM} , COL6_STATUS+"!=?",
-                new String[]{"upComing"}, null, null, null, null);
+                COL13_TRIP_START_POINT_NAME, COL14_TRIP_END_POINT_NAME, COL15_TRIP_START_TIME_MM} ,
+                COL6_STATUS+"=? OR "+COL6_STATUS+"=? OR "+COL6_STATUS+"=?",
+                new String[]{"Cancelled","Missed","Done"}, null, null, null, null);
         if(cursor.moveToFirst()){
             do{
                 Trip trip = new Trip();
@@ -218,6 +219,7 @@ public class SqlAdapter {
                 trip.setStartTimeInMillis(Long.getLong(cursor.getString(14)));
 
                 data.add(trip);
+                Log.i("TEST",trip.getTitle());
             } while (cursor.moveToNext());
         }
         db.close();
@@ -256,7 +258,7 @@ public class SqlAdapter {
                 trip.setStartPointName(cursor.getString(12));
                 trip.setEndPointName(cursor.getString(13));
                 trip.setStartTimeInMillis(Long.getLong(cursor.getString(14)));
-
+                Log.i("TEST",cursor.getString(14));
                 data.add(trip);
             } while (cursor.moveToNext());
         }
