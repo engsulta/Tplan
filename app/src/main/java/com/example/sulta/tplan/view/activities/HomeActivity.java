@@ -45,9 +45,9 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         setContentView(R.layout.activity_home);
         currentTabName = (TextView) findViewById(R.id.currentTabName);
         homeToolBar = (Toolbar) findViewById(R.id.tpToolBar);
+        homeActivityPresenter=new HomeActivityPresenter();
         setSupportActionBar(homeToolBar);
         intent = getIntent();
-        db = new SqlAdapter(this);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         homeToolBar.inflateMenu(R.menu.menu_toolbar);
         homeToolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -65,7 +65,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
 //                        userManager.setTripsList(db.selectAllTrips());
 //                        userManager.setDurationPerMonth(3);//don't forget to get db.select duration per month
 //                        userManager.setDistancePerMonth(10);//don't forget db.select distance per month
-                        homeActivityPresenter.synchTripsToFireBase();
+                        homeActivityPresenter.synchTripsToFireBase(HomeActivity.this);
 
 //                        FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
                         return true;
@@ -84,7 +84,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
 //                        mAuth = FirebaseAuth.getInstance();
 //                        mAuth.signOut();
 //                        LoginManager.getInstance().logOut();
-                        homeActivityPresenter.logOutSettings();
+                        homeActivityPresenter.logOutSettings(HomeActivity.this);
                         finish();
 
                         Intent logoutIntent = new Intent(HomeActivity.this, LoginActivity.class);

@@ -18,6 +18,6 @@ public interface IHomeActivityPresenter {
     public void startSerivice();
     public void stopService();
     public int viewSettings(Context context);
-    public void synchTripsToFireBase();
-    public void logOutSettings();
+    public void synchTripsToFireBase(Context context);
+    public void logOutSettings(Context context);
 }

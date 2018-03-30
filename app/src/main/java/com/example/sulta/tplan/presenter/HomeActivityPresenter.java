@@ -29,6 +29,7 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     private FirebaseAuth mAuth;
     private UserManager userManager;
     SqlAdapter db;
+
     @Override
     public void viewUpComingTrips(Context context, ListView upComingTripsList) {
         sqlAdapter = new SqlAdapter(context);
@@ -72,7 +73,8 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     }
 
     @Override
-    public void synchTripsToFireBase() {
+    public void synchTripsToFireBase(Context context) {
+        db = new SqlAdapter(context);
         userManager = UserManager.getUserInstance();
         userManager.setTripsList(db.selectAllTrips());
         userManager.setDurationPerMonth(3);//don't forget to get db.select duration per month
@@ -82,7 +84,8 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     }
 
     @Override
-    public void logOutSettings() {
+    public void logOutSettings(Context context) {
+        db = new SqlAdapter(context);
         userManager = UserManager.getUserInstance();
         userManager.setTripsList(db.selectAllTrips());
         userManager.setDurationPerMonth(3);
