@@ -24,6 +24,8 @@
     <string name="homeStr">Home</string>
     <string name="title_activity_done_trips_map">Map</string>
     <string name="title_activity_test_map">Map</string>
+    <string name="distancePerMonthStr">Distance Per Month</string>
+    <string name="durationPerMonthStr">Duration Per Month</string>
     <!--assmaa -->
 
     <!--assmaa -->
