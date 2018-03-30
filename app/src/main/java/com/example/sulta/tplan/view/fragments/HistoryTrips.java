@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class HistoryTrips extends Fragment {
 
     ListView historyTripsList;
-    IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
     SqlAdapter db;
     ArrayList<Trip> doneTrips;
 
@@ -54,13 +53,13 @@ public class HistoryTrips extends Fragment {
                 //sulta
             }
         });
-        homePresenter.viewHistoryTrips(getContext(), historyTripsList);
         return myView;
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
         homePresenter.viewHistoryTrips(getContext(), historyTripsList);
     }
 
