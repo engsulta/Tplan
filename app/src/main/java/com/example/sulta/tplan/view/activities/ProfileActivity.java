@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
@@ -25,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity implements IProfileActivi
     private Button saveButton, cancelButton;
     Toolbar homeToolBar;
     private ProgressBar progressBar;
+    TextView backFromProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class ProfileActivity extends AppCompatActivity implements IProfileActivi
         setContentView(R.layout.activity_profile);
         userEmail = (EditText) findViewById(R.id.profile_text_email);
         userPassword = (EditText) findViewById(R.id.profile_text_password);
+        backFromProfile = (TextView) findViewById(R.id.backFromProfile);
         saveButton = (Button) findViewById(R.id.savebtn);
         cancelButton = (Button) findViewById(R.id.cancelbtn);
         homeToolBar = (Toolbar) findViewById(R.id.tpToolBar);
@@ -64,6 +67,12 @@ public class ProfileActivity extends AppCompatActivity implements IProfileActivi
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        backFromProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
