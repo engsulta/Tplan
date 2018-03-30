@@ -24,6 +24,7 @@ import com.example.sulta.tplan.view.services.ReminderService;
 import com.example.sulta.tplan.view.utilities.HomeViewHolderUpComingList;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Passant on 3/23/2018.
@@ -33,6 +34,8 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
     Context context;
     List<Trip> customList;
     ReminderService myService;
+    int tripImages[] = {R.drawable.tripimage1, R.drawable.tripimage2, R.drawable.tripimage3, R.drawable.tripimage4, R.drawable.tripimage5,
+        R.drawable.tripimage6};
     boolean isBound = false;
 
     private  int pos;
@@ -56,6 +59,9 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
             viewHolder = (HomeViewHolderUpComingList) myView.getTag();
         }
 
+        Random r = new Random();
+        int randomNum = r.nextInt(tripImages.length);
+        viewHolder.getTripLayout().setBackgroundResource(tripImages[randomNum]);
         viewHolder.getTripName().setText(customList.get(position).getTitle());
         viewHolder.getCancelTripBtn().setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,6 +2,7 @@ package com.example.sulta.tplan.view.utilities;
 
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.sulta.tplan.R;
@@ -17,10 +18,18 @@ public class HomeViewHolderUpComingList {
     ImageButton shareTripDetailsBtn;
     ImageButton seeTripDirectionBtn;
     TextView tripName;
+    LinearLayout tripLayout;
     View contentView;
 
     public HomeViewHolderUpComingList(View contentView) {
         this.contentView = contentView;
+    }
+
+    public LinearLayout getTripLayout(){
+        if(tripLayout==null){
+            tripLayout = (LinearLayout) contentView.findViewById(R.id.tripLayout);
+        }
+        return tripLayout;
     }
 
     public ImageButton getViewTripDetailsBtn() {
