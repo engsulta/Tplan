@@ -11,9 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
+import com.example.sulta.tplan.presenter.ProfileActivityPresenter;
+import com.example.sulta.tplan.presenter.interfaces.IProfileActivityPresenter;
 import com.example.sulta.tplan.view.activities.interfaces.IProfileActivity;
 
 public class ProfileActivity extends AppCompatActivity implements IProfileActivity {
@@ -21,6 +24,7 @@ public class ProfileActivity extends AppCompatActivity implements IProfileActivi
     private EditText userEmail, userPassword;
     private Button saveButton, cancelButton;
     Toolbar homeToolBar;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,8 @@ public class ProfileActivity extends AppCompatActivity implements IProfileActivi
         saveButton = (Button) findViewById(R.id.savebtn);
         cancelButton = (Button) findViewById(R.id.cancelbtn);
         homeToolBar = (Toolbar) findViewById(R.id.tpToolBar);
+        progressBar = (ProgressBar) findViewById(R.id.login_progressbar);
+        hideProgressDiaglog();
         setSupportActionBar(homeToolBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         homeToolBar.inflateMenu(R.menu.menu_profiletoolbar);
@@ -67,7 +73,8 @@ public class ProfileActivity extends AppCompatActivity implements IProfileActivi
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                IProfileActivityPresenter profilePresenter = new ProfileActivityPresenter();
+                profilePresenter.editProfile(ProfileActivity.this, userEmail.getText().toString().trim(), userPassword.getText().toString().trim());
             }
         });
     }
@@ -77,5 +84,15 @@ public class ProfileActivity extends AppCompatActivity implements IProfileActivi
         MenuInflater inflater = (SupportMenuInflater) getMenuInflater();
         inflater.inflate(R.menu.menu_profiletoolbar, menu);
         return true;
+    }
+
+    @Override
+    public void displayProgressDialog() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressDiaglog() {
+        progressBar.setVisibility(View.INVISIBLE);
     }
 }

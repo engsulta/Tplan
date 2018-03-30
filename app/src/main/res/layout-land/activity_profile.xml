@@ -35,8 +35,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        android:padding="10dp">
+        android:layout_weight="1.5">
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/profile_text_emailwrapper"
@@ -125,6 +124,15 @@
             android:layout_alignStart="@+id/profile_text_emailwrapper"
             app:srcCompat="@drawable/ic_lock_black_24dp"
             tools:ignore="VectorDrawableCompat" />
+
+        <ProgressBar
+            android:id="@+id/login_progressbar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp" />
 
     </RelativeLayout>
 

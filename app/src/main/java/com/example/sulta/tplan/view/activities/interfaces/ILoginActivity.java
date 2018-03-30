@@ -5,4 +5,5 @@ package com.example.sulta.tplan.view.activities.interfaces;
  */
 
 public interface ILoginActivity {
+
 }

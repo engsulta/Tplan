@@ -1,5 +1,7 @@
 package com.example.sulta.tplan.presenter;
 
+import android.content.Context;
+
 import com.example.sulta.tplan.presenter.interfaces.IProfileActivityPresenter;
 
 /**
@@ -8,4 +10,8 @@ import com.example.sulta.tplan.presenter.interfaces.IProfileActivityPresenter;
 
 public class ProfileActivityPresenter  implements IProfileActivityPresenter {
 
+    @Override
+    public void editProfile(Context context, String email, String password) {
+
+    }
 }

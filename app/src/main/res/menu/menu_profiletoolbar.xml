@@ -12,6 +12,7 @@
 
     <item
         android:id="@+id/logoutFromApp"
-        android:title="@string/logoutStr" />
+        android:title="@string/logoutStr"
+        app:showAsAction="never"/>
 
 </menu>
