@@ -63,4 +63,16 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     public int viewSettings() {
         return 0;
     }
+
+    @Override
+    public void startSerivice() {
+        upComingTripsAdapter.startSerivice();
+    }
+
+    @Override
+    public void stopService() {
+
+//        upComingTripsAdapter.stopService();
+
+    }
 }

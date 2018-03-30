@@ -56,4 +56,11 @@ public class UpComingTrips extends Fragment {
         homePresenter.viewUpComingTrips(getContext(), upComingTripsList);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+  //      IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
+//        homePresenter.stopService();
+
+    }
 }

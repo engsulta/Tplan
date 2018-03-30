@@ -18,7 +18,9 @@ import android.widget.Toast;
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.model.Trip;
+import com.example.sulta.tplan.presenter.HomeActivityPresenter;
 import com.example.sulta.tplan.presenter.adapters.HomePagerAdapter;
+import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
 import com.example.sulta.tplan.view.activities.interfaces.IHomeActivity;
 import com.example.sulta.tplan.view.utilities.UserManager;
 import com.facebook.login.LoginManager;
@@ -37,6 +39,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
     private UserManager userManager;
     Intent intent;
     SqlAdapter db;
+
   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,5 +181,12 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
 
 
     ///sulta editing
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
+        homePresenter.stopService();
+    }
 }
 
