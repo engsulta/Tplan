@@ -19,6 +19,7 @@ import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.presenter.ProfileActivityPresenter;
 import com.example.sulta.tplan.presenter.interfaces.IProfileActivityPresenter;
 import com.example.sulta.tplan.view.activities.interfaces.IProfileActivity;
+import com.example.sulta.tplan.view.utilities.UserManager;
 
 public class ProfileActivity extends AppCompatActivity implements IProfileActivity {
 
@@ -26,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity implements IProfileActivi
     private Button saveButton, cancelButton;
     Toolbar homeToolBar;
     private ProgressBar progressBar;
-    TextView backFromProfile;
+    TextView backFromProfile, durationPerMonth, distancePerMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +36,14 @@ public class ProfileActivity extends AppCompatActivity implements IProfileActivi
         userEmail = (EditText) findViewById(R.id.profile_text_email);
         userPassword = (EditText) findViewById(R.id.profile_text_password);
         backFromProfile = (TextView) findViewById(R.id.backFromProfile);
+        durationPerMonth = (TextView) findViewById(R.id.durationPerMonthTxt);
+        distancePerMonth = (TextView) findViewById(R.id.distancePerMonthTxt);
         saveButton = (Button) findViewById(R.id.savebtn);
         cancelButton = (Button) findViewById(R.id.cancelbtn);
         homeToolBar = (Toolbar) findViewById(R.id.tpToolBar);
         progressBar = (ProgressBar) findViewById(R.id.login_progressbar);
         hideProgressDiaglog();
+        viewProfile();
         setSupportActionBar(homeToolBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         homeToolBar.inflateMenu(R.menu.menu_profiletoolbar);
@@ -89,6 +93,12 @@ public class ProfileActivity extends AppCompatActivity implements IProfileActivi
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        viewProfile();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = (SupportMenuInflater) getMenuInflater();
         inflater.inflate(R.menu.menu_profiletoolbar, menu);
@@ -103,5 +113,12 @@ public class ProfileActivity extends AppCompatActivity implements IProfileActivi
     @Override
     public void hideProgressDiaglog() {
         progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private void viewProfile(){
+        UserManager manager = UserManager.getUserInstance();
+        userEmail.setText(manager.getEmail());
+        distancePerMonth.setText(String.valueOf(manager.getDistancePerMonth()));
+        durationPerMonth.setText(String.valueOf(manager.getDurationPerMonth()));
     }
 }
