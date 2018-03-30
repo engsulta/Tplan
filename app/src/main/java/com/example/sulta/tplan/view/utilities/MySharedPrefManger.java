@@ -67,5 +67,16 @@ public class  MySharedPrefManger  {
         return  sharedPreferences.getStringSet(key,null);
     }
 
+    public void storeSettings(String key, int value){
+        SharedPreferences sharedPreferences=context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putInt(key,value);
+        editor.apply();
+    }
+
+    public int getSettings(String key){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        return  sharedPreferences.getInt(key,-1);
+    }
 
 }

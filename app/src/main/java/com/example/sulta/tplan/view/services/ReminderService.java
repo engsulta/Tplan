@@ -96,6 +96,7 @@ public class ReminderService extends Service {
         PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
+        Toast.makeText(this, REQUEST_CODE + "is stoped ", Toast.LENGTH_SHORT).show();
         ((Activity)context).finish();
 
     }

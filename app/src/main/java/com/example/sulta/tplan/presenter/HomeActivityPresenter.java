@@ -9,6 +9,7 @@ import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.adapters.HomeLVHistoryTripsAdapter;
 import com.example.sulta.tplan.presenter.adapters.HomeLVUpComingTripsAdapter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
+import com.example.sulta.tplan.view.utilities.MySharedPrefManger;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     public void viewHistoryTrips(Context context, ListView historyTripsList) {
         sqlAdapter = new SqlAdapter(context);
         List<Trip> historyTrips = sqlAdapter.selectTrips();
-        historyTripsAdapter = new HomeLVHistoryTripsAdapter(context, R.layout.item_list_history_trips_cardview, R.id.tripState, historyTrips);
+        historyTripsAdapter = new HomeLVHistoryTripsAdapter(context, R.layout.item_list_history_trips_cardview, R.id.tripName, historyTrips);
         //historyTripsAdapter.notifyDataSetChanged();
         //historyTripsAdapter.notifyDataSetInvalidated();
         historyTripsList.setAdapter(historyTripsAdapter);
@@ -52,5 +53,27 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
         sqlAdapter = new SqlAdapter(context);
         sqlAdapter.updateTrip(trip);
         return true;
+    }
+
+    @Override
+    public void editSettings(Context context, int value) {
+        MySharedPrefManger.getInstance(context).storeSettings("SettingsState",value);
+    }
+
+    @Override
+    public int viewSettings(Context context) {
+        return MySharedPrefManger.getInstance(context).getSettings("SettingsState");
+    }
+
+    @Override
+    public void startSerivice() {
+        upComingTripsAdapter.startSerivice();
+    }
+
+    @Override
+    public void stopService() {
+
+//        upComingTripsAdapter.stopService();
+
     }
 }

@@ -15,7 +15,9 @@ public class User implements Serializable{
     double distancePerMonth;
     double durationPerMonth;
     ArrayList<Trip> tripsList;
+   public User(){
 
+   }
     public String getId() {
         return id;
     }

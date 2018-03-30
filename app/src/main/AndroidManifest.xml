@@ -7,17 +7,15 @@
     <!-- assmaa -->
     <!-- assmaa -->
     <!-- passant -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- passant -->
     <!-- sulta -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <!-- sulta -->
-
-
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
@@ -57,9 +55,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activities.RegisterActivity" />
-        <activity android:name=".view.activities.TestLoginActivity" />
-        <activity android:name=".view.activities.CreateTripActivity">
-        </activity>
+        <activity android:name=".view.activities.CreateTripActivity" />
         <!-- assmaa -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -72,6 +68,7 @@
 
         <!-- passant -->
 
+        <activity android:name=".view.activities.ProfileActivity" />
 
         <!-- passant -->
 
@@ -83,14 +80,13 @@
         <service
             android:name=".view.services.ReminderService"
             android:enabled="true"
-            android:exported="true"
-            />
+            android:exported="true" />
 
         <receiver
             android:name=".view.receivers.HandleReminder"
             android:enabled="true"
             android:exported="true"
-            android:process=":remote"/>
+            android:process=":remote" />
         <receiver
             android:name=".view.receivers.RestartServiceReceiver"
             android:enabled="true"
@@ -105,10 +101,12 @@
             android:exported="false" />
 
         <activity android:name=".view.activities.AlarmTestActivity" />
-        <activity android:name=".view.activities.HeadlessActivity"
-            android:theme="@android:style/Theme.Dialog" >
-
-        </activity>
+        <activity
+            android:name=".view.activities.HeadlessActivity"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".view.activities.DoneTripsMap"
+            android:label="@string/title_activity_done_trips_map" />
     </application>
 
 </manifest>
