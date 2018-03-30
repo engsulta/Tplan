@@ -269,6 +269,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     myUserManager.setEmail(email);
                     myUserManager.setPassword(password);
                     myUserManager.setName(email);
+
                     downloadTripsForUser();
                     finish();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -370,13 +371,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 User user = dataSnapshot.getValue(User.class);
-                myUserManager.setDistancePerMonth(user.getDistancePerMonth());
-                myUserManager.setDurationPerMonth(user.getDurationPerMonth());
-                myUserManager.setTripsList(user.getTripsList());
-                if (user.getTripsList() != null) {
-                    for (Trip t : user.getTripsList()
-                            ) {
-                        db.insertTrip(t);
+                if (user != null) {
+                    myUserManager.setDistancePerMonth(user.getDistancePerMonth());
+                    myUserManager.setDurationPerMonth(user.getDurationPerMonth());
+                    myUserManager.setTripsList(user.getTripsList());
+                    if (user.getTripsList() != null) {
+                        for (Trip t : user.getTripsList()
+                                ) {
+                            db.insertTrip(t);
+                        }
                     }
                 }
             }
