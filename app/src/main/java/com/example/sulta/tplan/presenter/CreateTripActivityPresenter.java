@@ -57,7 +57,7 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
 
         trip.setId(new SqlAdapter(mContext).insertTrip(trip));
         Log.i("tripID", "createTrip: "+trip.getId());
-        Log.i("tpaln", "createTrip: "+new SqlAdapter(mContext).selectTripById(trip.getId()).getStartTimeInMillis());
+        Log.i("tplan", "createTrip: "+new SqlAdapter(mContext).selectTripById(trip.getId()).getStartTimeInMillis());
 
 //
 //  Intent intent = new Intent(mContext, ReminderService.class);
