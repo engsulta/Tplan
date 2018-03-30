@@ -17,7 +17,12 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.sulta.tplan.R;
+import com.example.sulta.tplan.database.SqlAdapter;
+import com.example.sulta.tplan.model.Trip;
+import com.example.sulta.tplan.model.User;
+import com.example.sulta.tplan.presenter.LoginActivityPresenter;
 import com.example.sulta.tplan.view.activities.interfaces.ILoginActivity;
+import com.example.sulta.tplan.view.utilities.MySharedPrefManger;
 import com.example.sulta.tplan.view.utilities.UserManager;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -35,6 +40,10 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 
@@ -50,6 +59,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = "tplan_log";
     LoginButton loginButton;
 
+    private LoginActivityPresenter loginActivityPresenter;
 
 //views
 
@@ -68,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 //managers
-        myUserManager=UserManager.getUserInstance();
+        myUserManager = UserManager.getUserInstance();
 
 
         // Views
@@ -107,13 +117,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-               // myUserManager.setId(currentUser.getUid());
+            // myUserManager.setId(currentUser.getUid());
             currentUser.getEmail();
             myUserManager.setId(currentUser.getUid());
+            Log.i("tplan", "onStart: " + currentUser.getUid());
             myUserManager.setEmail(currentUser.getEmail());
             myUserManager.setPassword(currentUser.getDisplayName());//3awzeen nsheel el password from database
             myUserManager.setName(currentUser.getDisplayName());
-            Log.i(TAG, "onStart: "+currentUser.getEmail()+currentUser.getDisplayName()  );
+            Log.i(TAG, "onStart: " + currentUser.getEmail() + currentUser.getDisplayName());
             finish();
             startActivity(new Intent(this, HomeActivity.class));
         }
@@ -146,11 +157,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
+                            myUserManager.setId(user.getUid());
+                            Log.i("tplan", "onComplete: " + user.getUid());
                             myUserManager.setEmail(user.getEmail());
                             myUserManager.setPassword(user.getDisplayName());
                             myUserManager.setName(user.getDisplayName());
-
+                            downloadTripsForUser();
                             mFacebookBtn.setEnabled(true);
                             updateUI(user);
                         } else {
@@ -184,10 +196,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void signOut() {
         mAuth.signOut();
         LoginManager.getInstance().logOut();
-
+        // DeletUserFromDb();
         updateUI(null);
         //back to login page
     }
+
 
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
@@ -248,14 +261,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 hideProgressDialog();
                 if (task.isSuccessful()) {
                     //first time login with email & password sharedpref make profile on firebase
-                   FirebaseUser user=mAuth.getCurrentUser();
-                   UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
                             .setDisplayName(email).build();
-                    updateUserProfile(user,profile);
+                    updateUserProfile(user, profile);
+                    myUserManager.setId(user.getUid());
                     myUserManager.setEmail(email);
                     myUserManager.setPassword(password);
                     myUserManager.setName(email);
-
+                    downloadTripsForUser();
                     finish();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -267,13 +281,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
+
     private void updateUserProfile(FirebaseUser user, UserProfileChangeRequest profile) {
         user.updateProfile(profile)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                           // Toast.makeText(LoginActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(LoginActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -308,7 +323,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void loginWithFB() {
         mFacebookBtn.setEnabled(false);
-        LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this,Arrays.asList(EMAIL, PROFILE));
+        LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList(EMAIL, PROFILE));
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -345,6 +360,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    public void downloadTripsForUser() {
+        String parentid = MySharedPrefManger.getInstance(this).getStringToken("UserPushId");
+        final SqlAdapter db = new SqlAdapter(this);
+        FirebaseDatabase.getInstance().getReference().child("users").child(myUserManager.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                User user = dataSnapshot.getValue(User.class);
+                myUserManager.setDistancePerMonth(user.getDistancePerMonth());
+                myUserManager.setDurationPerMonth(user.getDurationPerMonth());
+                myUserManager.setTripsList(user.getTripsList());
+                if (user.getTripsList() != null) {
+                    for (Trip t : user.getTripsList()
+                            ) {
+                        db.insertTrip(t);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
 }
