@@ -16,12 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
+import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.adapters.HomePagerAdapter;
 import com.example.sulta.tplan.view.activities.interfaces.IHomeActivity;
 import com.example.sulta.tplan.view.utilities.UserManager;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -34,6 +36,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
     private FirebaseAuth mAuth;
     private UserManager userManager;
     Intent intent;
+    SqlAdapter db;
   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         homeToolBar = (Toolbar) findViewById(R.id.tpToolBar);
         setSupportActionBar(homeToolBar);
         intent = getIntent();
+        db=new SqlAdapter(this);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         homeToolBar.inflateMenu(R.menu.menu_toolbar);
         homeToolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -55,15 +59,30 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
                     case R.id.syncTripsToFirebase:
                         Toast.makeText(HomeActivity.this, "Sync", Toast.LENGTH_SHORT).show();
                         //TODO calling sync method to get data from firebase
+                        userManager=UserManager.getUserInstance();
+                        userManager.setTripsList(db.selectAllTrips());
+                        userManager.setDurationPerMonth(3);
+                        userManager.setDistancePerMonth(10);
+                        FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
                         return true;
                     case R.id.logoutFromApp:
                         Toast.makeText(HomeActivity.this, "logout", Toast.LENGTH_SHORT).show();
+
                         //TODO calling logout method which clears user's data
                         userManager=UserManager.getUserInstance();
+                        userManager.setTripsList(db.selectAllTrips());
+                        userManager.setDurationPerMonth(3);
+                        userManager.setDistancePerMonth(10);
+                        FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
+
+                        db.deleteTripTable();
+
                         mAuth = FirebaseAuth.getInstance();
                         mAuth.signOut();
                         LoginManager.getInstance().logOut();
+
                         finish();
+
                         Intent logoutIntent=new Intent(HomeActivity.this,LoginActivity.class);
                         startActivity(logoutIntent);
 
