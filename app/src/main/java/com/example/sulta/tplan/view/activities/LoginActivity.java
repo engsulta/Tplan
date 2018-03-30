@@ -17,12 +17,8 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.sulta.tplan.R;
-import com.example.sulta.tplan.database.SqlAdapter;
-import com.example.sulta.tplan.model.Trip;
-import com.example.sulta.tplan.model.User;
 import com.example.sulta.tplan.presenter.LoginActivityPresenter;
 import com.example.sulta.tplan.view.activities.interfaces.ILoginActivity;
-import com.example.sulta.tplan.view.utilities.MySharedPrefManger;
 import com.example.sulta.tplan.view.utilities.UserManager;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -40,10 +36,6 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 
@@ -363,32 +355,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
+
     public void downloadTripsForUser() {
-        String parentid = MySharedPrefManger.getInstance(this).getStringToken("UserPushId");
-        final SqlAdapter db = new SqlAdapter(this);
-        FirebaseDatabase.getInstance().getReference().child("users").child(myUserManager.getId()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+        loginActivityPresenter.downloadTripsForUser();
 
-                User user = dataSnapshot.getValue(User.class);
-                if (user != null) {
-                    myUserManager.setDistancePerMonth(user.getDistancePerMonth());
-                    myUserManager.setDurationPerMonth(user.getDurationPerMonth());
-                    myUserManager.setTripsList(user.getTripsList());
-                    if (user.getTripsList() != null) {
-                        for (Trip t : user.getTripsList()
-                                ) {
-                            db.insertTrip(t);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+//        final SqlAdapter db = new SqlAdapter(this);
+//        FirebaseDatabase.getInstance().getReference().child("users").child(myUserManager.getId()).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                User user = dataSnapshot.getValue(User.class);
+//                if (user != null) {
+//                    myUserManager.setDistancePerMonth(user.getDistancePerMonth());
+//                    myUserManager.setDurationPerMonth(user.getDurationPerMonth());
+//                    myUserManager.setTripsList(user.getTripsList());
+//                    if (user.getTripsList() != null) {
+//                        for (Trip t : user.getTripsList()
+//                                ) {
+//                            db.insertTrip(t);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
 
     }

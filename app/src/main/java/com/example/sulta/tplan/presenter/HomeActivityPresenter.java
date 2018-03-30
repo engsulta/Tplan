@@ -10,6 +10,10 @@ import com.example.sulta.tplan.presenter.adapters.HomeLVHistoryTripsAdapter;
 import com.example.sulta.tplan.presenter.adapters.HomeLVUpComingTripsAdapter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
 import com.example.sulta.tplan.view.utilities.MySharedPrefManger;
+import com.example.sulta.tplan.view.utilities.UserManager;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -22,7 +26,9 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     SqlAdapter sqlAdapter;
     HomeLVUpComingTripsAdapter upComingTripsAdapter;
     HomeLVHistoryTripsAdapter historyTripsAdapter;
-
+    private FirebaseAuth mAuth;
+    private UserManager userManager;
+    SqlAdapter db;
     @Override
     public void viewUpComingTrips(Context context, ListView upComingTripsList) {
         sqlAdapter = new SqlAdapter(context);
@@ -66,6 +72,31 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     }
 
     @Override
+    public void synchTripsToFireBase() {
+        userManager = UserManager.getUserInstance();
+        userManager.setTripsList(db.selectAllTrips());
+        userManager.setDurationPerMonth(3);//don't forget to get db.select duration per month
+        userManager.setDistancePerMonth(10);//don't forget db.select distance per month
+        FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
+
+    }
+
+    @Override
+    public void logOutSettings() {
+        userManager = UserManager.getUserInstance();
+        userManager.setTripsList(db.selectAllTrips());
+        userManager.setDurationPerMonth(3);
+        userManager.setDistancePerMonth(10);
+        FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
+
+        db.deleteTripTable();
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
+        LoginManager.getInstance().logOut();
+    }
+
+    @Override
     public void startSerivice() {
         upComingTripsAdapter.startSerivice();
     }
@@ -73,7 +104,6 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     @Override
     public void stopService() {
 
-//        upComingTripsAdapter.stopService();
 
     }
 }

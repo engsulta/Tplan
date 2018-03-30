@@ -9,4 +9,5 @@ import com.example.sulta.tplan.view.utilities.UserManager;
 public interface ILoginActivityPresenter {
     public void creatUserInDb(UserManager userManager);
     public void removeUserInDb(UserManager myUserManager);
+   public void downloadTripsForUser();
 }
