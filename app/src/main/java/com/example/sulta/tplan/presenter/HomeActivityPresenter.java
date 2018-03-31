@@ -72,8 +72,7 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
     @Override
     public void stopService() {
-
 //        upComingTripsAdapter.stopService();
-
     }
+
 }

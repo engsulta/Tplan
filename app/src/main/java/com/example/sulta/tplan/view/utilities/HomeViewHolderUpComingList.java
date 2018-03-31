@@ -12,11 +12,11 @@ import com.example.sulta.tplan.R;
  */
 
 public class HomeViewHolderUpComingList {
-    ImageButton viewTripDetailsBtn;
+    ImageButton viewTripMapBtn;
     ImageButton cancelTripBtn;
     ImageButton editTripDetailsBtn;
     ImageButton shareTripDetailsBtn;
-    ImageButton seeTripDirectionBtn;
+    ImageButton startTripBtn;
     TextView tripName;
     LinearLayout tripLayout;
     View contentView;
@@ -32,11 +32,11 @@ public class HomeViewHolderUpComingList {
         return tripLayout;
     }
 
-    public ImageButton getViewTripDetailsBtn() {
-        if(viewTripDetailsBtn==null){
-            viewTripDetailsBtn = (ImageButton) contentView.findViewById(R.id.viewTripDetailsBtn);
+    public ImageButton getViewTripMapBtn() {
+        if(viewTripMapBtn==null){
+            viewTripMapBtn = (ImageButton) contentView.findViewById(R.id.viewTripMapBtn);
         }
-        return viewTripDetailsBtn;
+        return viewTripMapBtn;
     }
 
     public ImageButton getCancelTripBtn() {
@@ -53,11 +53,11 @@ public class HomeViewHolderUpComingList {
         return shareTripDetailsBtn;
     }
 
-    public ImageButton getSeeTripDirectionBtn() {
-        if(seeTripDirectionBtn == null){
-            seeTripDirectionBtn = (ImageButton) contentView.findViewById(R.id.seeTripDirectionBtn);
+    public ImageButton getStartTripBtn() {
+        if(startTripBtn == null){
+            startTripBtn = (ImageButton) contentView.findViewById(R.id.startTripBtn);
         }
-        return seeTripDirectionBtn;
+        return startTripBtn;
     }
 
     public ImageButton getEditTripDetailsBtn() {

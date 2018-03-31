@@ -25,8 +25,8 @@
                 android:layout_height="150dp"
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
-                android:weightSum="5"
-                android:padding="5dp"
+                android:weightSum="6"
+                android:paddingTop="5dp"
                 android:layout_weight="1"
                 android:id="@+id/tripLayout"
                 android:background="@drawable/tripimage1">
@@ -35,7 +35,7 @@
                     android:id="@+id/tripName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="5.3"
                     android:paddingLeft="5dp"
                     android:text="TripName"
                     android:textSize="20dp"
@@ -45,11 +45,10 @@
                 <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="0.6"
                     android:background="@color/backgrounditemList"
-                    android:src="@drawable/item_list_upcoming_eye_24dp"
-                    android:id="@+id/viewTripDetailsBtn">
+                    android:src="@drawable/ic_place_black_24dp"
+                    android:id="@+id/viewTripMapBtn">
 
                 </ImageButton>
             </LinearLayout>
@@ -70,8 +69,8 @@
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:background="@color/backgrounditemList"
-                    android:src="@drawable/item_list_upcoming_twoways_24dp"
-                    android:id="@+id/seeTripDirectionBtn">
+                    android:src="@drawable/ic_share_black_24dp"
+                    android:id="@+id/shareTripDetailsBtn">
 
                 </ImageButton>
 
@@ -103,8 +102,8 @@
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:background="@color/backgrounditemList"
-                    android:src="@drawable/ic_share_black_24dp"
-                    android:id="@+id/shareTripDetailsBtn">
+                    android:src="@drawable/ic_play_arrow_black_24dp"
+                    android:id="@+id/startTripBtn">
 
                 </ImageButton>
 

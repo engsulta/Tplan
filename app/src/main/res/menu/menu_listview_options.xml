@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/viewTripDetails"
+        android:title="@string/viewTripDetailsStr" />
+
+    <item
+        android:id="@+id/doneTrip"
+        android:title="@string/doneTripStr" />
+
+    <item
+        android:id="@+id/deleteTrip"
+        android:title="@string/deleteTripStr"
+        app:showAsAction="never" />
+</menu>
