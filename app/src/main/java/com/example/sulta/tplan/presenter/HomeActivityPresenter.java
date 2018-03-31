@@ -1,6 +1,7 @@
 package com.example.sulta.tplan.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.ListView;
 
 import com.example.sulta.tplan.R;
@@ -9,6 +10,7 @@ import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.adapters.HomeLVHistoryTripsAdapter;
 import com.example.sulta.tplan.presenter.adapters.HomeLVUpComingTripsAdapter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
+import com.example.sulta.tplan.view.activities.TripMapActivity;
 import com.example.sulta.tplan.view.utilities.MySharedPrefManger;
 import com.example.sulta.tplan.view.utilities.UserManager;
 import com.facebook.login.LoginManager;
@@ -104,6 +106,29 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
         LoginManager.getInstance().logOut();
+    }
+
+    @Override
+    public void shareTrip(Context context, Trip trip) {
+        String comingTrip="Upcoming Trip\n Trip Name: "+trip.getTitle()+"\n"+
+                " Trip Date: "+trip.getDate()+"\n"+
+                " Trip Duration: "+trip.getDuration()+"\n"+
+                " Trip Distance: "+trip.getDistance()+"\n"+
+                " From: "+trip.getStartPointName()+"\n"+
+                " To: "+trip.getEndPointName()+"\n"+
+                " Trip Notes: "+trip.getNotes();
+        Intent sendintent = new Intent();
+        sendintent.setAction(Intent.ACTION_SEND);
+        sendintent.putExtra(Intent.EXTRA_TEXT,comingTrip);
+        sendintent.setType("text/plain");
+        context.startActivity(sendintent);
+    }
+
+    @Override
+    public void viewMapTrip(Context context, Trip trip) {
+        Intent intent = new Intent(context, TripMapActivity.class);
+        intent.putExtra("tripId",trip.getId());
+        context.startActivity(intent);
     }
 
     @Override
