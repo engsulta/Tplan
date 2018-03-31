@@ -1,5 +1,6 @@
 package com.example.sulta.tplan.presenter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.ListView;
@@ -10,6 +11,7 @@ import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.adapters.HomeLVHistoryTripsAdapter;
 import com.example.sulta.tplan.presenter.adapters.HomeLVUpComingTripsAdapter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
+import com.example.sulta.tplan.view.activities.HomeActivity;
 import com.example.sulta.tplan.view.activities.TripMapActivity;
 import com.example.sulta.tplan.view.utilities.MySharedPrefManger;
 import com.example.sulta.tplan.view.utilities.UserManager;
@@ -105,6 +107,7 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
+        refreshList(context);
         LoginManager.getInstance().logOut();
     }
 
@@ -132,8 +135,10 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     }
 
     @Override
-    public void refreshList() {
-
+    public void refreshList(Context context) {
+        Intent intent = new Intent(context, HomeActivity.class);
+        context.startActivity(intent);
+        ((Activity) context).finish();
     }
 
     @Override
@@ -143,7 +148,6 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
     @Override
     public void stopService() {
-
 
     }
 }

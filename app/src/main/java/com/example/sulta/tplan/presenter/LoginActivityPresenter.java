@@ -63,7 +63,7 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
                     }
                     // Home refresh method
                     HomeActivityPresenter homeActivityPresenter = new HomeActivityPresenter();
-                    homeActivityPresenter.refreshList();
+                    homeActivityPresenter.refreshList(mcontext);
 
                 }
             }

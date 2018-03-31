@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class SqlAdapter {
 
     private static final String DATABASE_NAME = "tplannerdb";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String TABLE1_NAME = "Trip";
 
     private static final String COLUMN_1_ID = "id";

@@ -22,5 +22,5 @@ public interface IHomeActivityPresenter {
     public void logOutSettings(Context context);
     public void shareTrip(Context context, Trip trip);
     public void viewMapTrip(Context context, Trip trip);
-    public void refreshList();
+    public void refreshList(Context context);
 }
