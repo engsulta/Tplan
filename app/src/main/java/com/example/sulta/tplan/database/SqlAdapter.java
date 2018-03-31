@@ -337,6 +337,30 @@ public class SqlAdapter {
         db.close();
         return trip;
     }
+
+    public double returnDistanceSum(){
+        double result = 0.0;
+        SQLiteDatabase db = sqlHelper.getReadableDatabase();
+        final String MY_QUERY = "SELECT SUM("+COL8_DISTANCE+") FROM "+TABLE1_NAME+" WHERE "+COL6_STATUS+"='Done'";
+        Cursor cursor = db.rawQuery(MY_QUERY,null);
+        if(cursor.moveToFirst()){
+            result = cursor.getDouble(0);
+        }
+        db.close();
+        return result;
+    }
+
+    public double returnDurationSum(){
+        double result = 0.0;
+        SQLiteDatabase db = sqlHelper.getReadableDatabase();
+        final String MY_QUERY = "SELECT SUM("+COL5_DURATION+") FROM "+TABLE1_NAME+" WHERE "+COL6_STATUS+"='Done'";
+        Cursor cursor = db.rawQuery(MY_QUERY,null);
+        if(cursor.moveToFirst()){
+            result = cursor.getDouble(0);
+        }
+        db.close();
+        return result;
+    }
         // DELETE TRIP
 
     public void deleteTrip(int id){
