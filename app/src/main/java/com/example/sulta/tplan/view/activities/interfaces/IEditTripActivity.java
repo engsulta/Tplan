@@ -18,4 +18,5 @@ public interface IEditTripActivity extends ICreateTripActivity {
     public void setNotes(ArrayList<TripNote> noteArrayList);
 
 
+
 }

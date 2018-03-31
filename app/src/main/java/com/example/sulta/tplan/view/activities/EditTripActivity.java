@@ -82,6 +82,8 @@ public class EditTripActivity extends AppCompatActivity implements IEditTripActi
             }
         });
 
+
+
         /*** change fragment design ***/
         startPointFragment.setHint("Start Point");
         ImageView searchIcon = (ImageView)((LinearLayout)startPointFragment.getView()).getChildAt(0);
@@ -130,7 +132,7 @@ public class EditTripActivity extends AppCompatActivity implements IEditTripActi
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(),
                         timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
-                if(tripNameEdt.getText().toString().trim()!=null&&startPlace!=null&&endPlace!=null&&
+                if(tripNameEdt.getText().toString().trim()!=null&&
                         (calendar.getTimeInMillis()+1000)>=(System.currentTimeMillis()-1000)){
                     mEditTripActivityPresenter.editTrip();// mEditTripActivityPresenter.startSerivice();
                     finish();}
@@ -162,22 +164,34 @@ public class EditTripActivity extends AppCompatActivity implements IEditTripActi
 
     @Override
     public double startPointLat() {
-        return startPlace.getLatLng().latitude;
+        if (startPlace!=null)
+            return startPlace.getLatLng().latitude;
+        else
+            return 0.0d;
     }
 
     @Override
     public double startPointLan() {
-        return startPlace.getLatLng().longitude;
+        if (startPlace!=null)
+            return startPlace.getLatLng().longitude;
+        else
+            return 0.0d;
     }
 
     @Override
     public double endPointLan() {
-        return endPlace.getLatLng().longitude;
+        if (endPlace!=null)
+            return endPlace.getLatLng().longitude;
+        else
+            return 0.0d;
     }
 
     @Override
     public double endPointLat() {
-        return endPlace.getLatLng().latitude;
+        if (endPlace!=null)
+            return endPlace.getLatLng().latitude;
+        else
+            return 0.0d;
     }
 
     @Override
@@ -199,14 +213,18 @@ public class EditTripActivity extends AppCompatActivity implements IEditTripActi
 
     @Override
     public String getStartPointName() {
-        Log.i(TAG, "getStartPointName: "+startPlace.getName());
-        Log.i(TAG, "getStartPointName: "+startPlace.getAddress());
+       if (startPlace!=null)
         return startPlace.getName().toString();
+       else
+           return "";
     }
 
     @Override
     public String getEndPointName() {
+        if (endPlace!=null)
         return endPlace.getName().toString();
+        else
+            return "";
     }
 
     @Override
@@ -259,9 +277,14 @@ public class EditTripActivity extends AppCompatActivity implements IEditTripActi
     public void setDirection(Boolean dir) {
         if(dir==true){
             imgBtn.setBackgroundResource(R.drawable.tripdir2);
+            Toast.makeText(EditTripActivity.this, "toot", Toast.LENGTH_SHORT).show();
+            flag=2;
         }
         else {
             imgBtn.setBackgroundResource(R.drawable.tripdir);
+            Toast.makeText(EditTripActivity.this, "toot2", Toast.LENGTH_SHORT).show();
+
+            flag=0;
         }
 
     }
@@ -269,7 +292,6 @@ public class EditTripActivity extends AppCompatActivity implements IEditTripActi
     @Override
     public void setStartPlace(String placeName) {
         startPointFragment.setText(placeName);
-
     }
 
     @Override

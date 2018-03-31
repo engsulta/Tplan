@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.os.Vibrator;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -24,6 +25,8 @@ import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.HomeActivityPresenter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
+import com.example.sulta.tplan.view.activities.EditTripActivity;
+import com.example.sulta.tplan.view.activities.HeadlessActivity;
 import com.example.sulta.tplan.view.activities.HomeActivity;
 import com.example.sulta.tplan.view.services.ReminderService;
 import com.example.sulta.tplan.view.utilities.HomeViewHolderUpComingList;
@@ -93,7 +96,12 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
         viewHolder.getEditTripDetailsBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "edit", Toast.LENGTH_SHORT).show();
+                //customList.get(position);
+                //here goto intent
+                Intent intent=new Intent(context, EditTripActivity.class);
+                intent.putExtra("trip", (Parcelable) customList.get(position));
+                //Toast.makeText(context, "adapter"+customList.get(position).isRoundTrip(), Toast.LENGTH_SHORT).show();
+                context.startActivity(intent);
             }
         });
 
@@ -123,7 +131,11 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
         myView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "View", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "View", Toast.LENGTH_SHORT).show();
+                Intent intent=new
+                        Intent(context, HeadlessActivity.class);
+                intent.putExtra("tripId",customList.get(position).getId());
+                context.startActivity(intent);
             }
         });
 

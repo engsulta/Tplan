@@ -70,7 +70,6 @@
 
         <!-- passant -->
 
-        <activity android:name=".view.activities.ProfileActivity" />
 
         <!-- passant -->
 

@@ -84,7 +84,9 @@ public class TripNote implements Serializable, Parcelable {
     }
     public ArrayList<TripNote> convertFromStringToObject(String noteString){
         ArrayList<TripNote> tripNoteArrayList=new ArrayList<>();
+        if(noteString!=null&&!(noteString.equals(""))){
         String[] noteText= noteString.split(",");
+
         for (int i=0;i<noteText.length;i++){
             if (noteText[i].charAt(0)=='*'){
                 tripNoteArrayList.add(new TripNote(noteText[i].substring(1,noteText[i].length()),true));
@@ -94,7 +96,7 @@ public class TripNote implements Serializable, Parcelable {
                 tripNoteArrayList.add(new TripNote(noteText[i],false));
 
             }
-        }
+        }}
         return tripNoteArrayList;
     }
 }

@@ -134,7 +134,8 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
                         (calendar.getTimeInMillis()+1000)>=(System.currentTimeMillis()-1000)){
                 mCreateTripActivityPresenter.createTrip();
                 mCreateTripActivityPresenter.startSerivice();
-                finish();}
+                finish();
+                }
                 else
                     Toast.makeText(CreateTripActivity.this, "Please Check all data are submitted with upcoming date!", Toast.LENGTH_SHORT).show();
             }

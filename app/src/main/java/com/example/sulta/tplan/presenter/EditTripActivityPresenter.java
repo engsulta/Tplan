@@ -3,6 +3,7 @@ package com.example.sulta.tplan.presenter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.model.PlacePoint;
@@ -31,6 +32,7 @@ public class EditTripActivityPresenter implements IEditTripActivityPresenter {
         if (extras != null) {
             trip=extras.getParcelable("trip");
             mIView.setName(trip.getTitle());
+           // Toast.makeText(mContext, "round: "+trip.isRoundTrip(), Toast.LENGTH_SHORT).show();
             mIView.setDirection(trip.isRoundTrip());
             mIView.setStartPlace(trip.getStartPointName());
             mIView.setEndPlace(trip.getEndPointName());
@@ -75,9 +77,16 @@ public class EditTripActivityPresenter implements IEditTripActivityPresenter {
         newTrip.setNotes(new TripNote().convertFromObjectToString(mIView.getNotes()));
         newTrip.setStartTimeInMillis(mIView.getTripStartTimeInMillis());
 
-        newTrip.setStartPointName(mIView.getStartPointName());
-        newTrip.setEndPointName(mIView.getEndPointName());
+        if (mIView.getStartPointName()!=""){
+        newTrip.setStartPointName(mIView.getStartPointName());}
+        else{
+            newTrip.setStartPointName(trip.getStartPointName());}
+        if (mIView.getEndPointName()!=""){
+        newTrip.setEndPointName(mIView.getEndPointName());}
+        else{
+            newTrip.setEndPointName(trip.getEndPointName());}
         newTrip.setId(trip.getId());
+        newTrip.setRoundTrip(mIView.getTripDirection());
 
         new SqlAdapter(mContext).updateTrip(newTrip);
     }
@@ -85,13 +94,14 @@ public class EditTripActivityPresenter implements IEditTripActivityPresenter {
     private int[] convertDateStringToInt(String dateString){
         int[] dateArray=new int[6];
         String[] temp=dateString.split(" ");
-        String[] date=temp[0].split(":");
+        String[] date=temp[0].split("-");
         String[] time=temp[1].split(":");
         for (int i=0;i<date.length;i++) {
+            Log.i("asmaa", "convertDateStringToInt: "+date[i]);
             dateArray[i] = Integer.valueOf(date[i]);
         }
-        for (int i=3;i<dateArray.length;i++) {
-            dateArray[i] = Integer.valueOf(time[i]);
+        for (int i=0;i<time.length;i++) {
+            dateArray[i+3] = Integer.valueOf(time[i]);
         }
         return dateArray;
     }

@@ -48,7 +48,8 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
         trip.setEndPoint(endPlacePoint);
         trip.setDate(mIView.getTripDate());
         trip.setStatus("upComing");
-
+        trip.setRoundTrip(mIView.getTripDirection());
+        Toast.makeText(mContext, "round: "+mIView.getTripDirection(), Toast.LENGTH_SHORT).show();
         String noteString="";
         for (int i=0;i<mIView.getNotes().size();i++){
 
