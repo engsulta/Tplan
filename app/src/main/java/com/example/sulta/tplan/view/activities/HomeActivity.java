@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
+import com.example.sulta.tplan.StatisticsActivity;
 import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.HomeActivityPresenter;
@@ -54,6 +55,10 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.statisticsInfo:
+                        Intent intent = new Intent(HomeActivity.this, StatisticsActivity.class);
+                        startActivity(intent);
+                        return true;
                     case R.id.syncTripsToFirebase:
                         Toast.makeText(HomeActivity.this, "your trips has been Synchronized ", Toast.LENGTH_SHORT).show();
                         //TODO calling sync method to get data from firebase
