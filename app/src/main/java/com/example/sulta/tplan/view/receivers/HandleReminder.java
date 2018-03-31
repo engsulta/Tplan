@@ -31,7 +31,7 @@ public class HandleReminder extends BroadcastReceiver {
         Intent showHeadlessIntent = new Intent(context, HeadlessActivity.class);
         showHeadlessIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         showHeadlessIntent.putExtra("tripId", myRunningTrip.getId());
-        showHeadlessIntent.putExtra("trip", myRunningTrip);
+        //showHeadlessIntent.putExtra("trip", myRunningTrip);
         Intent[] intents = {showHeadlessIntent};
         showNotification(context, myRunningTrip, intents);
         wl.release();

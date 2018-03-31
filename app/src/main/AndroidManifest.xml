@@ -70,6 +70,7 @@
 
         <!-- passant -->
 
+
         <!-- passant -->
 
 
@@ -107,9 +108,7 @@
         <activity
             android:name=".view.activities.DoneTripsMap"
             android:label="@string/title_activity_done_trips_map" />
-        <activity
-            android:name=".view.activities.TripMapActivity"
-            android:label="@string/title_activity_trip_map"></activity>
+        <activity android:name=".view.activities.EditTripActivity"></activity>
     </application>
 
 </manifest>

@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.model.TripNote;
-import com.example.sulta.tplan.presenter.CreateTripActivityPresenter;
-import com.example.sulta.tplan.view.activities.interfaces.ICreateTripActivity;
+import com.example.sulta.tplan.presenter.EditTripActivityPresenter;
+import com.example.sulta.tplan.view.activities.interfaces.IEditTripActivity;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -26,16 +26,15 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class CreateTripActivity extends AppCompatActivity implements ICreateTripActivity {
-
-    CreateTripActivityPresenter mCreateTripActivityPresenter;
+public class EditTripActivity extends AppCompatActivity implements IEditTripActivity{
+    EditTripActivityPresenter mEditTripActivityPresenter;
     PlaceAutocompleteFragment startPointFragment;
     PlaceAutocompleteFragment endPointFragment;
     EditText tripNameEdt;
     DatePicker datePicker;
     TimePicker timePicker;
-    Button addNoteBtn,createTripBtn,cancelBtn;
-    String TAG="CreateTripActivityLog";
+    Button addNoteBtn,saveTripBtn,cancelBtn;
+    String TAG="EditTripActivityLog";
     Place startPlace;
     Place endPlace;
     ImageButton imgBtn;
@@ -45,26 +44,27 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_trip);
+        setContentView(R.layout.activity_edit_trip);
 
-        mCreateTripActivityPresenter=new CreateTripActivityPresenter(this,this);
+        mEditTripActivityPresenter=new EditTripActivityPresenter(this,this);
+        tripNameEdt=(EditText)findViewById(R.id.editTrip_edt_name);
+        datePicker=(DatePicker)findViewById(R.id.editTrip_datePicker);
+        timePicker=(TimePicker)findViewById(R.id.editTrip_timePicker);
+        addNoteBtn=(Button)findViewById(R.id.editTrip_button_note);
+        saveTripBtn=(Button)findViewById(R.id.editTrip_button_create);
+        startPointFragment = (PlaceAutocompleteFragment)getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment_start_edit);
+        endPointFragment = (PlaceAutocompleteFragment)getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment_end_edit);
+        imgBtn=(ImageButton)findViewById(R.id.imgBtn_edit);
+        cancelBtn=(Button)findViewById(R.id.editTrip_button_cancel);
 
-        tripNameEdt=(EditText)findViewById(R.id.createTrip_edt_name);
-        datePicker=(DatePicker)findViewById(R.id.createTrip_datePicker);
-        timePicker=(TimePicker)findViewById(R.id.createTrip_timePicker);
-        addNoteBtn=(Button)findViewById(R.id.creatTrip_button_note);
-        createTripBtn=(Button)findViewById(R.id.creatTrip_button_create);
-        startPointFragment = (PlaceAutocompleteFragment)getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment_start);
-        endPointFragment = (PlaceAutocompleteFragment)getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment_end);
-        imgBtn=(ImageButton)findViewById(R.id.imgBtn);
-        cancelBtn=(Button)findViewById(R.id.creatTrip_button_cancel);
+        mEditTripActivityPresenter.setData(getIntent());
+
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
         if(noteArrayList==null)
             noteArrayList=new ArrayList<>();
 
@@ -81,6 +81,8 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
                 }
             }
         });
+
+
 
         /*** change fragment design ***/
         startPointFragment.setHint("Start Point");
@@ -124,27 +126,25 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
-        createTripBtn.setOnClickListener(new View.OnClickListener() {
+        saveTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(),
                         timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
-                if(tripNameEdt.getText().toString().trim()!=null&&startPlace!=null&&endPlace!=null&&
+                if(tripNameEdt.getText().toString().trim()!=null&&
                         (calendar.getTimeInMillis()+1000)>=(System.currentTimeMillis()-1000)){
-                mCreateTripActivityPresenter.createTrip();
-                mCreateTripActivityPresenter.startSerivice();
-                finish();
-                }
+                    mEditTripActivityPresenter.editTrip();// mEditTripActivityPresenter.startSerivice();
+                    finish();}
                 else
-                    Toast.makeText(CreateTripActivity.this, "Please Check all data are submitted with upcoming date!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTripActivity.this, "Please Check all data are submitted with upcoming date!", Toast.LENGTH_SHORT).show();
             }
         });
         addNoteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent=new Intent(CreateTripActivity.this,AddNoteActivity.class);
+                Intent intent=new Intent(EditTripActivity.this,AddNoteActivity.class);
 
                 intent.putParcelableArrayListExtra("SendNote",noteArrayList);
                 // Set the request code to any code you like, you can identify the
@@ -164,22 +164,34 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
 
     @Override
     public double startPointLat() {
-        return startPlace.getLatLng().latitude;
+        if (startPlace!=null)
+            return startPlace.getLatLng().latitude;
+        else
+            return 0.0d;
     }
 
     @Override
     public double startPointLan() {
-        return startPlace.getLatLng().longitude;
+        if (startPlace!=null)
+            return startPlace.getLatLng().longitude;
+        else
+            return 0.0d;
     }
 
     @Override
     public double endPointLan() {
-        return endPlace.getLatLng().longitude;
+        if (endPlace!=null)
+            return endPlace.getLatLng().longitude;
+        else
+            return 0.0d;
     }
 
     @Override
     public double endPointLat() {
-        return endPlace.getLatLng().latitude;
+        if (endPlace!=null)
+            return endPlace.getLatLng().latitude;
+        else
+            return 0.0d;
     }
 
     @Override
@@ -193,22 +205,26 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
 
     @Override
     public long getTripStartTimeInMillis() {
-       Calendar calendar = Calendar.getInstance();
-       calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(),
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(),
                 timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
         return calendar.getTimeInMillis();
     }
 
     @Override
     public String getStartPointName() {
-        Log.i(TAG, "getStartPointName: "+startPlace.getName());
-        Log.i(TAG, "getStartPointName: "+startPlace.getAddress());
+       if (startPlace!=null)
         return startPlace.getName().toString();
+       else
+           return "";
     }
 
     @Override
     public String getEndPointName() {
+        if (endPlace!=null)
         return endPlace.getName().toString();
+        else
+            return "";
     }
 
     @Override
@@ -228,7 +244,7 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
     @Override
     protected void onStop() {
         super.onStop();
-        mCreateTripActivityPresenter.stopService();
+       // mEditTripActivityPresenter.stopService();
     }
 
     @Override
@@ -249,5 +265,57 @@ public class CreateTripActivity extends AppCompatActivity implements ICreateTrip
                 noteArrayList=temp;
             }
         }
+    }
+
+    @Override
+    public void setName(String name) {
+        tripNameEdt.setText(name);
+
+    }
+
+    @Override
+    public void setDirection(Boolean dir) {
+        if(dir==true){
+            imgBtn.setBackgroundResource(R.drawable.tripdir2);
+            Toast.makeText(EditTripActivity.this, "toot", Toast.LENGTH_SHORT).show();
+            flag=2;
+        }
+        else {
+            imgBtn.setBackgroundResource(R.drawable.tripdir);
+            Toast.makeText(EditTripActivity.this, "toot2", Toast.LENGTH_SHORT).show();
+
+            flag=0;
+        }
+
+    }
+
+    @Override
+    public void setStartPlace(String placeName) {
+        startPointFragment.setText(placeName);
+    }
+
+    @Override
+    public void setEndPlace(String placeName) {
+        endPointFragment.setText(placeName);
+
+    }
+
+    @Override
+    public void setDate(int year, int mon, int day) {
+        datePicker.updateDate(year,mon,day);
+
+    }
+
+    @Override
+    public void setTime(int hour, int min) {
+        timePicker.setCurrentHour(hour);
+        timePicker.setCurrentMinute(min);
+
+    }
+
+    @Override
+    public void setNotes(ArrayList<TripNote> noteArrayList) {
+        this.noteArrayList=noteArrayList;
+
     }
 }

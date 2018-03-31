@@ -2,8 +2,10 @@ package com.example.sulta.tplan.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Asmaa on 3/17/2018.
@@ -64,4 +66,37 @@ public class TripNote implements Serializable, Parcelable {
             return new TripNote[size];
         }
     };
+
+    public String convertFromObjectToString (ArrayList<TripNote> noteArrayList){
+        String noteString="";
+        for (int i=0;i<noteArrayList.size();i++){
+
+            if(noteArrayList.get(i).isChecked()==true)
+                noteString+="*"+noteArrayList.get(i).getText()+",";
+            else
+                noteString+=noteArrayList.get(i).getText()+",";
+
+            if(i==(noteArrayList.size()-1)){
+                noteString=noteString.substring(0,noteString.length()-1);
+            }
+        }
+        return noteString;
+    }
+    public ArrayList<TripNote> convertFromStringToObject(String noteString){
+        ArrayList<TripNote> tripNoteArrayList=new ArrayList<>();
+        if(noteString!=null&&!(noteString.equals(""))){
+        String[] noteText= noteString.split(",");
+
+        for (int i=0;i<noteText.length;i++){
+            if (noteText[i].charAt(0)=='*'){
+                tripNoteArrayList.add(new TripNote(noteText[i].substring(1,noteText[i].length()),true));
+                Log.i("asmaaCheck", "convertFromStringToObject: "+noteText[i].substring(1,noteText[i].length()));
+            }
+            else {
+                tripNoteArrayList.add(new TripNote(noteText[i],false));
+
+            }
+        }}
+        return tripNoteArrayList;
+    }
 }
