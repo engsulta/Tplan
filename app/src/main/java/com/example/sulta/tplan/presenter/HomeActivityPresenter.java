@@ -11,7 +11,7 @@ import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.adapters.HomeLVHistoryTripsAdapter;
 import com.example.sulta.tplan.presenter.adapters.HomeLVUpComingTripsAdapter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
-import com.example.sulta.tplan.view.activities.HomeActivity;
+import com.example.sulta.tplan.view.activities.LoginActivity;
 import com.example.sulta.tplan.view.activities.TripMapActivity;
 import com.example.sulta.tplan.view.utilities.MySharedPrefManger;
 import com.example.sulta.tplan.view.utilities.UserManager;
@@ -136,7 +136,7 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
     @Override
     public void refreshList(Context context) {
-        Intent intent = new Intent(context, HomeActivity.class);
+        Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
         ((Activity) context).finish();
     }
