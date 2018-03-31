@@ -117,7 +117,6 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
 
     private void setAlarmSetting() {
         if (isBound) {
-            Toast.makeText(myService, "alarm started", Toast.LENGTH_SHORT).show();
             myService.startNewAlarm(mContext, trip.getStartTimeInMillis(), trip.getId());//send request conde from trip id
         }
     }

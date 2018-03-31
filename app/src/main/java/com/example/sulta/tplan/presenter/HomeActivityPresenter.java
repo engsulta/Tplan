@@ -1,5 +1,6 @@
 package com.example.sulta.tplan.presenter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.ListView;
@@ -10,6 +11,7 @@ import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.adapters.HomeLVHistoryTripsAdapter;
 import com.example.sulta.tplan.presenter.adapters.HomeLVUpComingTripsAdapter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
+import com.example.sulta.tplan.view.activities.LoginActivity;
 import com.example.sulta.tplan.view.activities.TripMapActivity;
 import com.example.sulta.tplan.view.utilities.MySharedPrefManger;
 import com.example.sulta.tplan.view.utilities.UserManager;
@@ -76,6 +78,7 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
     @Override
     public void synchTripsToFireBase(Context context) {
+        removeAllTrips();
         db = new SqlAdapter(context);
         userManager = UserManager.getUserInstance();
         userManager.setTripsList(db.selectAllTrips());
@@ -85,10 +88,16 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
     }
 
+    private void removeAllTrips() {
+        userManager = UserManager.getUserInstance();
+        FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).removeValue();
+    }
+
     @Override
     public void logOutSettings(Context context) {
-        db = new SqlAdapter(context);
         userManager = UserManager.getUserInstance();
+        synchTripsToFireBase(context);
+        db = new SqlAdapter(context);
         userManager.setTripsList(db.selectAllTrips());
         userManager.setDurationPerMonth(3);
         userManager.setDistancePerMonth(10);
@@ -98,6 +107,7 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
+        refreshList(context);
         LoginManager.getInstance().logOut();
     }
 
@@ -125,13 +135,19 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     }
 
     @Override
+    public void refreshList(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+        ((Activity) context).finish();
+    }
+
+    @Override
     public void startSerivice() {
         upComingTripsAdapter.startSerivice();
     }
 
     @Override
     public void stopService() {
-
 
     }
 }

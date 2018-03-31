@@ -36,7 +36,7 @@ public class ReminderIntentService extends IntentService {
 
         if (intent != null) {
 
-            startNewAlarm(this,intent.getLongExtra("triptime",0l),intent.getIntExtra("tripid",-1));
+            startNewAlarm(this, intent.getLongExtra("triptime", 0l), intent.getIntExtra("tripid", -1));
 
 
         }
@@ -45,13 +45,11 @@ public class ReminderIntentService extends IntentService {
     public void startNewAlarm(Context context, Long startTime, int REQUEST_CODE) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, HandleReminder.class);
-        intent.putExtra("REQUEST_CODE",REQUEST_CODE);
-        Toast.makeText(this, "this recovers "+REQUEST_CODE+"trip", Toast.LENGTH_SHORT).show();
+        intent.putExtra("REQUEST_CODE", REQUEST_CODE);
+        Toast.makeText(context, "alarm recoverd successfully", Toast.LENGTH_SHORT).show();
         PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         alarmManager.set(AlarmManager.RTC_WAKEUP, startTime, sender); // Millisec * Second * Minute
     }
-
-
 
 
 }
