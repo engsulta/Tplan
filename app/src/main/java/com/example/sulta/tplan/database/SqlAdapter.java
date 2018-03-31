@@ -92,6 +92,8 @@ public class SqlAdapter {
         values.put(COL5_DURATION, trip.getDuration());
         values.put(COL6_STATUS, trip.getStatus());
         values.put(COL7_ROUND_TRIP, trip.isRoundTrip());
+        trip.setDistance(distance(trip.getStartPoint().getLatitude(), trip.getStartPoint().getLongitude(),
+                trip.getEndPoint().getLatitude(), trip.getEndPoint().getLongitude(), "K"));
         values.put(COL8_DISTANCE, trip.getDistance());
         values.put(COL9_END_POINT_LATITUDE, trip.getEndPoint().getLatitude());
         values.put(COL10_END_POINT_LONGITUDE, trip.getEndPoint().getLongitude());
@@ -127,6 +129,8 @@ public class SqlAdapter {
         values.put(COL5_DURATION, trip.getDuration());
         values.put(COL6_STATUS, trip.getStatus());
         values.put(COL7_ROUND_TRIP, trip.isRoundTrip());
+        trip.setDistance(distance(trip.getStartPoint().getLatitude(), trip.getStartPoint().getLongitude(),
+                trip.getEndPoint().getLatitude(), trip.getEndPoint().getLongitude(), "K"));
         values.put(COL8_DISTANCE, trip.getDistance());
         values.put(COL9_END_POINT_LATITUDE, trip.getEndPoint().getLatitude());
         values.put(COL10_END_POINT_LONGITUDE, trip.getEndPoint().getLongitude());
@@ -255,6 +259,8 @@ public class SqlAdapter {
                 trip.setEndPointName(cursor.getString(13));
                 trip.setStartTimeInMillis(Long.getLong(cursor.getString(14)));
                 data.add(trip);
+
+                Log.i("TEST", String.valueOf(cursor.getDouble(7))+" K.m");
             } while (cursor.moveToNext());
         }
         db.close();
@@ -327,8 +333,6 @@ public class SqlAdapter {
                 trip.setStartPointName(cursor.getString(12));
                 trip.setEndPointName(cursor.getString(13));
                 trip.setStartTimeInMillis(Long.parseLong(cursor.getString(14)));
-
-                Log.i("TEST",String.valueOf(trip.getStartTimeInMillis()));
         }
         db.close();
         return trip;
@@ -361,6 +365,36 @@ public class SqlAdapter {
 
     public void deleteDB() {
         context.deleteDatabase(DATABASE_NAME);
+    }
+
+    private double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        if (unit == "K") {
+            dist = dist * 1.609344;
+        } /*else if (unit == "N") {
+            dist = dist * 0.8684;
+        }*/
+
+        return (dist);
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+	/*::	This function converts decimal degrees to radians						 :*/
+	/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+	/*::	This function converts radians to decimal degrees						 :*/
+	/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    private double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
     }
 
 }
