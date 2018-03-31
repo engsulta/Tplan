@@ -23,9 +23,7 @@ import com.example.sulta.tplan.presenter.adapters.HomePagerAdapter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
 import com.example.sulta.tplan.view.activities.interfaces.IHomeActivity;
 import com.example.sulta.tplan.view.utilities.UserManager;
-import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -39,16 +37,17 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
     private UserManager userManager;
     Intent intent;
     SqlAdapter db;
+    IHomeActivityPresenter homeActivityPresenter;
 
-  @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         currentTabName = (TextView) findViewById(R.id.currentTabName);
         homeToolBar = (Toolbar) findViewById(R.id.tpToolBar);
+        homeActivityPresenter=new HomeActivityPresenter();
         setSupportActionBar(homeToolBar);
         intent = getIntent();
-        db=new SqlAdapter(this);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         homeToolBar.inflateMenu(R.menu.menu_toolbar);
         homeToolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -56,37 +55,39 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.userProfile:
-                        Intent intent = new Intent(HomeActivity.this,ProfileActivity.class);
+                        Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                         startActivity(intent);
                         return true;
                     case R.id.syncTripsToFirebase:
-                        Toast.makeText(HomeActivity.this, "Sync", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomeActivity.this, "your trips has been Synchronized ", Toast.LENGTH_SHORT).show();
                         //TODO calling sync method to get data from firebase
-                        userManager=UserManager.getUserInstance();
-                        userManager.setTripsList(db.selectAllTrips());
-                        userManager.setDurationPerMonth(3);
-                        userManager.setDistancePerMonth(10);
-                        FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
+//                        userManager = UserManager.getUserInstance();
+//                        userManager.setTripsList(db.selectAllTrips());
+//                        userManager.setDurationPerMonth(3);//don't forget to get db.select duration per month
+//                        userManager.setDistancePerMonth(10);//don't forget db.select distance per month
+                        homeActivityPresenter.synchTripsToFireBase(HomeActivity.this);
+
+//                        FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
                         return true;
                     case R.id.logoutFromApp:
-                        Toast.makeText(HomeActivity.this, "logout", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomeActivity.this, "logged out", Toast.LENGTH_SHORT).show();
 
                         //TODO calling logout method which clears user's data
-                        userManager=UserManager.getUserInstance();
-                        userManager.setTripsList(db.selectAllTrips());
-                        userManager.setDurationPerMonth(3);
-                        userManager.setDistancePerMonth(10);
-                        FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
-
-                        db.deleteTripTable();
-
-                        mAuth = FirebaseAuth.getInstance();
-                        mAuth.signOut();
-                        LoginManager.getInstance().logOut();
-
+//                        userManager = UserManager.getUserInstance();
+//                        userManager.setTripsList(db.selectAllTrips());
+//                        userManager.setDurationPerMonth(3);
+//                        userManager.setDistancePerMonth(10);
+//                        FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
+//
+//                        db.deleteTripTable();
+//
+//                        mAuth = FirebaseAuth.getInstance();
+//                        mAuth.signOut();
+//                        LoginManager.getInstance().logOut();
+                        homeActivityPresenter.logOutSettings(HomeActivity.this);
                         finish();
 
-                        Intent logoutIntent=new Intent(HomeActivity.this,LoginActivity.class);
+                        Intent logoutIntent = new Intent(HomeActivity.this, LoginActivity.class);
                         startActivity(logoutIntent);
 
                         //back to login page
@@ -121,11 +122,11 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 homeViewPager.setCurrentItem(tab.getPosition());
-                if(tab.getPosition()==0){
+                if (tab.getPosition() == 0) {
                     currentTabName.setText("UpComing Trips");
-                } else if(tab.getPosition()==1){
+                } else if (tab.getPosition() == 1) {
                     currentTabName.setText("History Trips");
-                } else{
+                } else {
                     currentTabName.setText("Settings");
                 }
                 tab.getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
@@ -142,12 +143,12 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
             }
         });
         intent = getIntent();
-        if(intent.getIntExtra("TabFlag",0)==1){
+        if (intent.getIntExtra("TabFlag", 0) == 1) {
             homeViewPager.setCurrentItem(1);
             homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
             homeTabs.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
             homeTabs.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
-        } else if(intent.getIntExtra("TabFlag",0)==2){
+        } else if (intent.getIntExtra("TabFlag", 0) == 2) {
             homeViewPager.setCurrentItem(2);
             homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
             homeTabs.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
@@ -166,12 +167,12 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
     protected void onStart() {
         super.onStart();
         intent = getIntent();
-        if(intent.getIntExtra("TabFlag",0)==1){
+        if (intent.getIntExtra("TabFlag", 0) == 1) {
             homeViewPager.setCurrentItem(1);
             homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
             homeTabs.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
             homeTabs.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
-        } else if(intent.getIntExtra("TabFlag",0)==2){
+        } else if (intent.getIntExtra("TabFlag", 0) == 2) {
             homeViewPager.setCurrentItem(2);
             homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
             homeTabs.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
@@ -190,10 +191,9 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
     }
 
 
-
     @Override
     public void setAllTrips(ArrayList<Trip> trips) {
-    //set your trips with new one and reload view
+        //set your trips with new one and reload view
     }
 
 
