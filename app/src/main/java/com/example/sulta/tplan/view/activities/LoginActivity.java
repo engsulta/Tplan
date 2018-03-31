@@ -357,6 +357,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     public void downloadTripsForUser() {
+        loginActivityPresenter=new LoginActivityPresenter(this);
         loginActivityPresenter.downloadTripsForUser();
 
 //        final SqlAdapter db = new SqlAdapter(this);

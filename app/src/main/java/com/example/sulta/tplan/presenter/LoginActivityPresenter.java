@@ -42,6 +42,7 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
     @Override
     public void downloadTripsForUser() {
         final SqlAdapter db = new SqlAdapter(mcontext);
+        myUserManager=UserManager.getUserInstance();
         FirebaseDatabase.getInstance().getReference().child("users").child(myUserManager.getId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -57,6 +58,10 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
                             db.insertTrip(t);
                         }
                     }
+                    // Home refresh method
+                    HomeActivityPresenter homeActivityPresenter=new HomeActivityPresenter();
+                    homeActivityPresenter.refreshList();
+
                 }
             }
 
