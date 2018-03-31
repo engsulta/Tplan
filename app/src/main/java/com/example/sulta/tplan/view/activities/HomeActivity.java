@@ -81,8 +81,9 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
 //                        mAuth = FirebaseAuth.getInstance();
 //                        mAuth.signOut();
 //                        LoginManager.getInstance().logOut();
-                        homeActivityPresenter.removeAllAlarms(HomeActivity.this);
+
                         homeActivityPresenter.logOutSettings(HomeActivity.this);
+                        homeActivityPresenter.removeAllAlarms(HomeActivity.this);
                         finish();
 
                         Intent logoutIntent = new Intent(HomeActivity.this, LoginActivity.class);

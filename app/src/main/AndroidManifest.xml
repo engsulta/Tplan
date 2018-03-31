@@ -75,7 +75,7 @@
 
 
         <!-- sulta -->
-
+        <activity android:name=".view.activities.TripMapActivity" />
 
         <!-- sulta -->
         <service

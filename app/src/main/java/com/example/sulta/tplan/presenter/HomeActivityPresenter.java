@@ -77,7 +77,7 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
     @Override
     public void editSettings(Context context, int value) {
-        MySharedPrefManger.getInstance(context).storeSettings("SettingsState",value);
+        MySharedPrefManger.getInstance(context).storeSettings("SettingsState", value);
     }
 
     @Override
@@ -94,13 +94,12 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
         userManager.setDurationPerMonth(db.returnDurationSum());//don't forget to get db.select duration per month
         userManager.setDistancePerMonth(db.returnDistanceSum());//don't forget db.select distance per month
         FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
-        db.deleteTripTable();
 
     }
 
     private void removeAllTrips() {
         userManager = UserManager.getUserInstance();
-        Log.i("tplan", "removeAllTrips: "+userManager.getId());
+        Log.i("tplan", "removeAllTrips: " + userManager.getId());
         FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).removeValue();
     }
 
@@ -108,26 +107,26 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     public void logOutSettings(Context context) {
         userManager = UserManager.getUserInstance();
         synchTripsToFireBase(context);
-
+        db.deleteTripTable();
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
-        refreshList(context);
+        // refreshList(context);
         LoginManager.getInstance().logOut();
-       // ((Activity)context).finish();
+        // ((Activity)context).finish();
     }
 
     @Override
     public void shareTrip(Context context, Trip trip) {
-        String comingTrip="Upcoming Trip\n Trip Name: "+trip.getTitle()+"\n"+
-                " Trip Date: "+trip.getDate()+"\n"+
-                " Trip Duration: "+trip.getDuration()+"\n"+
-                " Trip Distance: "+trip.getDistance()+"\n"+
-                " From: "+trip.getStartPointName()+"\n"+
-                " To: "+trip.getEndPointName()+"\n"+
-                " Trip Notes: "+trip.getNotes();
+        String comingTrip = "Upcoming Trip\n Trip Name: " + trip.getTitle() + "\n" +
+                " Trip Date: " + trip.getDate() + "\n" +
+                " Trip Duration: " + trip.getDuration() + "\n" +
+                " Trip Distance: " + trip.getDistance() + "\n" +
+                " From: " + trip.getStartPointName() + "\n" +
+                " To: " + trip.getEndPointName() + "\n" +
+                " Trip Notes: " + trip.getNotes();
         Intent sendintent = new Intent();
         sendintent.setAction(Intent.ACTION_SEND);
-        sendintent.putExtra(Intent.EXTRA_TEXT,comingTrip);
+        sendintent.putExtra(Intent.EXTRA_TEXT, comingTrip);
         sendintent.setType("text/plain");
         context.startActivity(sendintent);
     }
@@ -135,7 +134,7 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     @Override
     public void viewMapTrip(Context context, Trip trip) {
         Intent intent = new Intent(context, TripMapActivity.class);
-        intent.putExtra("tripId",trip.getId());
+        intent.putExtra("tripId", trip.getId());
         context.startActivity(intent);
     }
 
@@ -148,19 +147,23 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
     @Override
     public void removeAllAlarms(Context context) {
-        this.mContext=context;
-        Intent mintent = new Intent(context, ReminderService.class);
-        context.bindService(mintent, myconnection, Context.BIND_AUTO_CREATE);
+        this.mContext = context;
+       if (!isBound){
+            Intent mintent = new Intent(context, ReminderService.class);
+            mContext.bindService(mintent, myconnection, Context.BIND_AUTO_CREATE);
+        }else{
+           stopService();
+       }
     }
+
     private ServiceConnection myconnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             ReminderService.MyLocalBinder binder = (ReminderService.MyLocalBinder) iBinder;
-            stopService();
+
             myService = binder.geService();
             isBound = true;
             myService.stopAllAlarms(mContext);//send request conde from trip id
-
 
 
         }
@@ -175,16 +178,17 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
     @Override
     public void startSerivice() {
+
         upComingTripsAdapter.startSerivice();
     }
 
 
     @Override
     public void stopService() {
-        if(isBound){
+        if (isBound) {
             mContext.stopService(new Intent(mContext, ReminderService.class));
             mContext.unbindService(myconnection);
-            isBound=false;
+            isBound = false;
         }
     }
 }

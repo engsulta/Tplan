@@ -118,6 +118,7 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
     private void setAlarmSetting() {
         if (isBound) {
             myService.startNewAlarm(mContext, trip.getStartTimeInMillis(), trip.getId());//send request conde from trip id
+            stopService();
         }
     }
 

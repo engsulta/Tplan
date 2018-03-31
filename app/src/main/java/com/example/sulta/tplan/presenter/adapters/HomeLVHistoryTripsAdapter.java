@@ -43,8 +43,9 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
     int tripImages[] = {R.drawable.tripimage1, R.drawable.tripimage2, R.drawable.tripimage3, R.drawable.tripimage4, R.drawable.tripimage5,
             R.drawable.tripimage6};
     boolean isBound = false;
-    private  int pos;
+    private int pos;
     private int position1;
+
     public HomeLVHistoryTripsAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List androidSets) {
         super(context, resource, textViewResourceId, androidSets);
         this.context = context;
@@ -56,12 +57,12 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
     public View getView(final int position, @Nullable final View convertView, @NonNull final ViewGroup parent) {
         View myView = convertView;
         final HomeViewHolderHistoryList viewHolder;
-        if(convertView==null){
+        if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            myView = inflater.inflate(R.layout.item_list_history_trips_cardview,parent,false);
+            myView = inflater.inflate(R.layout.item_list_history_trips_cardview, parent, false);
             viewHolder = new HomeViewHolderHistoryList(myView);
             myView.setTag(viewHolder);
-        } else{
+        } else {
             viewHolder = (HomeViewHolderHistoryList) myView.getTag();
         }
 
@@ -75,21 +76,21 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
-                homePresenter.viewMapTrip(context,customList.get(position));
+                homePresenter.viewMapTrip(context, customList.get(position));
             }
         });
         viewHolder.getDeleteTripBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
-                boolean result = homePresenter.deleteTrip(context,customList.get(position).getId());
-                if(result){
+                boolean result = homePresenter.deleteTrip(context, customList.get(position).getId());
+                if (result) {
                     Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, HomeActivity.class);
-                    intent.putExtra("TabFlag",1);
+                    intent.putExtra("TabFlag", 1);
                     context.startActivity(intent);
-                    ( (Activity) context).finish();
-                } else{
+                    ((Activity) context).finish();
+                } else {
                     Toast.makeText(context, "Cannot be deleted", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -100,12 +101,12 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
             public void onClick(View v) {
                 IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
                 customList.get(position1).setStatus("Done");
-                homePresenter.editTrip(context,customList.get(position1));
+                homePresenter.editTrip(context, customList.get(position1));
                 Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, HomeActivity.class);
-                intent.putExtra("TabFlag",1);
+                intent.putExtra("TabFlag", 1);
                 context.startActivity(intent);
-                ( (Activity) context).finish();
+                ((Activity) context).finish();
             }
         });
 
@@ -120,7 +121,7 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
-                homePresenter.shareTrip(context,customList.get(position));
+                homePresenter.shareTrip(context, customList.get(position));
             }
         });
 
@@ -128,9 +129,9 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(context, "View", Toast.LENGTH_SHORT).show();
-                Intent intent=new
+                Intent intent = new
                         Intent(context, HeadlessActivity.class);
-                intent.putExtra("tripId",customList.get(position).getId());
+                intent.putExtra("tripId", customList.get(position).getId());
                 context.startActivity(intent);
             }
         });
@@ -148,39 +149,38 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
         return myView;
     }
 
-    public void showListViewMenu(View v)
-    {
-        PopupMenu popup = new PopupMenu(getContext(),v);
+    public void showListViewMenu(View v) {
+        PopupMenu popup = new PopupMenu(getContext(), v);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId() == R.id.viewTripDetails) {
+                if (item.getItemId() == R.id.viewTripDetails) {
 
                     Toast.makeText(context, "viewed", Toast.LENGTH_SHORT).show();
 
-                } else if(item.getItemId() == R.id.deleteTrip){
+                } else if (item.getItemId() == R.id.deleteTrip) {
 
                     IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
-                    boolean result = homePresenter.deleteTrip(context,customList.get(position1).getId());
-                    if(result){
+                    boolean result = homePresenter.deleteTrip(context, customList.get(position1).getId());
+                    if (result) {
                         Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context, HomeActivity.class);
-                        intent.putExtra("TabFlag",1);
+                        intent.putExtra("TabFlag", 1);
                         context.startActivity(intent);
-                        ( (Activity) context).finish();
-                    } else{
+                        ((Activity) context).finish();
+                    } else {
                         Toast.makeText(context, "Cannot be deleted", Toast.LENGTH_SHORT).show();
                     }
-                } else if(item.getItemId() == R.id.doneTrip){
+                } else if (item.getItemId() == R.id.doneTrip) {
 
                     IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
                     customList.get(position1).setStatus("Done");
-                    homePresenter.editTrip(context,customList.get(position1));
+                    homePresenter.editTrip(context, customList.get(position1));
                     Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, HomeActivity.class);
-                    intent.putExtra("TabFlag",1);
+                    intent.putExtra("TabFlag", 1);
                     context.startActivity(intent);
-                    ( (Activity) context).finish();
+                    ((Activity) context).finish();
                 }
                 return true;
             }
@@ -191,24 +191,23 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
         popup.show();
     }
 
-    public void showMoreOptionsMenu(View v)
-    {
-        PopupMenu popup = new PopupMenu(getContext(),v);
+    public void showMoreOptionsMenu(View v) {
+        PopupMenu popup = new PopupMenu(getContext(), v);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId()==R.id.startAfterMins) {
+                if (item.getItemId() == R.id.startAfterMins) {
                     Toast.makeText(context, "Snoozed", Toast.LENGTH_SHORT).show();
                     stopService();
                     startSerivice();
                     IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
                     customList.get(pos).setStatus("upComing");
-                    homePresenter.editTrip(context,customList.get(pos));
+                    homePresenter.editTrip(context, customList.get(pos));
                     Intent intent = new Intent(context, HomeActivity.class);
-                    intent.putExtra("TabFlag",1);
+                    intent.putExtra("TabFlag", 1);
                     context.startActivity(intent);
-                    ( (Activity) context).finish();
-                } else if(item.getItemId()== R.id.repeatTrip){
+                    ((Activity) context).finish();
+                } else if (item.getItemId() == R.id.repeatTrip) {
                     Toast.makeText(context, "Repeated", Toast.LENGTH_SHORT).show();
                 }
                 return true;
@@ -248,17 +247,18 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
 
 
     public void stopService() {
-        if(isBound){
+        if (isBound) {
             context.stopService(new Intent(context, ReminderService.class));
             context.unbindService(myconnection);
-            isBound=false;
+            isBound = false;
         }
     }
 
-    private void snoozeAlarmSettings(int  tripId) {
+    private void snoozeAlarmSettings(int tripId) {
         if (isBound) {
             Toast.makeText(myService, "alarm started", Toast.LENGTH_SHORT).show();
-            myService.snoozeAlarm(context, tripId, 10*60*1000L);//send request conde from trip id
+            myService.snoozeAlarm(context, tripId, 10 * 60 * 1000L);//send request conde from trip id
+            stopService();
         }
     }
 

@@ -31,6 +31,7 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
     private UserManager myUserManager;
     ReminderService myService;
     boolean isBound = false;
+
     public LoginActivityPresenter(Context context) {
         this.mcontext = context;
     }
@@ -60,7 +61,7 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
                 if (user != null) {
                     myUserManager.setDistancePerMonth(user.getDistancePerMonth());
                     myUserManager.setDurationPerMonth(user.getDurationPerMonth());
-                    myUserManager.setTripsList(user.getTripsList());
+                    // myUserManager.setTripsList(user.getTripsList());
                     if (user.getTripsList() != null) {
                         for (Trip t : user.getTripsList()
                                 ) {
@@ -85,10 +86,13 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
 
     @Override
     public void startAllAlarms(Context context) {
-        this.mcontext=context;
-        Intent mintent = new Intent(context, ReminderService.class);
-        context.bindService(mintent, myconnection, Context.BIND_AUTO_CREATE);
+        this.mcontext = context;
+        if (!isBound) {
+            Intent mintent = new Intent(context, ReminderService.class);
+            context.bindService(mintent, myconnection, Context.BIND_AUTO_CREATE);
+        }else{stopService();}
     }
+
     private ServiceConnection myconnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
@@ -96,7 +100,6 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
             myService = binder.geService();
             isBound = true;
             myService.startAllAlarms(mcontext);//send request conde from trip id
-
 
 
         }
@@ -107,11 +110,12 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
 
         }
     };
+
     public void stopService() {
-        if(isBound){
+        if (isBound) {
             mcontext.stopService(new Intent(mcontext, ReminderService.class));
             mcontext.unbindService(myconnection);
-            isBound=false;
+            isBound = false;
         }
     }
 }
