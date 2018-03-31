@@ -355,36 +355,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
-
     public void downloadTripsForUser() {
+        loginActivityPresenter = new LoginActivityPresenter(this);
         loginActivityPresenter.downloadTripsForUser();
-
-//        final SqlAdapter db = new SqlAdapter(this);
-//        FirebaseDatabase.getInstance().getReference().child("users").child(myUserManager.getId()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                User user = dataSnapshot.getValue(User.class);
-//                if (user != null) {
-//                    myUserManager.setDistancePerMonth(user.getDistancePerMonth());
-//                    myUserManager.setDurationPerMonth(user.getDurationPerMonth());
-//                    myUserManager.setTripsList(user.getTripsList());
-//                    if (user.getTripsList() != null) {
-//                        for (Trip t : user.getTripsList()
-//                                ) {
-//                            db.insertTrip(t);
-//                        }
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
     }
 
 }

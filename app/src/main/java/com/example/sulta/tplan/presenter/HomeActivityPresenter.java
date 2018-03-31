@@ -76,6 +76,7 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
     @Override
     public void synchTripsToFireBase(Context context) {
+        removeAllTrips();
         db = new SqlAdapter(context);
         userManager = UserManager.getUserInstance();
         userManager.setTripsList(db.selectAllTrips());
@@ -85,10 +86,16 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
     }
 
+    private void removeAllTrips() {
+        userManager = UserManager.getUserInstance();
+        FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).removeValue();
+    }
+
     @Override
     public void logOutSettings(Context context) {
-        db = new SqlAdapter(context);
         userManager = UserManager.getUserInstance();
+        synchTripsToFireBase(context);
+        db = new SqlAdapter(context);
         userManager.setTripsList(db.selectAllTrips());
         userManager.setDurationPerMonth(3);
         userManager.setDistancePerMonth(10);
@@ -122,6 +129,11 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
         Intent intent = new Intent(context, TripMapActivity.class);
         intent.putExtra("tripId",trip.getId());
         context.startActivity(intent);
+    }
+
+    @Override
+    public void refreshList() {
+
     }
 
     @Override

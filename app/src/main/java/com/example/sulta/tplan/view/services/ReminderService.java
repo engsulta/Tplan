@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.sulta.tplan.database.SqlAdapter;
@@ -31,6 +30,7 @@ public class ReminderService extends Service {
     private final String TAG = "tplan";
     private SqlAdapter db;
     private Context context;
+
     /////
     public ReminderService() {
     }
@@ -42,67 +42,91 @@ public class ReminderService extends Service {
     }//publish service here
 
     public void startNewAlarm(Context context, Long startTime, int REQUEST_CODE) {
-        this.context=context;
-        sharedPrefManger = MySharedPrefManger.getInstance(context);
+        this.context = context;
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, HandleReminder.class);
-        Log.i(TAG, "startNewAlarm: " + firstStartTripId);
-        intent.putExtra("REQUEST_CODE",REQUEST_CODE);
-       // storeFirstUpcomingTrip(REQUEST_CODE,startTime);
+        Toast.makeText(context, "alarm started successfully", Toast.LENGTH_SHORT).show();
+        intent.putExtra("REQUEST_CODE", REQUEST_CODE);
         PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         alarmManager.set(AlarmManager.RTC_WAKEUP, startTime, sender); // Millisec * Second * Minute
-        ((Activity)context).finish();
+        ((Activity) context).finish();
     }
-
 
 
     public void EditAlarm(Context context, int REQUEST_CODE, Long startTime) {
-        this.context=context;
+        this.context = context;
         Intent intent = new Intent(context, HandleReminder.class);//there will be toast or alert told you that this alarm stoped
-        intent.putExtra("REQUEST_CODE",REQUEST_CODE);
+        intent.putExtra("REQUEST_CODE", REQUEST_CODE);
         PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
         alarmManager.set(AlarmManager.RTC_WAKEUP, startTime, sender); // Millisec * Second * Minute
-       // storeFirstUpcomingTrip(REQUEST_CODE,startTime);
+        // storeFirstUpcomingTrip(REQUEST_CODE,startTime);
         Toast.makeText(context, "alarm edited successfully", Toast.LENGTH_SHORT).show();
-        ((Activity)context).finish();
+        ((Activity) context).finish();
     }
 
     public void snoozeAlarm(Context context, int REQUEST_CODE, Long snoozTime) {
-        this.context=context;
+        this.context = context;
         Intent intent = new Intent(context, HandleReminder.class);//there will be toast or alert told you that this alarm stoped
-        intent.putExtra("REQUEST_CODE",REQUEST_CODE);
+        intent.putExtra("REQUEST_CODE", REQUEST_CODE);
         PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+snoozTime, sender);
-//        try {
-//            alarmManager.wait(snoozTime);
-//            Toast.makeText(context, "alarm snoozed successfully for "+snoozTime, Toast.LENGTH_SHORT).show();
-//            ((Activity)context).finish();
-//            //storeFirstUpcomingTrip(REQUEST_CODE,snoozTime);
-//
-//
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + snoozTime, sender);
+
     }
 
 
     public void stopAlarm(Context context, int REQUEST_CODE) {
-        this.context=context;
+        this.context = context;
         Intent intent = new Intent(context, HandleReminder.class);//there will be toast or alert told you that this alarm stoped
         PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
-        Toast.makeText(this, REQUEST_CODE + "is stoped ", Toast.LENGTH_SHORT).show();
-        ((Activity)context).finish();
+        Toast.makeText(context, "alarm stoped successfully", Toast.LENGTH_SHORT).show();
+        ((Activity) context).finish();
 
     }
 
+    public void stopAllAlarms(Context context) {
+        this.context = context;
+        ArrayList<Trip> upcomingtrips = db.selectUpComingTrips();
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        for (Trip t : upcomingtrips
+                ) {
+            int REQUEST_CODE = t.getId();
+            Intent intent = new Intent(context, HandleReminder.class);//there will be toast or alert told you that this alarm stoped
+            PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
+            alarmManager.cancel(sender);
 
 
+        }
+        Toast.makeText(context, "alarm stoped successfully", Toast.LENGTH_SHORT).show();
+        ((Activity) context).finish();
+
+    }
+
+    public void startAllAlarms(Context context) {
+        this.context = context;
+        ArrayList<Trip> upcomingtrips = db.selectUpComingTrips();
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        for (Trip t : upcomingtrips
+                ) {
+            int REQUEST_CODE = t.getId();
+            Long startTime = t.getStartTimeInMillis();
+            if (startTime > System.currentTimeMillis() + 1000) {
+                Intent intent = new Intent(context, HandleReminder.class);
+                intent.putExtra("REQUEST_CODE", REQUEST_CODE);
+                PendingIntent sender = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, startTime, sender); // Millisec * Second * Minute
+
+            }
+        }
+        Toast.makeText(context, "alarm restarted successfully", Toast.LENGTH_SHORT).show();
+        ((Activity) context).finish();
+
+    }
 
     public class MyLocalBinder extends Binder {
         public ReminderService geService() {
@@ -110,28 +134,5 @@ public class ReminderService extends Service {
         }
 
     }
-    private void storeFirstUpcomingTrip(int REQUEST_CODE,Long startTime) {
 
-        db=new SqlAdapter(this.context);
-        ArrayList<Trip> trips= db.selectAllTrips();
-//        // long minTime=trips[0].getStartTimeMillis;
-//        //int firstTripId=-1;
-//        for (Trip t:trips
-//                ) {
-//            //if( minTime>t.getStartTimeMillis()){minTime=t.getStartTimeMillis;firstTripId=t.getId();}
-//        }
-        firstStartTripId = sharedPrefManger.getIntToken(FIRSTTRIPID_KEY);
-        firstStartTripTime = sharedPrefManger.getStringToken(FIRSTTRIPTIME_KEY);
-        if (firstStartTripId < 0 || firstStartTripTime == null) {
-            sharedPrefManger.storeIntToken(FIRSTTRIPID_KEY, REQUEST_CODE);
-            sharedPrefManger.storeStringToken(FIRSTTRIPTIME_KEY, String.valueOf(startTime));
-        } else {
-            if (Long.parseLong(firstStartTripTime) > startTime) {
-                firstStartTripTime = String.valueOf(startTime);
-                sharedPrefManger.storeStringToken("FIRSTTRIPTIME_KEY", firstStartTripTime);
-                sharedPrefManger.storeIntToken(FIRSTTRIPID_KEY, REQUEST_CODE);
-
-            }
-        }
-    }
 }
