@@ -1,12 +1,17 @@
 package com.example.sulta.tplan.presenter;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 
 import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.database.SynchData;
 import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.model.User;
 import com.example.sulta.tplan.presenter.interfaces.ILoginActivityPresenter;
+import com.example.sulta.tplan.view.services.ReminderService;
 import com.example.sulta.tplan.view.utilities.UserManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +29,8 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
     private DatabaseReference databaseUsers;
     private Context mcontext;
     private UserManager myUserManager;
-
+    ReminderService myService;
+    boolean isBound = false;
     public LoginActivityPresenter(Context context) {
         this.mcontext = context;
     }
@@ -75,5 +81,37 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
         });
 
 
+    }
+
+    @Override
+    public void startAllAlarms(Context context) {
+        this.mcontext=context;
+        Intent mintent = new Intent(context, ReminderService.class);
+        context.bindService(mintent, myconnection, Context.BIND_AUTO_CREATE);
+    }
+    private ServiceConnection myconnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            ReminderService.MyLocalBinder binder = (ReminderService.MyLocalBinder) iBinder;
+            myService = binder.geService();
+            isBound = true;
+            myService.startAllAlarms(mcontext);//send request conde from trip id
+
+
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            isBound = false;
+
+        }
+    };
+    public void stopService() {
+        if(isBound){
+            mcontext.stopService(new Intent(mcontext, ReminderService.class));
+            mcontext.unbindService(myconnection);
+            isBound=false;
+        }
     }
 }

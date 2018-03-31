@@ -39,6 +39,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
     SqlAdapter db;
     IHomeActivityPresenter homeActivityPresenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +81,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
 //                        mAuth = FirebaseAuth.getInstance();
 //                        mAuth.signOut();
 //                        LoginManager.getInstance().logOut();
+                        homeActivityPresenter.removeAllAlarms(HomeActivity.this);
                         homeActivityPresenter.logOutSettings(HomeActivity.this);
                         finish();
 

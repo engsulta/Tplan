@@ -17,10 +17,12 @@ public class Trip implements Serializable {
     boolean isRoundTrip;
     double distance;
     String date; //YYYY-MM-DD HH:MM:SS
-    Long startTimeInMillis;
+    long startTimeInMillis;
     String startPointName;
     String endPointName;
+    public Trip(){
 
+    }
     public String getStartPointName() {
         return startPointName;
     }
@@ -37,11 +39,11 @@ public class Trip implements Serializable {
         this.endPointName = endPointName;
     }
 
-    public void setStartTimeInMillis(Long startTimeInMillis) {
+    public void setStartTimeInMillis(long startTimeInMillis) {
         this.startTimeInMillis = startTimeInMillis;
     }
 
-    public Long getStartTimeInMillis() {
+    public long getStartTimeInMillis() {
 
         return startTimeInMillis;
     }

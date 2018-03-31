@@ -91,6 +91,7 @@ public class ReminderService extends Service {
 
     public void stopAllAlarms(Context context) {
         this.context = context;
+        db=new SqlAdapter(this);
         ArrayList<Trip> upcomingtrips = db.selectUpComingTrips();
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         for (Trip t : upcomingtrips
@@ -109,6 +110,7 @@ public class ReminderService extends Service {
 
     public void startAllAlarms(Context context) {
         this.context = context;
+        db=new SqlAdapter(this);
         ArrayList<Trip> upcomingtrips = db.selectUpComingTrips();
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         for (Trip t : upcomingtrips

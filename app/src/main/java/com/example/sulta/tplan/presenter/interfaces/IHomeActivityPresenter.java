@@ -23,4 +23,5 @@ public interface IHomeActivityPresenter {
     public void shareTrip(Context context, Trip trip);
     public void viewMapTrip(Context context, Trip trip);
     public void refreshList(Context context);
+    public void removeAllAlarms(Context context);
 }

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class SqlAdapter {
 
     private static final String DATABASE_NAME = "tplannerdb";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 7;
     private static final String TABLE1_NAME = "Trip";
 
     private static final String COLUMN_1_ID = "id";
@@ -180,7 +180,7 @@ public class SqlAdapter {
                     trip.setNotes(cursor.getString(11));
                     trip.setStartPointName(cursor.getString(12));
                     trip.setEndPointName(cursor.getString(13));
-                    trip.setStartTimeInMillis(Long.getLong(cursor.getString(14)));
+                    trip.setStartTimeInMillis(Long.parseLong(cursor.getString(14)));
 
                     data.add(trip);
                 } while (cursor.moveToNext());
@@ -219,7 +219,7 @@ public class SqlAdapter {
                 trip.setNotes(cursor.getString(11));
                 trip.setStartPointName(cursor.getString(12));
                 trip.setEndPointName(cursor.getString(13));
-                trip.setStartTimeInMillis(Long.getLong(cursor.getString(14)));
+                trip.setStartTimeInMillis(Long.parseLong(cursor.getString(14)));
 
                 data.add(trip);
             } while (cursor.moveToNext());
@@ -257,7 +257,7 @@ public class SqlAdapter {
                 trip.setNotes(cursor.getString(11));
                 trip.setStartPointName(cursor.getString(12));
                 trip.setEndPointName(cursor.getString(13));
-                trip.setStartTimeInMillis(Long.getLong(cursor.getString(14)));
+                trip.setStartTimeInMillis(Long.parseLong(cursor.getString(14)));
                 data.add(trip);
 
                 Log.i("TEST", String.valueOf(cursor.getDouble(7))+" K.m");
@@ -296,7 +296,7 @@ public class SqlAdapter {
                 trip.setNotes(cursor.getString(11));
                 trip.setStartPointName(cursor.getString(12));
                 trip.setEndPointName(cursor.getString(13));
-                trip.setStartTimeInMillis(Long.getLong(cursor.getString(14)));
+                trip.setStartTimeInMillis(Long.parseLong(cursor.getString(14)));
 
                 data.add(trip);
             } while (cursor.moveToNext());

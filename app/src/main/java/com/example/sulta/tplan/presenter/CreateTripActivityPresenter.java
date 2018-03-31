@@ -86,7 +86,6 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
             myService = binder.geService();
             isBound = true;
             setAlarmSetting();
-            Toast.makeText(myService, "service bounded", Toast.LENGTH_SHORT).show();
 
 
         }

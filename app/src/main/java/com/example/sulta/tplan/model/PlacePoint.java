@@ -6,9 +6,13 @@ import java.io.Serializable;
  * Created by Asmaa on 3/21/2018.
  */
 
-public class PlacePoint implements Serializable{
+public class PlacePoint implements Serializable {
     double latitude;
     double longitude;
+
+    public PlacePoint() {
+
+    }
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
@@ -28,6 +32,6 @@ public class PlacePoint implements Serializable{
 
     @Override
     public String toString() {
-        return "lat:"+latitude+" lon:"+longitude;
+        return "lat:" + latitude + " lon:" + longitude;
     }
 }

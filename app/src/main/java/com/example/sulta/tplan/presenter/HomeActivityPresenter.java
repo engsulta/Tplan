@@ -1,9 +1,14 @@
 package com.example.sulta.tplan.presenter;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
+import android.util.Log;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.database.SqlAdapter;
@@ -13,6 +18,7 @@ import com.example.sulta.tplan.presenter.adapters.HomeLVUpComingTripsAdapter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
 import com.example.sulta.tplan.view.activities.LoginActivity;
 import com.example.sulta.tplan.view.activities.TripMapActivity;
+import com.example.sulta.tplan.view.services.ReminderService;
 import com.example.sulta.tplan.view.utilities.MySharedPrefManger;
 import com.example.sulta.tplan.view.utilities.UserManager;
 import com.facebook.login.LoginManager;
@@ -33,6 +39,9 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     private FirebaseAuth mAuth;
     private UserManager userManager;
     SqlAdapter db;
+    ReminderService myService;
+    boolean isBound = false;
+    Context mContext;
 
     @Override
     public void viewUpComingTrips(Context context, ListView upComingTripsList) {
@@ -82,14 +91,16 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
         db = new SqlAdapter(context);
         userManager = UserManager.getUserInstance();
         userManager.setTripsList(db.selectAllTrips());
-        userManager.setDurationPerMonth(3);//don't forget to get db.select duration per month
-        userManager.setDistancePerMonth(10);//don't forget db.select distance per month
+        userManager.setDurationPerMonth(db.returnDurationSum());//don't forget to get db.select duration per month
+        userManager.setDistancePerMonth(db.returnDistanceSum());//don't forget db.select distance per month
         FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
+        db.deleteTripTable();
 
     }
 
     private void removeAllTrips() {
         userManager = UserManager.getUserInstance();
+        Log.i("tplan", "removeAllTrips: "+userManager.getId());
         FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).removeValue();
     }
 
@@ -97,18 +108,12 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     public void logOutSettings(Context context) {
         userManager = UserManager.getUserInstance();
         synchTripsToFireBase(context);
-        db = new SqlAdapter(context);
-        userManager.setTripsList(db.selectAllTrips());
-        userManager.setDurationPerMonth(3);
-        userManager.setDistancePerMonth(10);
-        FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
-
-        db.deleteTripTable();
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
         refreshList(context);
         LoginManager.getInstance().logOut();
+       // ((Activity)context).finish();
     }
 
     @Override
@@ -142,12 +147,44 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
     }
 
     @Override
+    public void removeAllAlarms(Context context) {
+        this.mContext=context;
+        Intent mintent = new Intent(context, ReminderService.class);
+        context.bindService(mintent, myconnection, Context.BIND_AUTO_CREATE);
+    }
+    private ServiceConnection myconnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            ReminderService.MyLocalBinder binder = (ReminderService.MyLocalBinder) iBinder;
+            stopService();
+            myService = binder.geService();
+            isBound = true;
+            myService.stopAllAlarms(mContext);//send request conde from trip id
+
+
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            isBound = false;
+            Toast.makeText(myService, "service un bounded", Toast.LENGTH_SHORT).show();
+
+        }
+    };
+
+    @Override
     public void startSerivice() {
         upComingTripsAdapter.startSerivice();
     }
 
+
     @Override
     public void stopService() {
-
+        if(isBound){
+            mContext.stopService(new Intent(mContext, ReminderService.class));
+            mContext.unbindService(myconnection);
+            isBound=false;
+        }
     }
 }
