@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/noteContent"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:theme="@style/checkBoxStyle"/>
+            />
 
         <Button
             android:layout_width="25dp"
