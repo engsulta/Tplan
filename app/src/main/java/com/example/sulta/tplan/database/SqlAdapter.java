@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.sulta.tplan.model.PlacePoint;
 import com.example.sulta.tplan.model.Trip;
@@ -91,6 +92,8 @@ public class SqlAdapter {
         values.put(COL5_DURATION, trip.getDuration());
         values.put(COL6_STATUS, trip.getStatus());
         values.put(COL7_ROUND_TRIP, trip.isRoundTrip());
+        trip.setDistance(distance(trip.getStartPoint().getLatitude(), trip.getStartPoint().getLongitude(),
+                trip.getEndPoint().getLatitude(), trip.getEndPoint().getLongitude(), "K"));
         values.put(COL8_DISTANCE, trip.getDistance());
         values.put(COL9_END_POINT_LATITUDE, trip.getEndPoint().getLatitude());
         values.put(COL10_END_POINT_LONGITUDE, trip.getEndPoint().getLongitude());
@@ -126,6 +129,8 @@ public class SqlAdapter {
         values.put(COL5_DURATION, trip.getDuration());
         values.put(COL6_STATUS, trip.getStatus());
         values.put(COL7_ROUND_TRIP, trip.isRoundTrip());
+        trip.setDistance(distance(trip.getStartPoint().getLatitude(), trip.getStartPoint().getLongitude(),
+                trip.getEndPoint().getLatitude(), trip.getEndPoint().getLongitude(), "K"));
         values.put(COL8_DISTANCE, trip.getDistance());
         values.put(COL9_END_POINT_LATITUDE, trip.getEndPoint().getLatitude());
         values.put(COL10_END_POINT_LONGITUDE, trip.getEndPoint().getLongitude());
@@ -254,6 +259,8 @@ public class SqlAdapter {
                 trip.setEndPointName(cursor.getString(13));
                 trip.setStartTimeInMillis(Long.getLong(cursor.getString(14)));
                 data.add(trip);
+
+                Log.i("TEST", String.valueOf(cursor.getDouble(7))+" K.m");
             } while (cursor.moveToNext());
         }
         db.close();
