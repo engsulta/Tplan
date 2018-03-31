@@ -104,6 +104,7 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
         FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
 
         db.deleteTripTable();
+        db.deleteDB();
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();

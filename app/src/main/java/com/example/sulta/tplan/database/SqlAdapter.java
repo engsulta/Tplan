@@ -89,11 +89,12 @@ public class SqlAdapter {
         values.put(COL2_TITLE, trip.getTitle());
         values.put(COL3_START_POINT_LATITUDE, trip.getStartPoint().getLatitude());
         values.put(COL4_START_POINT_LONGITUDE, trip.getStartPoint().getLongitude());
+        trip.setDistance(distance(trip.getStartPoint().getLatitude(), trip.getStartPoint().getLongitude(),
+                trip.getEndPoint().getLatitude(), trip.getEndPoint().getLongitude(), "K"));
+        trip.setDuration(Double.parseDouble(durarion(trip.getDistance())));
         values.put(COL5_DURATION, trip.getDuration());
         values.put(COL6_STATUS, trip.getStatus());
         values.put(COL7_ROUND_TRIP, trip.isRoundTrip());
-        trip.setDistance(distance(trip.getStartPoint().getLatitude(), trip.getStartPoint().getLongitude(),
-                trip.getEndPoint().getLatitude(), trip.getEndPoint().getLongitude(), "K"));
         values.put(COL8_DISTANCE, trip.getDistance());
         values.put(COL9_END_POINT_LATITUDE, trip.getEndPoint().getLatitude());
         values.put(COL10_END_POINT_LONGITUDE, trip.getEndPoint().getLongitude());
@@ -126,11 +127,12 @@ public class SqlAdapter {
         values.put(COL2_TITLE, trip.getTitle());
         values.put(COL3_START_POINT_LATITUDE, trip.getStartPoint().getLatitude());
         values.put(COL4_START_POINT_LONGITUDE, trip.getStartPoint().getLongitude());
+        trip.setDistance(distance(trip.getStartPoint().getLatitude(), trip.getStartPoint().getLongitude(),
+                trip.getEndPoint().getLatitude(), trip.getEndPoint().getLongitude(), "K"));
+        trip.setDuration(Double.parseDouble(durarion(trip.getDistance())));
         values.put(COL5_DURATION, trip.getDuration());
         values.put(COL6_STATUS, trip.getStatus());
         values.put(COL7_ROUND_TRIP, trip.isRoundTrip());
-        trip.setDistance(distance(trip.getStartPoint().getLatitude(), trip.getStartPoint().getLongitude(),
-                trip.getEndPoint().getLatitude(), trip.getEndPoint().getLongitude(), "K"));
         values.put(COL8_DISTANCE, trip.getDistance());
         values.put(COL9_END_POINT_LATITUDE, trip.getEndPoint().getLatitude());
         values.put(COL10_END_POINT_LONGITUDE, trip.getEndPoint().getLongitude());
@@ -383,6 +385,7 @@ public class SqlAdapter {
         SQLiteDatabase db = sqlHelper.getWritableDatabase();
         db.delete(tableName, null, null);
         db.close();
+        Log.i("TEST","DELETE TABLE");
     }
 
         // DELETE DATABASE PART
@@ -419,6 +422,10 @@ public class SqlAdapter {
 	/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
     private double rad2deg(double rad) {
         return (rad * 180 / Math.PI);
+    }
+
+    public String durarion(double distance){
+        return String.valueOf((distance*1000)/60);
     }
 
 }
