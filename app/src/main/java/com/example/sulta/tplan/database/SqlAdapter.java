@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.sulta.tplan.model.PlacePoint;
 import com.example.sulta.tplan.model.Trip;
@@ -99,7 +100,6 @@ public class SqlAdapter {
         values.put(COL13_TRIP_START_POINT_NAME, trip.getStartPointName());
         values.put(COL14_TRIP_END_POINT_NAME, trip.getEndPointName());
         values.put(COL15_TRIP_START_TIME_MM, String.valueOf(trip.getStartTimeInMillis()));
-
         return insert(TABLE1_NAME,values);
     }
 
@@ -326,7 +326,9 @@ public class SqlAdapter {
                 trip.setNotes(cursor.getString(11));
                 trip.setStartPointName(cursor.getString(12));
                 trip.setEndPointName(cursor.getString(13));
-                trip.setStartTimeInMillis(Long.getLong(cursor.getString(14)));
+                trip.setStartTimeInMillis(Long.parseLong(cursor.getString(14)));
+
+                Log.i("TEST",String.valueOf(trip.getStartTimeInMillis()));
         }
         db.close();
         return trip;

@@ -3,10 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/userProfile"
-        android:title="@string/profileStr" />
-
-    <item
         android:id="@+id/syncTripsToFirebase"
         android:icon="@drawable/sync"
         android:title="@string/syncStr"/>

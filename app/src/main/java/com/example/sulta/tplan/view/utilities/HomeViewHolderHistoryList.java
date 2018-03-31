@@ -2,6 +2,7 @@ package com.example.sulta.tplan.view.utilities;
 
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.sulta.tplan.R;
@@ -12,24 +13,25 @@ import com.example.sulta.tplan.R;
 
 public class HomeViewHolderHistoryList {
 
-    ImageButton viewTripDetailsBtn;
+    ImageButton viewTripMapBtn;
     ImageButton deleteTripBtn;
     ImageButton editTripDetailsBtn;
     ImageButton shareTripDetailsBtn;
+    ImageButton moreOptionsBtn;
     TextView tripName;
     TextView tripState;
-    TextView tripDirection;
+    LinearLayout tripLayout;
     View contentView;
 
     public HomeViewHolderHistoryList(View contentView) {
         this.contentView = contentView;
     }
 
-    public ImageButton getViewTripDetailsBtn() {
-        if (viewTripDetailsBtn == null) {
-            viewTripDetailsBtn = (ImageButton) contentView.findViewById(R.id.viewTripDetailsBtn);
+    public ImageButton getViewMapTripBtn() {
+        if (viewTripMapBtn == null) {
+            viewTripMapBtn = (ImageButton) contentView.findViewById(R.id.viewTripMapBtn);
         }
-        return viewTripDetailsBtn;
+        return viewTripMapBtn;
     }
 
     public ImageButton getDeleteTripBtn() {
@@ -53,6 +55,13 @@ public class HomeViewHolderHistoryList {
         return shareTripDetailsBtn;
     }
 
+    public ImageButton getMoreOptionsBtn() {
+        if (moreOptionsBtn == null) {
+            moreOptionsBtn = (ImageButton) contentView.findViewById(R.id.moreOptionsBtn);
+        }
+        return moreOptionsBtn;
+    }
+
     public TextView getTripName() {
         if (tripName == null) {
             tripName = (TextView) contentView.findViewById(R.id.tripName);
@@ -67,10 +76,11 @@ public class HomeViewHolderHistoryList {
         return tripState;
     }
 
-    public TextView getTripDirection() {
-        if (tripDirection == null) {
-            tripDirection = (TextView) contentView.findViewById(R.id.tripDirection);
+    public LinearLayout getTripLayout(){
+        if(tripLayout==null){
+            tripLayout = (LinearLayout) contentView.findViewById(R.id.tripLayout);
         }
-        return tripDirection;
+        return tripLayout;
     }
+
 }

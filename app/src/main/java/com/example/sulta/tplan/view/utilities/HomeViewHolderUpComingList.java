@@ -2,6 +2,7 @@ package com.example.sulta.tplan.view.utilities;
 
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.sulta.tplan.R;
@@ -11,23 +12,31 @@ import com.example.sulta.tplan.R;
  */
 
 public class HomeViewHolderUpComingList {
-    ImageButton viewTripDetailsBtn;
+    ImageButton viewTripMapBtn;
     ImageButton cancelTripBtn;
     ImageButton editTripDetailsBtn;
     ImageButton shareTripDetailsBtn;
-    ImageButton seeTripDirectionBtn;
+    ImageButton startTripBtn;
     TextView tripName;
+    LinearLayout tripLayout;
     View contentView;
 
     public HomeViewHolderUpComingList(View contentView) {
         this.contentView = contentView;
     }
 
-    public ImageButton getViewTripDetailsBtn() {
-        if(viewTripDetailsBtn==null){
-            viewTripDetailsBtn = (ImageButton) contentView.findViewById(R.id.viewTripDetailsBtn);
+    public LinearLayout getTripLayout(){
+        if(tripLayout==null){
+            tripLayout = (LinearLayout) contentView.findViewById(R.id.tripLayout);
         }
-        return viewTripDetailsBtn;
+        return tripLayout;
+    }
+
+    public ImageButton getViewTripMapBtn() {
+        if(viewTripMapBtn==null){
+            viewTripMapBtn = (ImageButton) contentView.findViewById(R.id.viewTripMapBtn);
+        }
+        return viewTripMapBtn;
     }
 
     public ImageButton getCancelTripBtn() {
@@ -44,11 +53,11 @@ public class HomeViewHolderUpComingList {
         return shareTripDetailsBtn;
     }
 
-    public ImageButton getSeeTripDirectionBtn() {
-        if(seeTripDirectionBtn == null){
-            seeTripDirectionBtn = (ImageButton) contentView.findViewById(R.id.seeTripDirectionBtn);
+    public ImageButton getStartTripBtn() {
+        if(startTripBtn == null){
+            startTripBtn = (ImageButton) contentView.findViewById(R.id.startTripBtn);
         }
-        return seeTripDirectionBtn;
+        return startTripBtn;
     }
 
     public ImageButton getEditTripDetailsBtn() {

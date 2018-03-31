@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.presenter.HomeActivityPresenter;
@@ -35,7 +39,6 @@ public class UpComingTrips extends Fragment {
         final View myView = inflater.inflate(R.layout.fragment_up_coming_trips, container, false);
         upComingTripsList = myView.findViewById (R.id.upComingTrips);
         FloatingActionButton createTripBtn = myView.findViewById(R.id.createTripBtn);
-
         createTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,5 +62,24 @@ public class UpComingTrips extends Fragment {
   //      IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
 //        homePresenter.stopService();
 
+    }
+
+    public void showMenu(View v)
+    {
+        PopupMenu popup = new PopupMenu(getContext(),v);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId()==R.id.viewTripDetails) {
+                    Toast.makeText(getContext(), "Viewed", Toast.LENGTH_SHORT).show();
+                } else if(item.getItemId()== R.id.deleteTrip){
+                    Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });// to implement on click event on items of menu
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_listview_options, popup.getMenu());
+        popup.show();
     }
 }
