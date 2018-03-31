@@ -1,4 +1,4 @@
-package com.example.sulta.tplan;
+package com.example.sulta.tplan.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +13,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.presenter.HomeActivityPresenter;
 import com.example.sulta.tplan.presenter.StatisticsActivityPresenter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
 import com.example.sulta.tplan.presenter.interfaces.IStatisticsActivityPresenter;
-import com.example.sulta.tplan.view.activities.LoginActivity;
+import com.example.sulta.tplan.view.activities.interfaces.IStatisticsActivity;
 
-public class StatisticsActivity extends AppCompatActivity {
+public class StatisticsActivity extends AppCompatActivity implements IStatisticsActivity{
 
     TextView distanceTxt, durationTxt;
     ImageButton backButton;

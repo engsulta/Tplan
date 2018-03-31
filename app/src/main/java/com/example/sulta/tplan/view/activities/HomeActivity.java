@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
-import com.example.sulta.tplan.StatisticsActivity;
 import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.HomeActivityPresenter;
