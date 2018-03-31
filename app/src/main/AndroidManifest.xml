@@ -60,15 +60,15 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD1QFnfpsxuTaNlRkTHKZbRD19gpznKY64" />
-        <activity android:name=".view.activities.AddNoteActivity"
-            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+
+        <activity
+            android:name=".view.activities.AddNoteActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
 
         <!-- assmaa -->
 
 
         <!-- passant -->
-
-        <activity android:name=".view.activities.ProfileActivity" />
 
         <!-- passant -->
 
@@ -107,6 +107,9 @@
         <activity
             android:name=".view.activities.DoneTripsMap"
             android:label="@string/title_activity_done_trips_map" />
+        <activity
+            android:name=".view.activities.TripMapActivity"
+            android:label="@string/title_activity_trip_map"></activity>
     </application>
 
 </manifest>

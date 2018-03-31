@@ -94,7 +94,7 @@
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:background="@color/backgrounditemList"
-                    android:src="@drawable/item_list_upcoming_edit_24dp"
+                    android:src="@drawable/ic_done_all_black_24dp"
                     android:id="@+id/editTripDetailsBtn">
 
                 </ImageButton>

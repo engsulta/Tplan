@@ -1,10 +1,12 @@
 package com.example.sulta.tplan.presenter.adapters;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -42,6 +44,7 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
     boolean isBound = false;
 
     private  int pos;
+    private int position1;
     public HomeLVUpComingTripsAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List androidSets) {
         super(context, resource, textViewResourceId, androidSets);
         this.context = context;
@@ -80,7 +83,7 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
                     startSerivice();
                     Intent intent = new Intent(context, HomeActivity.class);
                     context.startActivity(intent);
-                   // ( (Activity) context).finish();
+                    ( (Activity) context).finish();
                 } else{
                     Toast.makeText(context, "Cannot be cancelled", Toast.LENGTH_SHORT).show();
                 }
@@ -97,7 +100,8 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
         viewHolder.getViewTripMapBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "view map", Toast.LENGTH_SHORT).show();
+                IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
+                homePresenter.viewMapTrip(context,customList.get(position));
             }
         });
 
@@ -111,18 +115,8 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
         viewHolder.getShareTripDetailsBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String comingTrip="Upcoming Trip\n Trip Name: "+customList.get(position).getTitle()+"\n"+
-                        " Trip Date: "+customList.get(position).getDate()+"\n"+
-                        " Trip Duration: "+customList.get(position).getDuration()+"\n"+
-                        " Trip Distance: "+customList.get(position).getDistance()+"\n"+
-                        " From: "+customList.get(position).getStartPointName()+"\n"+
-                        " To: "+customList.get(position).getEndPointName()+"\n"+
-                        " Trip Notes: "+customList.get(position).getNotes();
-                Intent sendintent = new Intent();
-                sendintent.setAction(Intent.ACTION_SEND);
-                sendintent.putExtra(Intent.EXTRA_TEXT,comingTrip);
-                sendintent.setType("text/plain");
-                context.startActivity(sendintent);
+                IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
+                homePresenter.shareTrip(context,customList.get(position));
             }
         });
 
@@ -136,6 +130,9 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
         myView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                position1 = position;
+                Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(200);
                 showListViewMenu(v);
                 return true;
             }
@@ -151,11 +148,32 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if(item.getItemId() == R.id.viewTripDetails) {
+
                     Toast.makeText(context, "viewed", Toast.LENGTH_SHORT).show();
                 } else if(item.getItemId() == R.id.deleteTrip){
-                    Toast.makeText(context, "deleted", Toast.LENGTH_SHORT).show();
+
+                    IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
+                    boolean result = homePresenter.deleteTrip(context,customList.get(position1).getId());
+                    if(result){
+                        Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, HomeActivity.class);
+                        intent.putExtra("TabFlag",0);
+                        context.startActivity(intent);
+                        ( (Activity) context).finish();
+                    } else{
+                        Toast.makeText(context, "Cannot be deleted", Toast.LENGTH_SHORT).show();
+                    }
+
                 } else if(item.getItemId() == R.id.doneTrip){
+
+                    IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
+                    customList.get(position1).setStatus("Done");
+                    homePresenter.editTrip(context,customList.get(position1));
                     Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    intent.putExtra("TabFlag",0);
+                    context.startActivity(intent);
+                    ( (Activity) context).finish();
                 }
                 return true;
             }

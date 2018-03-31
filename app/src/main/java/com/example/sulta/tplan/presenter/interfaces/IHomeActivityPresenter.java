@@ -20,4 +20,6 @@ public interface IHomeActivityPresenter {
     public int viewSettings(Context context);
     public void synchTripsToFireBase(Context context);
     public void logOutSettings(Context context);
+    public void shareTrip(Context context, Trip trip);
+    public void viewMapTrip(Context context, Trip trip);
 }
