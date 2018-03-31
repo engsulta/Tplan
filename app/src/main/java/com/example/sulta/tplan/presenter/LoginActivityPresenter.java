@@ -21,12 +21,14 @@ import com.google.firebase.database.ValueEventListener;
 public class LoginActivityPresenter implements ILoginActivityPresenter {
 
     private final String DATABASE_REF_Users = "users";
-    private DatabaseReference databaseUsers ;
+    private DatabaseReference databaseUsers;
     private Context mcontext;
     private UserManager myUserManager;
-    public LoginActivityPresenter(Context context){
-        this.mcontext=context;
+
+    public LoginActivityPresenter(Context context) {
+        this.mcontext = context;
     }
+
     @Override
     public void creatUserInDb(UserManager userManager) {
         SynchData.getInstance(mcontext);
@@ -39,10 +41,11 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
 
     }
 
+
     @Override
     public void downloadTripsForUser() {
         final SqlAdapter db = new SqlAdapter(mcontext);
-        myUserManager=UserManager.getUserInstance();
+        myUserManager = UserManager.getUserInstance();
         FirebaseDatabase.getInstance().getReference().child("users").child(myUserManager.getId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -59,7 +62,7 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
                         }
                     }
                     // Home refresh method
-                    HomeActivityPresenter homeActivityPresenter=new HomeActivityPresenter();
+                    HomeActivityPresenter homeActivityPresenter = new HomeActivityPresenter();
                     homeActivityPresenter.refreshList();
 
                 }

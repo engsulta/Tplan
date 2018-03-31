@@ -15,38 +15,38 @@ import java.util.ArrayList;
 
 public class RestartServiceReceiver extends BroadcastReceiver {
     private ReminderService myService;
-    private boolean isBound=false;
+    private boolean isBound = false;
     private SqlAdapter db;
     private Context context;
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED))
-        {
+        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
 
-             this.context=context;
-             db=new SqlAdapter(context);
-            ArrayList<Trip> trips=db.selectAllTrips();//blocking task
-            Log.i("tplan", "onReceive: "+trips.size());
-            for (Trip x:trips) {
+            this.context = context;
+            db = new SqlAdapter(context);
+            ArrayList<Trip> trips = db.selectAllTrips();//blocking task
+            Log.i("tplan", "onReceive: " + trips.size());
+            for (Trip x : trips) {
 
-                Log.i("tplan", "onReceive: "+x.getTitle());
-                Log.i("tplan", "onReceive: "+x.getStartTimeInMillis());
-                if(System.currentTimeMillis()-1000< x.getStartTimeInMillis()+1000) {
-                    Intent myintent=new Intent(context, ReminderIntentService.class);
-                    myintent.putExtra("triptime",x.getStartTimeInMillis());
-                    myintent.putExtra("tripid",x.getId());
+                Log.i("tplan", "onReceive: " + x.getTitle());
+                Log.i("tplan", "onReceive: " + x.getStartTimeInMillis());
+                if (System.currentTimeMillis() - 1000 < x.getStartTimeInMillis() + 1000) {
+                    Intent myintent = new Intent(context, ReminderIntentService.class);
+                    myintent.putExtra("triptime", x.getStartTimeInMillis());
+                    myintent.putExtra("tripid", x.getId());
                     context.startService(myintent);
                 } else {
 
                     x.setStatus("missed");
-                    Toast.makeText(context, "your trip"+x.getTitle()+"is missed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "your trip" + x.getTitle() + "is missed", Toast.LENGTH_SHORT).show();
                     db.updateTrip(x);
 
                     //
                 }
-                }
+            }
 
-           // context.bindService(intent,myconnection, Context.BIND_AUTO_CREATE);
+            // context.bindService(intent,myconnection, Context.BIND_AUTO_CREATE);
 
         }
 

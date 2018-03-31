@@ -66,7 +66,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
 //                        FirebaseDatabase.getInstance().getReference().child("users").child(userManager.getId()).setValue(userManager);
                         return true;
                     case R.id.logoutFromApp:
-                        Toast.makeText(HomeActivity.this, "logged out", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomeActivity.this, "you logged out", Toast.LENGTH_SHORT).show();
 
                         //TODO calling logout method which clears user's data
 //                        userManager = UserManager.getUserInstance();
