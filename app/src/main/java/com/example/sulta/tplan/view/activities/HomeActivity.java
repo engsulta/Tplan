@@ -101,8 +101,8 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
 
         homeTabs = (TabLayout) findViewById(R.id.homeTabs);
         //  add taps to taplayout ;
+        homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.ic_home_black_24dp));
         homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.ic_history_black_24dp));
-        homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.ic_done_all_black_24dp));
         homeTabs.addTab(homeTabs.newTab().setIcon(R.drawable.ic_settings_black_24dp));
         homeTabs.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
         currentTabName.setText("UpComing Trips");

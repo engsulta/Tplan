@@ -4,18 +4,24 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
+
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/checkedNote"/>
+            android:id="@+id/checkedNote" />
+
         <EditText
             android:layout_width="450px"
             android:layout_height="wrap_content"
             android:id="@+id/noteContent"
-            />
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:theme="@style/checkBoxStyle"/>
+
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete"
-            android:id="@+id/deleteNoteButton"/>
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/deleteNoteButton"
+            android:background="@drawable/ic_delete_forever_black_24dp"
+            android:backgroundTint="@color/colorPrimaryDark"/>
+
 </LinearLayout>
