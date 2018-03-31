@@ -26,6 +26,11 @@
     <string name="title_activity_test_map">Map</string>
     <string name="distancePerMonthStr">Distance Per Month</string>
     <string name="durationPerMonthStr">Duration Per Month</string>
+    <string name="startTripAfterMinsStr">Start Trip After 10 Min</string>
+    <string name="repeatTripStr">Repeat Trip</string>
+    <string name="viewTripDetailsStr">View Details</string>
+    <string name="deleteTripStr">Delete Trip</string>
+    <string name="doneTripStr">Done</string>
     <!--assmaa -->
 
     <!--assmaa -->
