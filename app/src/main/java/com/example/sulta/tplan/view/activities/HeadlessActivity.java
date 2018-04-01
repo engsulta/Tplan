@@ -155,9 +155,7 @@ public class HeadlessActivity extends Activity implements View.OnClickListener, 
             //
             if (ActivityCompat.shouldShowRequestPermissionRationale(HeadlessActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
-                ActivityCompat.requestPermissions(HeadlessActivity.this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_READ_LOCATION
-                );
+
             } else {
                 ActivityCompat.requestPermissions(HeadlessActivity.this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_READ_LOCATION
