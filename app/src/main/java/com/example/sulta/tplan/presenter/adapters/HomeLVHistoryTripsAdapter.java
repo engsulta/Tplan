@@ -100,8 +100,8 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
-                customList.get(position1).setStatus("Done");
-                homePresenter.editTrip(context, customList.get(position1));
+                customList.get(position).setStatus("Done");
+                homePresenter.editTrip(context, customList.get(position));
                 Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, HomeActivity.class);
                 intent.putExtra("TabFlag", 1);

@@ -233,7 +233,6 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
 
     private void cancelAlarmSetting(int  tripId) {
         if (isBound) {
-            Toast.makeText(myService, "alarm started", Toast.LENGTH_SHORT).show();
             myService.stopAlarm(context, tripId);//send request conde from trip id
         }
     }
