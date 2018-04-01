@@ -108,7 +108,8 @@
         <activity
             android:name=".view.activities.DoneTripsMap"
             android:label="@string/title_activity_done_trips_map" />
-        <activity android:name=".view.activities.EditTripActivity"></activity>
+        <activity android:name=".view.activities.EditTripActivity" />
+        <activity android:name=".view.activities.StatisticsActivity"></activity>
     </application>
 
 </manifest>

@@ -22,9 +22,11 @@ import android.widget.Toast;
 import com.example.sulta.tplan.R;
 import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.model.Trip;
+import com.example.sulta.tplan.model.TripNote;
 import com.example.sulta.tplan.view.services.ReminderService;
 import com.example.sulta.tplan.view.utilities.MyNotificationManager;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class HeadlessActivity extends Activity implements View.OnClickListener, LocationListener {
@@ -80,8 +82,20 @@ public class HeadlessActivity extends Activity implements View.OnClickListener, 
         headlessStartpoint.setText(recievingTrip.getStartPointName());
         headlessEndpoint.setText(recievingTrip.getEndPointName());
         headlessDate.setText(recievingTrip.getDate());
-        if (recievingTrip.getNotes()!=null)
-            headlessNotes.setText(recievingTrip.getNotes());
+        if (recievingTrip.getNotes()!=null) {
+            ArrayList<TripNote> noteArrayList  =new TripNote().convertFromStringToObject(recievingTrip.getNotes());
+           String temp="";
+            for (int i=0;i<noteArrayList.size();i++) {
+                if(noteArrayList.get(i).isChecked()==true) {
+                    temp += noteArrayList.get(i).getText()+" | Done\n";
+                }
+                else {
+                    temp += noteArrayList.get(i).getText()+" | Wait\n";
+
+                }
+            }
+            headlessNotes.setText(temp);
+        }
         else
             headlessNotes.setText("there is no notes ");
     }

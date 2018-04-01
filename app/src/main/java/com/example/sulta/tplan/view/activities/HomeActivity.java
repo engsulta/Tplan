@@ -55,6 +55,10 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.statisticsInfo:
+                        Intent intent = new Intent(HomeActivity.this, StatisticsActivity.class);
+                        startActivity(intent);
+                        return true;
                     case R.id.syncTripsToFirebase:
                         Toast.makeText(HomeActivity.this, "your trips has been Synchronized ", Toast.LENGTH_SHORT).show();
                         //TODO calling sync method to get data from firebase

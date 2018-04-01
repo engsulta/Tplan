@@ -60,7 +60,6 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
 
             if(i==(mIView.getNotes().size()-1)){
                 noteString=noteString.substring(0,noteString.length()-1);
-               // Toast.makeText(mContext, noteString, Toast.LENGTH_SHORT).show();
             }
         }
         trip.setNotes(noteString);
@@ -69,16 +68,10 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
 
         trip.setStartPointName(mIView.getStartPointName());
         trip.setEndPointName(mIView.getEndPointName());
-        Log.i("test", "createTrip: "+trip.getStartTimeInMillis());
-        Log.i("test", trip.getTitle() + ", " + trip.getStartPoint().getLongitude() + ", " + trip.getEndPoint().getLongitude());
 
         trip.setId(new SqlAdapter(mContext).insertTrip(trip));
-        Log.i("TEST", "createTrip: "+trip.getId());
-        Log.i("TEST", "createTrip: "+new SqlAdapter(mContext).selectTripById(trip.getId()).getStartTimeInMillis());
 
-//
-//  Intent intent = new Intent(mContext, ReminderService.class);
-//        mContext.startService(intent);
+
     }
     private ServiceConnection myconnection = new ServiceConnection() {
         @Override
@@ -121,5 +114,7 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
             stopService();
         }
     }
+
+
 
 }

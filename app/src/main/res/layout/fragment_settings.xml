@@ -50,25 +50,42 @@
                     android:weightSum="4"
                     android:layout_weight="2">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_weight="3"
-                        android:drawablePadding="10dp"
-                        android:inputType="phone"
-                        android:paddingLeft="4.5dp"
-                        android:paddingTop="3dp"
-                        android:text="@string/notificationStr"
-                        android:textColor="@color/cardview_dark_background"
-                        android:textSize="20dp" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:drawablePadding="10dp"
+                            android:paddingLeft="4.5dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/notificationStr"
+                            android:textColor="@color/cardview_dark_background"
+                            android:textSize="20dp" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginLeft="10dp"
+                            android:paddingLeft="4.5dp"
+                            android:paddingTop="7dp"
+                            android:background="@drawable/ic_volume_up_black_24dp"
+                            android:id="@+id/notification_volume"/>
+
+                    </LinearLayout>
 
                     <Switch
                         android:id="@+id/notifications_switch"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:theme="@style/SCBSwitch" />
+                        android:theme="@style/SCBSwitch"
+                        android:layout_marginTop="4dp"/>
 
                 </LinearLayout>
 
