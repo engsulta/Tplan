@@ -425,7 +425,7 @@ public class SqlAdapter {
     }
 
     public String durarion(double distance){
-        return String.valueOf((distance*1000)/(60*60)+3);
+        return String.valueOf((distance)/60);
     }
 
 }
