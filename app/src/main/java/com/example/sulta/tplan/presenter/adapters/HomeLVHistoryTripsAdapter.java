@@ -128,7 +128,6 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
         myView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(context, "View", Toast.LENGTH_SHORT).show();
                 Intent intent = new
                         Intent(context, HeadlessActivity.class);
                 intent.putExtra("tripId", customList.get(position).getId());
@@ -154,10 +153,12 @@ public class HomeLVHistoryTripsAdapter extends ArrayAdapter {
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+
                 if (item.getItemId() == R.id.viewTripDetails) {
-
-                    Toast.makeText(context, "viewed", Toast.LENGTH_SHORT).show();
-
+                    Intent intent = new
+                            Intent(context, HeadlessActivity.class);
+                    intent.putExtra("tripId", customList.get(position1).getId());
+                    context.startActivity(intent);
                 } else if (item.getItemId() == R.id.deleteTrip) {
 
                     IHomeActivityPresenter homePresenter = new HomeActivityPresenter();
