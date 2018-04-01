@@ -122,8 +122,7 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
                 " Trip Duration: " + trip.getDuration() + "\n" +
                 " Trip Distance: " + trip.getDistance() + "\n" +
                 " From: " + trip.getStartPointName() + "\n" +
-                " To: " + trip.getEndPointName() + "\n" +
-                " Trip Notes: " + trip.getNotes();
+                " To: " + trip.getEndPointName(); //+ "\n" + " Trip Notes: " + trip.getNotes();
         Intent sendintent = new Intent();
         sendintent.setAction(Intent.ACTION_SEND);
         sendintent.putExtra(Intent.EXTRA_TEXT, comingTrip);
