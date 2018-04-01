@@ -94,7 +94,11 @@ public class SqlAdapter {
         trip.setDuration(Double.parseDouble(durarion(trip.getDistance())));
         values.put(COL5_DURATION, trip.getDuration());
         values.put(COL6_STATUS, trip.getStatus());
-        values.put(COL7_ROUND_TRIP, trip.isRoundTrip());
+        if(trip.isRoundTrip()){
+            values.put(COL7_ROUND_TRIP, "true");
+        } else{
+            values.put(COL7_ROUND_TRIP, "false");
+        }
         values.put(COL8_DISTANCE, trip.getDistance());
         values.put(COL9_END_POINT_LATITUDE, trip.getEndPoint().getLatitude());
         values.put(COL10_END_POINT_LONGITUDE, trip.getEndPoint().getLongitude());
@@ -132,7 +136,11 @@ public class SqlAdapter {
         trip.setDuration(Double.parseDouble(durarion(trip.getDistance())));
         values.put(COL5_DURATION, trip.getDuration());
         values.put(COL6_STATUS, trip.getStatus());
-        values.put(COL7_ROUND_TRIP, trip.isRoundTrip());
+        if(trip.isRoundTrip()){
+            values.put(COL7_ROUND_TRIP, "true");
+        } else{
+            values.put(COL7_ROUND_TRIP, "false");
+        }
         values.put(COL8_DISTANCE, trip.getDistance());
         values.put(COL9_END_POINT_LATITUDE, trip.getEndPoint().getLatitude());
         values.put(COL10_END_POINT_LONGITUDE, trip.getEndPoint().getLongitude());
@@ -172,7 +180,11 @@ public class SqlAdapter {
                     trip.setStartPoint(startPoint);
                     trip.setDuration(cursor.getDouble(4));
                     trip.setStatus(cursor.getString(5));
-                    trip.setRoundTrip(Boolean.parseBoolean(cursor.getString(6)));
+                    if(cursor.getString(6).equals("true")){
+                        trip.setRoundTrip(true);
+                    } else{
+                        trip.setRoundTrip(false);
+                    }
                     trip.setDistance(cursor.getDouble(7));
                     PlacePoint endPoint=new PlacePoint();
                     endPoint.setLatitude(cursor.getDouble(8));
@@ -211,7 +223,11 @@ public class SqlAdapter {
                 trip.setStartPoint(startPoint);
                 trip.setDuration(cursor.getDouble(4));
                 trip.setStatus(cursor.getString(5));
-                trip.setRoundTrip(Boolean.parseBoolean(cursor.getString(6)));
+                if(cursor.getString(6).equals("true")){
+                    trip.setRoundTrip(true);
+                } else{
+                    trip.setRoundTrip(false);
+                }
                 trip.setDistance(cursor.getDouble(7));
                 PlacePoint endPoint=new PlacePoint();
                 endPoint.setLatitude(cursor.getDouble(8));
@@ -249,7 +265,11 @@ public class SqlAdapter {
                 trip.setStartPoint(startPoint);
                 trip.setDuration(cursor.getDouble(4));
                 trip.setStatus(cursor.getString(5));
-                trip.setRoundTrip(Boolean.parseBoolean(cursor.getString(6)));
+                if(cursor.getString(6).equals("true")){
+                    trip.setRoundTrip(true);
+                } else{
+                    trip.setRoundTrip(false);
+                }
                 trip.setDistance(cursor.getDouble(7));
                 PlacePoint endPoint=new PlacePoint();
                 endPoint.setLatitude(cursor.getDouble(8));
@@ -288,7 +308,11 @@ public class SqlAdapter {
                 trip.setStartPoint(startPoint);
                 trip.setDuration(cursor.getDouble(4));
                 trip.setStatus(cursor.getString(5));
-                trip.setRoundTrip(Boolean.parseBoolean(cursor.getString(6)));
+                if(cursor.getString(6).equals("true")){
+                    trip.setRoundTrip(true);
+                } else{
+                    trip.setRoundTrip(false);
+                }
                 trip.setDistance(cursor.getDouble(7));
                 PlacePoint endPoint=new PlacePoint();
                 endPoint.setLatitude(cursor.getDouble(8));
@@ -324,7 +348,11 @@ public class SqlAdapter {
                 trip.setStartPoint(startPoint);
                 trip.setDuration(cursor.getDouble(4));
                 trip.setStatus(cursor.getString(5));
-                trip.setRoundTrip(Boolean.parseBoolean(cursor.getString(6)));
+                if(cursor.getString(6).equals("true")){
+                    trip.setRoundTrip(true);
+                } else{
+                    trip.setRoundTrip(false);
+                }
                 trip.setDistance(cursor.getDouble(7));
                 PlacePoint endPoint=new PlacePoint();
                 endPoint.setLatitude(cursor.getDouble(8));

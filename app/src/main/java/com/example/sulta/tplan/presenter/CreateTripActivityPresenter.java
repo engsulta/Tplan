@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.model.PlacePoint;
@@ -49,7 +47,7 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
         trip.setDate(mIView.getTripDate());
         trip.setStatus("upComing");
         trip.setRoundTrip(mIView.getTripDirection());
-        Toast.makeText(mContext, "round: "+mIView.getTripDirection(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(mContext, "round: "+mIView.getTripDirection(), Toast.LENGTH_SHORT).show();
         String noteString="";
         for (int i=0;i<mIView.getNotes().size();i++){
 
@@ -87,7 +85,7 @@ public class CreateTripActivityPresenter implements ICreateTripActivityPresenter
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             isBound = false;
-            Toast.makeText(myService, "service un bounded", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(myService, "service un bounded", Toast.LENGTH_SHORT).show();
 
         }
     };

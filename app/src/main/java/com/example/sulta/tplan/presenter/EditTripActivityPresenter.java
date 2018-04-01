@@ -7,7 +7,6 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.model.PlacePoint;
@@ -126,7 +125,7 @@ public class EditTripActivityPresenter implements IEditTripActivityPresenter {
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             isBound = false;
-            Toast.makeText(myService, "service un bounded", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(myService, "service un bounded", Toast.LENGTH_SHORT).show();
 
         }
     };

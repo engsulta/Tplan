@@ -278,12 +278,12 @@ public class EditTripActivity extends AppCompatActivity implements IEditTripActi
     public void setDirection(Boolean dir) {
         if(dir==true){
             imgBtn.setBackgroundResource(R.drawable.tripdir2);
-            Toast.makeText(EditTripActivity.this, "toot", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(EditTripActivity.this, "toot", Toast.LENGTH_SHORT).show();
             flag=2;
         }
         else {
             imgBtn.setBackgroundResource(R.drawable.tripdir);
-            Toast.makeText(EditTripActivity.this, "toot2", Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(EditTripActivity.this, "toot2", Toast.LENGTH_SHORT).show();
 
             flag=0;
         }
