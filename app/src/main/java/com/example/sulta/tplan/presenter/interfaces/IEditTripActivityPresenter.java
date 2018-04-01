@@ -9,5 +9,6 @@ import android.content.Intent;
 public interface IEditTripActivityPresenter {
     public void setData(Intent intent);
     public void editTrip();
-
+    public void startSerivice();
+    public void stopService();
 }

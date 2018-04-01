@@ -134,7 +134,8 @@ public class EditTripActivity extends AppCompatActivity implements IEditTripActi
                         timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
                 if(tripNameEdt.getText().toString().trim()!=null&&
                         (calendar.getTimeInMillis()+1000)>=(System.currentTimeMillis()-1000)){
-                    mEditTripActivityPresenter.editTrip();// mEditTripActivityPresenter.startSerivice();
+                    mEditTripActivityPresenter.editTrip();//
+                    mEditTripActivityPresenter.startSerivice();
                     finish();}
                 else
                     Toast.makeText(EditTripActivity.this, "Please Check all data are submitted with upcoming date!", Toast.LENGTH_SHORT).show();
@@ -244,7 +245,7 @@ public class EditTripActivity extends AppCompatActivity implements IEditTripActi
     @Override
     protected void onStop() {
         super.onStop();
-       // mEditTripActivityPresenter.stopService();
+       mEditTripActivityPresenter.stopService();
     }
 
     @Override
@@ -318,4 +319,5 @@ public class EditTripActivity extends AppCompatActivity implements IEditTripActi
         this.noteArrayList=noteArrayList;
 
     }
+
 }

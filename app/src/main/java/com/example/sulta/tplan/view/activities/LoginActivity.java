@@ -360,8 +360,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loginActivityPresenter.downloadTripsForUser();
     }
     public void recoverAllAlarms(){
-        loginActivityPresenter = new LoginActivityPresenter(this);
-        loginActivityPresenter.startAllAlarms(this);
+        //loginActivityPresenter = new LoginActivityPresenter(this);
+        //loginActivityPresenter.startAllAlarms(this);
     }
 
 }

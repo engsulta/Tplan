@@ -91,7 +91,7 @@
                     android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:background="@color/backgrounditemList"
-                    android:src="@drawable/item_list_upcoming_delete_24dp"
+                    android:src="@drawable/ic_remove_circle_outline_black_24dp"
                     android:id="@+id/cancelTripBtn">
 
                 </ImageButton>
