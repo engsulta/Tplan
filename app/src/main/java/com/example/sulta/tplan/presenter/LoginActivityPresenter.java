@@ -7,7 +7,6 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 
 import com.example.sulta.tplan.database.SqlAdapter;
-import com.example.sulta.tplan.database.SynchData;
 import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.model.User;
 import com.example.sulta.tplan.presenter.interfaces.ILoginActivityPresenter;
@@ -38,7 +37,6 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
 
     @Override
     public void creatUserInDb(UserManager userManager) {
-        SynchData.getInstance(mcontext);
 
 
     }

@@ -89,7 +89,6 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
                         homeActivityPresenter.logOutSettings(HomeActivity.this);
                        // homeActivityPresenter.removeAllAlarms(HomeActivity.this);
                         finish();
-
                         Intent logoutIntent = new Intent(HomeActivity.this, LoginActivity.class);
                         startActivity(logoutIntent);
 

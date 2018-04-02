@@ -1,10 +1,18 @@
 package com.example.sulta.tplan.presenter.adapters;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.net.Uri;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.os.Vibrator;
@@ -12,6 +20,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +31,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.example.sulta.tplan.R;
+import com.example.sulta.tplan.database.SqlAdapter;
 import com.example.sulta.tplan.model.Trip;
 import com.example.sulta.tplan.presenter.HomeActivityPresenter;
 import com.example.sulta.tplan.presenter.interfaces.IHomeActivityPresenter;
@@ -30,7 +40,9 @@ import com.example.sulta.tplan.view.activities.HeadlessActivity;
 import com.example.sulta.tplan.view.activities.HomeActivity;
 import com.example.sulta.tplan.view.services.ReminderService;
 import com.example.sulta.tplan.view.utilities.HomeViewHolderUpComingList;
+import com.example.sulta.tplan.view.utilities.MyNotificationManager;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -38,16 +50,22 @@ import java.util.Random;
  * Created by Passant on 3/23/2018.
  */
 
-public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
+public class HomeLVUpComingTripsAdapter extends ArrayAdapter implements  LocationListener{
     Context context;
     List<Trip> customList;
     ReminderService myService;
     int tripImages[] = {R.drawable.tripimage1, R.drawable.tripimage2, R.drawable.tripimage3, R.drawable.tripimage4, R.drawable.tripimage5,
         R.drawable.tripimage6};
     boolean isBound = false;
-
+    private static final int MY_PERMISSIONS_REQUEST_READ_LOCATION = 1;
+    private LocationManager locmgr;
     private  int pos;
     private int position1;
+    private SqlAdapter db;
+    private MyNotificationManager myNotificationManager;
+    private double longitude;
+    private double latitude;
+
     public HomeLVUpComingTripsAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List androidSets) {
         super(context, resource, textViewResourceId, androidSets);
         this.context = context;
@@ -117,6 +135,15 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "start", Toast.LENGTH_SHORT).show();
+                locmgr = (LocationManager) context.getSystemService((Context.LOCATION_SERVICE));
+                myNotificationManager = MyNotificationManager.getInstance();
+                //Intent intent=new Intent()
+                pos=position;
+                ((Activity)context).finish();
+                customList.get(pos).setStatus("Done");
+                db=new SqlAdapter(context);
+                db.updateTrip( customList.get(pos));
+                getCurrentLocation();
             }
         });
 
@@ -237,4 +264,113 @@ public class HomeLVUpComingTripsAdapter extends ArrayAdapter {
             myService.stopAlarm(context, tripId);//send request conde from trip id
         }
     }
+    private void getCurrentLocation() {
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //
+            if (ActivityCompat.shouldShowRequestPermissionRationale(((Activity)context),
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+            } else {
+                ActivityCompat.requestPermissions(((Activity)context),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_READ_LOCATION
+                );
+
+            }
+        } else {
+            Location location = locmgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location != null && location.getTime() > Calendar.getInstance().getTimeInMillis() - 2 * 60 * 1000) {
+                //
+                longitude = location.getLongitude();
+                latitude = location.getLatitude();
+                myNotificationManager.CancelNotification(context, pos);
+                ((Activity)context).finish();
+                Intent mintent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr=" + String.valueOf(latitude) + "," + String.valueOf(longitude) + "&daddr=" + customList.get(pos).getEndPoint().getLatitude() + customList.get(pos).getEndPoint().getLongitude()));
+                context.startActivity(mintent);
+            } else {
+                locmgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    locmgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
+                        @Override
+                        public void onLocationChanged(Location location) {
+                            longitude = location.getLongitude();
+                            latitude = location.getLatitude();
+
+                            Toast.makeText(context, "picked your location successfully", Toast.LENGTH_SHORT).show();
+                            // getCompleteAddressString(location.getLatitude(), location.getLongitude());
+                            Intent mintent = new Intent(android.content.Intent.ACTION_VIEW,
+                                    Uri.parse("http://maps.google.com/maps?saddr=" + String.valueOf(latitude) + "," + String.valueOf(longitude) + "&daddr=" + customList.get(pos).getEndPoint().getLatitude() + customList.get(pos).getEndPoint().getLongitude()));
+                            context.startActivity(mintent);
+                        }
+
+                        @Override
+                        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+                        }
+
+                        @Override
+                        public void onProviderEnabled(String s) {
+
+                        }
+
+                        @Override
+                        public void onProviderDisabled(String s) {
+
+                        }
+                    });
+
+                } else {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(((Activity)context),
+                            Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                    }
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        if (location != null) {
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+            myNotificationManager.CancelNotification(context, pos);
+            ((Activity)context).finish();
+            Intent mintent = new Intent(android.content.Intent.ACTION_VIEW,
+                    Uri.parse("http://maps.google.com/maps?saddr=" + String.valueOf(latitude) + "," + String.valueOf(longitude) + "&daddr=" + customList.get(pos).getEndPoint().getLatitude() + customList.get(pos).getEndPoint().getLongitude()));
+            context.startActivity(mintent);
+        }
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+    }
+
+
+
 }

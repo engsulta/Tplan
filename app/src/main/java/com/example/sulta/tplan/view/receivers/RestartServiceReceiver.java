@@ -51,7 +51,7 @@ public class RestartServiceReceiver extends BroadcastReceiver {
         }
 
     }
-//    private ServiceConnection myconnection=new ServiceConnection() {
+//    private MyServiceConnection myconnection=new MyServiceConnection() {
 //        @Override
 //        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
 //            ReminderService.MyLocalBinder binder=(ReminderService.MyLocalBinder) iBinder;

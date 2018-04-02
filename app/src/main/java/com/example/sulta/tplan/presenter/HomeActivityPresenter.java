@@ -105,12 +105,15 @@ public class HomeActivityPresenter implements IHomeActivityPresenter {
 
     @Override
     public void logOutSettings(Context context) {
+
         userManager = UserManager.getUserInstance();
         synchTripsToFireBase(context);
-        db.deleteTripTable();
+        //db.deleteTripTable();
+        db = new SqlAdapter(context);
+        db.deleteDB();
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
-        // refreshList(context);
+         refreshList(context);
         LoginManager.getInstance().logOut();
         // ((Activity)context).finish();
     }
