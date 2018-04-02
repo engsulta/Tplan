@@ -62,6 +62,7 @@ public class TripNotesAdapter extends ArrayAdapter {
         viewHolder.getNoteContent().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                if (notesList.size()>0)
                 notesList.get(position).setText(viewHolder.getNoteContent().getText().toString());
 
             }
