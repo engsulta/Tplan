@@ -14,7 +14,7 @@ public class MyServiceConnection {
     private static MyServiceConnection serviceConnectionInstace;
     private Context mcontext;
     private ReminderService myService;
-    private Boolean isBound;
+    private boolean isBound;
 
 
     private MyServiceConnection() {
@@ -52,7 +52,7 @@ public class MyServiceConnection {
         return myService;
     }
 
-    public Boolean getBound() {
+    public boolean getBound() {
         return isBound;
     }
 
