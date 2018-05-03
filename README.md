@@ -14,6 +14,8 @@ splash screen
 
 
 Login screen 
+
+
 ![image](https://user-images.githubusercontent.com/34632263/39592078-0af12798-4f06-11e8-94bc-e7d3583f215d.png)
 
 
@@ -25,6 +27,8 @@ upcoming trips
 
 
 your done trips on map 
+
+
 ![image](https://user-images.githubusercontent.com/34632263/39592007-d1a99d26-4f05-11e8-93a6-2c6838c194a2.png)
 
 
@@ -34,5 +38,6 @@ you can edit your trip time and date easily
 
 
 Settings
+
 ![image](https://user-images.githubusercontent.com/34632263/39592078-0af12798-4f06-11e8-94bc-e7d3583f215d.png)
 
