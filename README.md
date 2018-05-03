@@ -39,5 +39,5 @@ you can edit your trip time and date easily
 
 Settings
 
-![image](https://user-images.githubusercontent.com/34632263/39592078-0af12798-4f06-11e8-94bc-e7d3583f215d.png)
+![image](https://user-images.githubusercontent.com/34632263/39592310-ac608fd8-4f06-11e8-86d3-4db17a3abf45.png)
 
